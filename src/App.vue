@@ -1,26 +1,26 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="ABC"/>
+  <div>
+    <TestPage/>
+    <Chatbot/>
+    <LoginPage />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import LoginPage from "./components/LoginPage.vue";
+import TestPage from "./components/TestPage.vue";
+import Chatbot from "./components/ChatBot.vue";
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+     LoginPage, TestPage, Chatbot
   }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+h1 {
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
