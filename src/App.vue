@@ -1,5 +1,6 @@
 <template>
   <div>
+    <NavBar />
     <TestPage/>
     <Chatbot/>
     <LoginPage />
@@ -11,10 +12,11 @@
 import LoginPage from "./components/LoginPage.vue";
 import TestPage from "./components/TestPage.vue";
 import Chatbot from "./components/ChatBot.vue";
+import NavBar from "./components/NavBar.vue";
 
 export default {
   components: {
-     LoginPage, TestPage, Chatbot
+     LoginPage, TestPage, Chatbot, NavBar
   }
 };
 </script>
