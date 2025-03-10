@@ -1,13 +1,14 @@
 <template>
     <nav class="navbar">
 
-      <div class="logo"><img src="@/assets/logo.png" alt="Logo" /></div>
+      <router-link to="/"><div class="logo"><img src="@/assets/logo.png" alt="Logo" /></div></router-link>
     
       <ul class="nav-links">
         <li><a href="#">Trang chủ</a></li>
         <li><a href="#">Thông tin</a></li>
         <li><a href="#">Đề thi</a></li>
         <li><a href="#">Sinh đề thi</a></li>
+        <li><router-link to="/about">Về Website</router-link></li>
       </ul>
   
       <div class="nav-buttons">

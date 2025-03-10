@@ -75,7 +75,6 @@ export default {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Chatbox */
 .chat-box {
   flex: 1;
   padding: 10px;
