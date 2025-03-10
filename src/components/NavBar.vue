@@ -12,7 +12,7 @@
   
       <div class="nav-buttons">
         <router-link to="/login"><button class="sign-in">Sign In</button></router-link>
-        <button class="sign-up">Sign Up</button>
+        <router-link to="/register"><button class="sign-up">Sign Up</button></router-link>
       </div>
     </nav>
   </template>
