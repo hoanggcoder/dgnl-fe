@@ -1,15 +1,13 @@
 <template>
-    <NavBar/>
     <DailyQuestionPage :question="questionData"/>
     <ChatBot/>
   </template>
 <script>
-import NavBar from '@/components/NavBar.vue';
 import DailyQuestionPage from '@/components/DailyQuestionPage.vue';
 import ChatBot from '@/components/ChatBot.vue';
 export default {
   components: {
-    NavBar, DailyQuestionPage, ChatBot
+    DailyQuestionPage, ChatBot,
   },
   data() {
   return {
