@@ -1,29 +1,27 @@
 <template>
     <NavBar/>
-    <div>
-      <h1>Home Page</h1>
-      <p>Welcome to the home page!</p>
-    </div>
     <DailyQuestionPage :question="questionData"/>
+    <ChatBot/>
   </template>
 <script>
 import NavBar from '@/components/NavBar.vue';
 import DailyQuestionPage from '@/components/DailyQuestionPage.vue';
+import ChatBot from '@/components/ChatBot.vue';
 export default {
   components: {
-    NavBar, DailyQuestionPage
+    NavBar, DailyQuestionPage, ChatBot
   },
   data() {
   return {
     questionData: {
       type: "multiple_choices",
-      detail: "What is the capital of France?",
+      detail: "Thủ đô của nước Pháp là?",
       choice1: "Berlin",
       choice2: "Madrid",
       choice3: "Paris",
       choice4: "Rome",
       answer: "Paris",
-      picturePath: "https://example.com/paris.jpg",
+      picturePath: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Flag_of_France.svg/188px-Flag_of_France.svg.png",
     }
   };
 }

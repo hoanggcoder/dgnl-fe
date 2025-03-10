@@ -1,6 +1,6 @@
 <template>
   <div class="question-container">
-    <h2 class="question-title">Question of the Day</h2>
+    <h2 class="question-title">Mỗi ngày một câu hỏi</h2>
     <p class="question-detail">{{ question.detail }}</p>
 
     <img v-if="question.picturePath" :src="question.picturePath" alt="Question image" class="question-image" />
@@ -20,7 +20,7 @@
       <input type="text" v-model="selectedAnswer" placeholder="Type your answer..." class="fill-input" />
     </div>
 
-    <button @click="submitAnswer" class="submit-btn">Submit</button>
+    <button @click="submitAnswer" class="submit-btn">Trả lời</button>
     <p v-if="message" class="message">{{ message }}</p>
   </div>
 </template>
@@ -44,10 +44,10 @@ export default {
   methods: {
     submitAnswer() {
       if (!this.selectedAnswer) {
-        this.message = 'Please select an answer!';
+        this.message = 'Chọn câu trả lời đúng';
         return;
       }
-      this.message = this.selectedAnswer === this.question.answer ? 'Correct! 🎉' : 'Incorrect. Try again! ❌';
+      this.message = this.selectedAnswer === this.question.answer ? 'Chính xác' : 'Không chính xác. Hãy thử lại';
     },
   },
 };
@@ -91,9 +91,9 @@ export default {
 
 .choice-button {
   padding: 10px 20px;
-  border: 2px solid #007bff;
+  border: 2px solid #066506;
   background-color: white;
-  color: #007bff;
+  color: #066506;
   border-radius: 30px;
   font-size: 16px;
   cursor: pointer;
@@ -101,13 +101,13 @@ export default {
 }
 
 .choice-button.selected {
-  background-color: #28a745;
+  background-color: #066506;
   color: white;
-  border-color: #28a745;
+  border-color: #066506;
 }
 
 .choice-button:hover {
-  background-color: #007bff;
+  background-color: #066506;
   color: white;
 }
 
@@ -120,7 +120,7 @@ export default {
 
 .submit-btn {
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #066506;
   color: white;
   border: none;
   cursor: pointer;
@@ -130,7 +130,7 @@ export default {
 }
 
 .submit-btn:hover {
-  background-color: #0056b3;
+  background-color: #066506;
 }
 
 .message {
