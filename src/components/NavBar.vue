@@ -1,24 +1,30 @@
 <template>
   <nav class="navbar">
-    <router-link to="/">
-      <div class="logo"><img src="@/assets/logo.png" alt="Logo" /></div>
-    </router-link>
+    <div class="nav-left">
+      <router-link to="/">
+        <div class="logo"><img src="@/assets/hsa_logo.png" alt="Logo" /></div>
+      </router-link>
+    </div>
 
     <ul class="nav-links">
       <li>
         <router-link to="/" @click="setActive('home')" :class="{ active: activeLink === 'home' }">Trang chủ</router-link>
       </li>
       <li>
+        <router-link to="/article-list" @click="setActive('article-list')" :class="{ active: activeLink === 'article-list' }">Thông tin</router-link>
+      </li>
+      <li>
         <a href="#" @click.prevent="setActive('de-thi')" :class="{ active: activeLink === 'de-thi' }">Đề thi</a>
       </li>
       <li>
-        <a href="#" @click.prevent="setActive('sinh-de-thi')" :class="{ active: activeLink === 'sinh-de-thi' }">Sinh đề thi</a>
+        <router-link to="/create-question" @click="setActive('create-question')" :class="{ active: activeLink === 'create-question' }">Sinh câu hỏi</router-link>
       </li>
       <li>
         <router-link to="/about" @click="setActive('about')" :class="{ active: activeLink === 'about' }">Về Website</router-link>
       </li>
     </ul>
 
+    
     <div class="nav-buttons">
       <router-link to="/login"><button class="sign-in" @click="setActive('login')">Sign In</button></router-link>
       <router-link to="/register"><button class="sign-up" @click="setActive('register')">Sign Up</button></router-link>
@@ -53,9 +59,14 @@ export default {
   font-family: Arial, sans-serif;
 }
 
-.logo {
-  height: 10%;
-  width: 10%;
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 50px;
+  width: auto;
 }
 
 .nav-links {
@@ -70,15 +81,21 @@ export default {
   text-decoration: none;
   color: white;
   font-size: 14px;
-  transition: opacity 0.3s;
+  padding: 10px 15px;
+  position: relative;
+  transition: all 0.3s ease;
 }
 
-.nav-links a.active {
-  border: 2px solid white;
-  padding: 6px 10px;
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
 }
-
-
 
 .nav-buttons {
   display: flex;
