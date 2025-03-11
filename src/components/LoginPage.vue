@@ -1,7 +1,7 @@
 <template>
   <div class="auth-container">
     <div class="card">
-      <h2>{{ isLogin ? 'Login' : 'Sign Up' }}</h2>
+      <h2>Login</h2>
       <form @submit.prevent="handleSubmit">
         <div class="input-group">
           <label>Username:</label>
@@ -11,31 +11,43 @@
           <label>Password:</label>
           <input type="password" v-model="password" required />
         </div>
-        <button type="submit">{{ isLogin ? 'Login' : 'Sign Up' }}</button>
+        <button type="submit" :disabled="loading">{{ loading ? 'Logging in...' : 'Login' }}</button>
+        <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
       </form>
-      <p @click="toggleMode" class="toggle">{{ isLogin ? "Don't have an account? Sign Up" : "Already have an account? Login" }}</p>
+      <p class="toggle"><router-link to="/register">Don't have an account? Sign Up</router-link></p>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
-      isLogin: true,
       username: '',
-      password: ''
+      password: '',
+      loading: false,
+      errorMessage: '',
     };
   },
   methods: {
-    toggleMode() {
-      this.isLogin = !this.isLogin;
-    },
-    handleSubmit() {
-      if (this.isLogin) {
-        console.log('Logging in with:', this.username, this.password);
-      } else {
-        console.log('Signing up with:', this.username, this.password);
+    async handleSubmit() {
+      this.loading = true;
+      this.errorMessage = '';
+
+      try {
+        const response = await axios.post('http://localhost:8080/auth/login', {
+          username: this.username,
+          password: this.password,
+        });
+
+        localStorage.setItem('token', response.data);
+        this.$router.push('/');
+      } catch (error) {
+        this.errorMessage = 'Invalid username or password';
+      } finally {
+        this.loading = false;
       }
     }
   }
@@ -69,11 +81,10 @@ label {
 }
 input {
   width: 100%;
-  padding-top: 8px;
+  padding: 8px;
   margin-top: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  text-align: left;
 }
 button {
   background: #066506;
@@ -85,11 +96,19 @@ button {
   cursor: pointer;
   font-weight: bold;
 }
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
 .toggle {
   margin-top: 10px;
   color: #066506;
   cursor: pointer;
-  text-align: center;
   font-weight: bold;
 }
 </style>
