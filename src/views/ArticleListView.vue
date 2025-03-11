@@ -1,11 +1,11 @@
 <template>
-    <ArticleListView/>
+    <ArticleListPage/>
   </template>
 <script>
-import ArticleListView from '@/components/ArticleListPage.vue';
+import ArticleListPage from '@/components/ArticleListPage.vue';
 export default {
   components: {
-    ArticleListView
+    ArticleListPage
   }
 };
 </script>

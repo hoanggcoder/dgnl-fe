@@ -5,6 +5,7 @@ import LoginView from '@/views/LoginView.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import ArticleListView from '@/views/ArticleListView.vue';
 import CreateQuestionView from '@/views/CreateQuestionView.vue';
+import TestListView from '@/views/TestListView.vue';
 
 const routes = [
   { path: '/', component: HomeView },
@@ -13,6 +14,7 @@ const routes = [
   { path: '/register', component: RegisterView},
   { path: '/article-list', component: ArticleListView},
   { path: '/create-question', component: CreateQuestionView},
+  { path: '/test-list', component: TestListView},
 ];
 
 const router = createRouter({
