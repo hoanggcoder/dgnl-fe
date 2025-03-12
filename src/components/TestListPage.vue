@@ -5,6 +5,7 @@
         <div class="test-content">
           <h2 class="test-title">{{ test.title }}</h2>
           <p class="test-description">{{ test.description }}</p>
+          <p class="test-difficulty">Mức độ : {{ test.difficulty }}</p>
         </div>
       </div>
       
@@ -94,13 +95,13 @@ export default {
   .page-button {
     margin: 0 5px;
     padding: 8px 12px;
-    border: 1px solid #007bff;
+    border: 1px solid #066506;
     background: white;
     cursor: pointer;
     border-radius: 3px;
   }
   .page-button.active {
-    background: #007bff;
+    background: #066506;
     color: white;
   }
   </style>

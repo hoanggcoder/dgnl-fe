@@ -1,6 +1,5 @@
 <template>
     <div class="article-container">
-      <!-- Main Article Section -->
       <div class="article-content">
         <h1>{{ article.title }}</h1>
         <p v-for="(paragraph, index) in article.content" :key="index">
@@ -9,7 +8,6 @@
         <img :src="article.image" alt="Article Image" class="article-image" />
       </div>
   
-      <!-- Sidebar -->
       <div class="sidebar">
         <h2>Related News</h2>
         <ul>

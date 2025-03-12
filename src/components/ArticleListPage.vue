@@ -71,8 +71,8 @@ export default {
     border-bottom: 1px solid #ddd;
   }
   .article-image {
-    width: 20%;  /* Reduce width */
-    height: 40px;  /* Reduce height */
+    width: 20%; 
+    height: 40px; 
     object-fit: scale-down;
     border-radius: 5px;
 }
@@ -95,13 +95,13 @@ export default {
   .page-button {
     margin: 0 5px;
     padding: 8px 12px;
-    border: 1px solid #007bff;
+    border: 1px solid #066506;
     background: white;
     cursor: pointer;
     border-radius: 3px;
   }
   .page-button.active {
-    background: #007bff;
+    background: #066506;
     color: white;
   }
 </style>

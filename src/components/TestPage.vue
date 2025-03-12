@@ -13,20 +13,7 @@
     components: { TestQuestion },
     data() {
       return {
-        questions: [
-          {
-            id: 1,
-            title: "Câu hỏi 1",
-            content: "Quá trình Haber điều chế ammonia được biểu diễn bằng phương trình: <br> N₂(g) + 3H₂(g) ⇌ 2NH₃(g)   ΔH⁰ = -92 kJ mol⁻¹ <br> Điều kiện nào sau đây sẽ làm tăng tốc độ phản ứng và tăng lượng ammonia tạo thành lúc cân bằng?",
-            options: ["Tăng lượng xúc tác", "Tăng nhiệt độ phản ứng", "Tăng áp suất hệ phản ứng", "Giảm nhiệt độ phản ứng"]
-          },
-          {
-            id: 2,
-            title: "Câu hỏi 2",
-            content: "1+1 = ?",
-            options: ["0", "1", "2", "3"]
-          }
-        ],
+        questions: [],
         answers: {}
       };
     },
