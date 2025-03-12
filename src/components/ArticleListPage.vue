@@ -1,7 +1,7 @@
 <template>
     <div class="container">
       <div v-for="article in paginatedArticles" :key="article.id" class="article">
-        <img :src="article.image" class="article-image" alt="Article Image" />
+        <img :src="article.image ? article.image : require('@/assets/article_default.png')" class="article.image" alt="Article Image" />
         <div class="article-content">
           <h2 class="article-title">{{ article.title }}</h2>
           <p class="article-description">{{ article.description }}</p>
@@ -71,11 +71,11 @@ export default {
     border-bottom: 1px solid #ddd;
   }
   .article-image {
-    width: 30%;
-    height: 150px;
-    object-fit: cover;
+    width: 20%;  /* Reduce width */
+    height: 40px;  /* Reduce height */
+    object-fit: scale-down;
     border-radius: 5px;
-  }
+}
   .article-content {
     margin-left: 20px;
     flex: 1;

@@ -1,7 +1,7 @@
 <template>
     <div class="container">
       <div v-for="test in paginatedtests" :key="test.id" class="test">
-        <img :src="test.image" class="test-image" alt="test Image" />
+        <img :src="test.image ? test.image : require('@/assets/exam_default.png')" class="test-image" alt="Test Image" />
         <div class="test-content">
           <h2 class="test-title">{{ test.title }}</h2>
           <p class="test-description">{{ test.description }}</p>
@@ -22,38 +22,40 @@
   </template>
   
   <script>
-  export default {
-    data() {
-      return {
-        tests: [
-          { id: 1, image: 'image1.jpg', title: 'Title 1', description: 'Description 1' },
-          { id: 2, image: 'image2.jpg', title: 'Title 2', description: 'Description 2' },
-          { id: 3, image: 'image3.jpg', title: 'Title 3', description: 'Description 3' },
-          { id: 4, image: 'image4.jpg', title: 'Title 4', description: 'Description 4' },
-          { id: 5, image: 'image5.jpg', title: 'Title 5', description: 'Description 5' },
-          { id: 6, image: 'image6.jpg', title: 'Title 6', description: 'Description 6' },
-          { id: 7, image: 'image7.jpg', title: 'Title 7', description: 'Description 7' },
-          { id: 8, image: 'image8.jpg', title: 'Title 8', description: 'Description 8' },
-          { id: 9, image: 'image9.jpg', title: 'Title 9', description: 'Description 9' },
-          { id: 10, image: 'image10.jpg', title: 'Title 10', description: 'Description 10' },
-          { id: 11, image: 'image11.jpg', title: 'Title 11', description: 'Description 11' },
-          { id: 12, image: 'image12.jpg', title: 'Title 12', description: 'Description 12' }
-        ],
-        currentPage: 1,
-        itemsPerPage: 10
-      };
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      tests: [],
+      currentPage: 1,
+      itemsPerPage: 10
+    };
+  },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.tests.length / this.itemsPerPage);
     },
-    computed: {
-      totalPages() {
-        return Math.ceil(this.tests.length / this.itemsPerPage);
-      },
-      paginatedtests() {
-        const start = (this.currentPage - 1) * this.itemsPerPage;
-        return this.tests.slice(start, start + this.itemsPerPage);
+    paginatedtests() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      return this.tests.slice(start, start + this.itemsPerPage);
+    }
+  },
+  methods: {
+    async fetchTests() {
+      try {
+        const response = await axios.get('http://localhost:8080/exam');
+        this.tests = response.data;
+      } catch (error) {
+        console.error('Error fetching tests:', error);
       }
     }
-  };
-  </script>
+  },
+  mounted() {
+    this.fetchTests();
+  }
+};
+</script>
   
   <style>
   .container {
