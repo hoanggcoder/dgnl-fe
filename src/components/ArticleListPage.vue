@@ -3,7 +3,9 @@
       <div v-for="article in paginatedArticles" :key="article.id" class="article">
         <img :src="article.image ? article.image : require('@/assets/article_default.png')" class="article.image" alt="Article Image" />
         <div class="article-content">
+          <router-link :to="`/article/${article.id}`">
           <h2 class="article-title">{{ article.title }}</h2>
+          </router-link>
           <p class="article-description">{{ article.description }}</p>
         </div>
       </div>
@@ -83,6 +85,8 @@ export default {
   .article-title {
     font-size: 20px;
     font-weight: bold;
+    text-decoration: none;  
+    color: inherit;
   }
   .article-description {
     color: #666;
