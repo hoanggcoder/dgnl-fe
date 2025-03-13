@@ -1,15 +1,33 @@
 <template>
   <div class="question-card">
     <div class="question-container">
-      <span class="question-name">{{question.title}}</span>
-      <span class="question-bar"></span>
-    </div>
-    <p v-html="question.content"></p>
+    <span class="question-name">Câu {{ index }}</span>
+    <span class="question-bar"></span>
+  </div>
+    <p v-html="question.detail"></p>
     <ul>
-      <li v-for="(option, index) in question.options" :key="index">
+      <li>
         <label>
-          <input type="radio" :name="'question-' + question.id" :value="option" v-model="selectedAnswer" @change="submitAnswer">
-          {{ option }}
+          <input type="radio" :name="'question-' + question.id" :value="question.choice1" v-model="selectedAnswer" @change="submitAnswer">
+          {{ question.choice1 }}
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="radio" :name="'question-' + question.id" :value="question.choice2" v-model="selectedAnswer" @change="submitAnswer">
+          {{ question.choice2 }}
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="radio" :name="'question-' + question.id" :value="question.choice3" v-model="selectedAnswer" @change="submitAnswer">
+          {{ question.choice3 }}
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="radio" :name="'question-' + question.id" :value="question.choice4" v-model="selectedAnswer" @change="submitAnswer">
+          {{ question.choice4 }}
         </label>
       </li>
     </ul>
@@ -19,7 +37,8 @@
 <script>
 export default {
   props: {
-    question: Object
+    question: Object,
+    index: Number,
   },
   data() {
     return {

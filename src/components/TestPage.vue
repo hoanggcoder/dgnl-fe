@@ -1,14 +1,20 @@
 <template>
-    <div>
-      <h1>Online Test</h1>
-      <TestQuestion v-for="question in questions" :key="question.id" :question="question" @answer-submitted="handleAnswer"/>
-      <button @click="submitTest">Finish Test</button>
-    </div>
+  <div>
+    <h1>Test</h1>
+    <TestQuestion 
+      v-for="(question, index) in questions" 
+      :key="question.id" 
+      :question="question" 
+      :index="index + 1"
+      @answer-submitted="handleAnswer"
+    />
+    <button @click="submitTest">Finish Test</button>
+  </div>
 </template>
   
 <script>
   import TestQuestion from "@/components/TestQuestion.vue";
-  
+  import axios from 'axios';
   export default {
     components: { TestQuestion },
     data() {
@@ -30,7 +36,16 @@
           .join("");
 
         console.log(formattedAnswers);
-      }
+      },
+      async fetchTest() {
+        const testId = this.$route.params.id;
+        try {
+          const response = await axios.get(`http://localhost:8080/test/${testId}`);
+          this.questions = response.data.questionList;
+        } catch (error) {
+          console.error("Error fetching test:", error);
+        }
+      },
     }
   };
 </script>

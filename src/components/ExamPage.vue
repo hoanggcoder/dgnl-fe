@@ -1,38 +1,63 @@
 <template>
-    <div class="exam-container">
-      <h1 class="title">Exam Details</h1>
+    <div class="exam-container" v-if="exam">
+      <h1 class="title">Thông tin cuộc thi</h1>
       <div class="exam-details">
-        <p><strong>Name:</strong> {{ exam.name }}</p>
-        <p><strong>Type:</strong> {{ exam.type }}</p>
-        <p><strong>Description:</strong> {{ exam.description || 'No description provided' }}</p>
-        <p><strong>Difficulty:</strong> {{ exam.difficulty }}</p>
-        <p><strong>Start Time:</strong> {{ exam.startTime }}</p>
-        <p><strong>End Time:</strong> {{ exam.endTime }}</p>
+        <p><strong>Tên:</strong> {{ exam.name }}</p>
+        <p><strong>Loại:</strong> {{ exam.type }}</p>
+        <p><strong>Mô tả:</strong> {{ exam.description || 'No description provided' }}</p>
+        <p><strong>Độ khó:</strong> {{ exam.difficulty }}</p>
+        <p><strong>Thời gian bắt đầu:</strong> {{ exam.startTime }}</p>
+        <p><strong>Thời gian kết thúc:</strong> {{ exam.endTime }}</p>
       </div>
-      <button @click="goToTest" class="start-button">Start Test</button>
+      <button @click="goToTest" class="start-button" :disabled="!test">Bắt đầu thi</button>
     </div>
+    <p v-else>Loading exam details...</p>
   </template>
   
   <script>
+  import axios from 'axios';
+  
   export default {
-    name: 'ExamPage',
+    name: "ExamPage",
     data() {
       return {
-        exam: {
-          name: 'Sample Exam',
-          type: 'Final',
-          description: 'A sample final exam',
-          difficulty: 'medium',
-          startTime: '09:00',
-          endTime: '11:00',
-        },
+        exam: null,
+        test: null,
       };
     },
-    methods: {
-      goToTest() {
-        this.$router.push('/test');
-      },
+    async mounted() {
+      await this.fetchExam();
+      await this.fetchTest(); 
     },
+    methods: {
+      async fetchExam() {
+        const examId = this.$route.params.id;
+        try {
+          const response = await axios.get(`http://localhost:8080/exam/${examId}`);
+          this.exam = response.data;
+          console.log("Fetched exam:", this.exam);
+        } catch (error) {
+          console.error("Error fetching exam:", error);
+        }
+      },
+      async fetchTest() {
+        const examId = this.$route.params.id;
+        try {
+          const response = await axios.get(`http://localhost:8080/exam/get-test/${examId}`);
+          this.test = response.data;
+          console.log("Fetched test:", this.test);
+        } catch (error) {
+          console.error("Error fetching test:", error);
+        }
+      },
+      goToTest() {
+        if (this.test && this.test.id) {
+          this.$router.push(`/test/${this.test.id}`);
+        } else {
+          console.error("Test data is not available");
+        }
+      }
+    }
   };
   </script>
   
@@ -59,12 +84,12 @@
     padding: 10px 20px;
     font-size: 18px;
     color: white;
-    background: #007bff;
+    background: #fa0404;
     border: none;
     border-radius: 5px;
     cursor: pointer
   }
   .start-button:hover {
-    background: #0056b3;
+    background: #fa0404;
   }
   </style>
