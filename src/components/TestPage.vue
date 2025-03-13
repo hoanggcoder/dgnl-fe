@@ -12,13 +12,12 @@
     <button @click="submitTest" class="submit-button">
       Nộp bài
     </button>
-  </div>
+    </div>
   </div>
 </template>
   
 <script>
   import TestQuestion from "@/components/TestQuestion.vue";
-  import axios from 'axios';
   import axios from 'axios';
   export default {
     components: { TestQuestion },
