@@ -19,6 +19,7 @@
 <script>
   import TestQuestion from "@/components/TestQuestion.vue";
   import axios from 'axios';
+  import axios from 'axios';
   export default {
     components: { TestQuestion },
     data() {

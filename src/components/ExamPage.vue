@@ -1,7 +1,15 @@
 <template>
     <div class="exam-container" v-if="exam">
       <h1 class="title">Thông tin cuộc thi</h1>
+    <div class="exam-container" v-if="exam">
+      <h1 class="title">Thông tin cuộc thi</h1>
       <div class="exam-details">
+        <p><strong>Tên:</strong> {{ exam.name }}</p>
+        <p><strong>Loại:</strong> {{ exam.type }}</p>
+        <p><strong>Mô tả:</strong> {{ exam.description || 'No description provided' }}</p>
+        <p><strong>Độ khó:</strong> {{ exam.difficulty }}</p>
+        <p><strong>Thời gian bắt đầu:</strong> {{ exam.startTime }}</p>
+        <p><strong>Thời gian kết thúc:</strong> {{ exam.endTime }}</p>
         <p><strong>Tên:</strong> {{ exam.name }}</p>
         <p><strong>Loại:</strong> {{ exam.type }}</p>
         <p><strong>Mô tả:</strong> {{ exam.description || 'No description provided' }}</p>
@@ -10,20 +18,31 @@
         <p><strong>Thời gian kết thúc:</strong> {{ exam.endTime }}</p>
       </div>
       <button @click="goToTest" class="start-button" :disabled="!test">Bắt đầu thi</button>
+      <button @click="goToTest" class="start-button" :disabled="!test">Bắt đầu thi</button>
     </div>
+    <p v-else>Loading exam details...</p>
     <p v-else>Loading exam details...</p>
   </template>
   
   <script>
   import axios from 'axios';
   
+  import axios from 'axios';
+  
   export default {
+    name: "ExamPage",
     name: "ExamPage",
     data() {
       return {
         exam: null,
         test: null,
+        exam: null,
+        test: null,
       };
+    },
+    async mounted() {
+      await this.fetchExam();
+      await this.fetchTest(); 
     },
     async mounted() {
       await this.fetchExam();
@@ -91,11 +110,13 @@
     font-size: 18px;
     color: white;
     background: #fa0404;
+    background: #fa0404;
     border: none;
     border-radius: 5px;
     cursor: pointer
   }
   .start-button:hover {
+    background: #fa0404;
     background: #fa0404;
   }
   </style>
