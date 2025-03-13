@@ -14,7 +14,7 @@
         <router-link to="/article-list" @click="setActive('article-list')" :class="{ active: activeLink === 'article-list' }">Thông tin</router-link>
       </li>
       <li>
-        <router-link to="/test-list" @click="setActive('test-list')" :class="{ active: activeLink === 'test-list' }">Đề thi</router-link>
+        <router-link to="/exam-list" @click="setActive('exam-list')" :class="{ active: activeLink === 'exam-list' }">Đề thi</router-link>
       </li>
       <li>
         <router-link to="/create-question" @click="setActive('create-question')" :class="{ active: activeLink === 'create-question' }">Sinh câu hỏi</router-link>
@@ -26,8 +26,8 @@
 
     
     <div class="nav-buttons">
-      <router-link to="/login"><button class="sign-in" @click="setActive('login')">Sign In</button></router-link>
-      <router-link to="/register"><button class="sign-up" @click="setActive('register')">Sign Up</button></router-link>
+      <router-link to="/login"><button class="sign-in" @click="setActive('login')">Đăng nhập</button></router-link>
+      <router-link to="/register"><button class="sign-up" @click="setActive('register')">Đăng ký</button></router-link>
     </div>
   </nav>
 </template>

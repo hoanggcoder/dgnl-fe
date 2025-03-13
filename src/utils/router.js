@@ -5,8 +5,10 @@ import LoginView from '@/views/LoginView.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import ArticleListView from '@/views/ArticleListView.vue';
 import CreateQuestionView from '@/views/CreateQuestionView.vue';
-import TestListView from '@/views/TestListView.vue';
+import ExamListView from '@/views/ExamListView.vue';
 import ArticlePage from '@/components/ArticlePage.vue';
+import TestPage from '@/components/TestPage.vue';
+import ExamPage from '@/components/ExamPage.vue';
 
 const routes = [
   { path: '/', component: HomeView },
@@ -15,8 +17,10 @@ const routes = [
   { path: '/register', component: RegisterView},
   { path: '/article-list', component: ArticleListView},
   { path: '/create-question', component: CreateQuestionView},
-  { path: '/test-list', component: TestListView},
-  { path: '/article/:id', component: ArticlePage, props: true }
+  { path: '/exam-list', component: ExamListView},
+  { path: '/exam/:id', component: ExamPage, props: true },
+  { path: '/article/:id', component: ArticlePage, props: true },
+  { path: '/test/:id', component: TestPage, props: true }
 ];
 
 const router = createRouter({

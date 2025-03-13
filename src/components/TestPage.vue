@@ -17,6 +17,9 @@
         answers: {}
       };
     },
+    created() {
+    this.fetchTest();
+    },
     methods: {
       handleAnswer({ id, answer }) {
         this.answers[id] = answer; 

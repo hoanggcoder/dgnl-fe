@@ -1,11 +1,13 @@
 <template>
     <div class="container">
-      <div v-for="test in paginatedtests" :key="test.id" class="test">
-        <img :src="test.image ? test.image : require('@/assets/exam_default.png')" class="test-image" alt="Test Image" />
-        <div class="test-content">
-          <h2 class="test-title">{{ test.title }}</h2>
-          <p class="test-description">{{ test.description }}</p>
-          <p class="test-difficulty">Mức độ : {{ test.difficulty }}</p>
+      <div v-for="exam in paginatedExams" :key="exam.id" class="exam">
+        <img :src="exam.image ? exam.image : require('@/assets/exam_default.png')" class="exam-image" alt="exam Image" />
+        <div class="exam-content">
+          <h2 class="exam-title">{{ exam.title }}</h2>
+          <router-link :to="`/exam/${exam.id}`">
+          <p class="exam-description">{{ exam.description }}</p>
+          </router-link>
+          <p class="exam-difficulty">Mức độ : {{ exam.difficulty }}</p>
         </div>
       </div>
       
@@ -28,32 +30,32 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      tests: [],
+      exams: [],
       currentPage: 1,
       itemsPerPage: 10
     };
   },
   computed: {
     totalPages() {
-      return Math.ceil(this.tests.length / this.itemsPerPage);
+      return Math.ceil(this.exams.length / this.itemsPerPage);
     },
-    paginatedtests() {
+    paginatedExams() {
       const start = (this.currentPage - 1) * this.itemsPerPage;
-      return this.tests.slice(start, start + this.itemsPerPage);
+      return this.exams.slice(start, start + this.itemsPerPage);
     }
   },
   methods: {
-    async fetchTests() {
+    async fetchExams() {
       try {
         const response = await axios.get('http://localhost:8080/exam');
-        this.tests = response.data;
+        this.exams = response.data;
       } catch (error) {
-        console.error('Error fetching tests:', error);
+        console.error('Error fetching exams:', error);
       }
     }
   },
   mounted() {
-    this.fetchTests();
+    this.fetchExams();
   }
 };
 </script>
@@ -64,27 +66,27 @@ export default {
     margin: auto;
     padding: 20px;
   }
-  .test {
+  .exam {
     display: flex;
     margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: 1px solid #ddd;
   }
-  .test-image {
+  .exam-image {
     width: 30%;
     height: 150px;
     object-fit: cover;
     border-radius: 5px;
   }
-  .test-content {
+  .exam-content {
     margin-left: 20px;
     flex: 1;
   }
-  .test-title {
+  .exam-title {
     font-size: 20px;
     font-weight: bold;
   }
-  .test-description {
+  .exam-description {
     color: #666;
   }
   .pagination {
