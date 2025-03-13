@@ -1,20 +1,20 @@
 <template>
   <div class="auth-container">
     <div class="card">
-      <h2>Login</h2>
+      <h2>Đăng nhập</h2>
       <form @submit.prevent="handleSubmit">
         <div class="input-group">
           <label>Username:</label>
           <input type="text" v-model="username" required />
         </div>
         <div class="input-group">
-          <label>Password:</label>
+          <label>Mật khẩu:</label>
           <input type="password" v-model="password" required />
         </div>
-        <button type="submit" :disabled="loading">{{ loading ? 'Logging in...' : 'Login' }}</button>
+        <button type="submit" :disabled="loading">{{ loading ? 'Đang đăng nhập' : 'Đăng nhập' }}</button>
         <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
       </form>
-      <p class="toggle"><router-link to="/register">Don't have an account? Sign Up</router-link></p>
+      <p class="toggle"><router-link to="/register">Đăng ký nếu chưa có tài khoản</router-link></p>
     </div>
   </div>
 </template>
