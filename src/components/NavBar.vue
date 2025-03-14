@@ -162,6 +162,7 @@ export default {
   background: transparent;
   border: 1px solid white;
   color: white;
+  background: #7b7c7b;
   padding: 5px 12px;
   border-radius: 15px;
   cursor: pointer;
@@ -169,10 +170,6 @@ export default {
   transition: 0.3s ease, color 0.3s ease;
 }
 
-.logout-btn:hover {
-  background: white;
-  color: #066506;
-}
 
 .sign-in, .sign-up {
   background: #7b7c7b;

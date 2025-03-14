@@ -21,6 +21,7 @@
   </template>
   
 <script>
+import axios from "axios";
   export default {
     data() {
       return {
@@ -76,17 +77,26 @@
   
         this.errors[key] = "";
       },
-      submitForm() {
-        Object.keys(this.formData).forEach((key) => this.validateField(key));
-  
-        if (Object.values(this.errors).some((err) => err)) {
-          alert("Please fix the errors before submitting.");
-          return;
-        }
-  
-        console.log("Form submitted successfully", this.formData);
-        alert("Registration successful!");
+      async submitForm() {
+      Object.keys(this.formData).forEach((key) => this.validateField(key));
+
+      if (Object.values(this.errors).some((err) => err)) {
+        alert("Please fix the errors before submitting.");
+        return;
       }
+
+      try {
+        const response = await axios.post("http://localhost:8080/user/create", this.formData);
+        alert(response.data.message || "Registration successful!");
+        this.$router.push("/login"); 
+      } catch (error) {
+        if (error.response && error.response.data) {
+          alert(error.response.data.message || "Registration failed!");
+        } else {
+          alert("Error connecting to server!");
+        }
+      }
+    }
     }
   };
 </script>  
