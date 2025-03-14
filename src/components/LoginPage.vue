@@ -37,12 +37,19 @@ export default {
       this.errorMessage = '';
 
       try {
-        const response = await axios.post('http://localhost:8080/auth/login', {
+        const response_auth = await axios.post('http://localhost:8080/auth/login', {
           username: this.username,
           password: this.password,
         });
 
-        localStorage.setItem('token', response.data);
+        const response_user = await axios.get(`http://localhost:8080/user/get-by-username/${this.username}`);
+
+        localStorage.setItem('token', response_auth.data);
+        localStorage.setItem('user', JSON.stringify(response_user.data));
+
+        // Trigger a custom event to notify the Navbar of the login change
+        window.dispatchEvent(new Event('userUpdated'));
+
         this.$router.push('/');
       } catch (error) {
         this.errorMessage = 'Invalid username or password';

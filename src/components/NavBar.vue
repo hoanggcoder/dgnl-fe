@@ -24,27 +24,56 @@
       </li>
     </ul>
 
-    
     <div class="nav-buttons">
-      <router-link to="/login"><button class="sign-in" @click="setActive('login')">Đăng nhập</button></router-link>
-      <router-link to="/register"><button class="sign-up" @click="setActive('register')">Đăng ký</button></router-link>
+      <div v-if="user">
+        <div class="user-info">
+          <img :src="user.avatar || defaultAvatar" alt="User Avatar" class="avatar" />
+          <span>{{ user.username }}</span>
+          <button @click="logout" class="logout-btn">Đăng xuất</button>
+        </div>
+      </div>
+      <div v-else>
+        <router-link to="/login"><button class="sign-in" @click="setActive('login')">Đăng nhập</button></router-link>
+        <router-link to="/register"><button class="sign-up" @click="setActive('register')">Đăng ký</button></router-link>
+      </div>
     </div>
   </nav>
 </template>
 
 <script>
+import defaultAvatar from "@/assets/avatar_default.png";
 export default {
   name: "NavBar",
   data() {
     return {
       activeLink: '',
+      user: null,
+      defaultAvatar,
     };
+  },
+  mounted() {
+    this.loadUser();
+    window.addEventListener('userUpdated', this.loadUser);
+  },
+  beforeUnmount() {
+    window.removeEventListener('userUpdated', this.loadUser);
   },
   methods: {
     setActive(link) {
       this.activeLink = link;
     },
-  },
+    loadUser() {
+      const storedUser = localStorage.getItem('user');
+      this.user = storedUser && storedUser !== "undefined" ? JSON.parse(storedUser) : null;
+    },
+    logout() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      this.user = null;
+      window.dispatchEvent(new Event('userUpdated'));
+      this.$router.push('/login');
+    }
+  }
 };
 </script>
 
@@ -99,20 +128,67 @@ export default {
 
 .nav-buttons {
   display: flex;
+  align-items: center;
+  gap: 100px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
   gap: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 5px 15px;
+  border-radius: 20px;
+  transition: 0.3s ease;
+}
+
+.user-info:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.logout-btn {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: 0.3s ease, color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: white;
+  color: #066506;
 }
 
 .sign-in, .sign-up {
   background: #7b7c7b;
   border: none;
   color: white;
-  padding: 8px 20px;
-  border-radius: 20px;
+  padding: 10px 20px;
+  border-radius: 25px;
   cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s ease, transform 0.2s ease;
+  margin: 0 5px;
 }
 
 .sign-in:hover, .sign-up:hover {
-  opacity: 0.8;
+  background: #5e5f5e;
+  transform: scale(1.05);
 }
 
 @media (max-width: 768px) {
@@ -127,7 +203,20 @@ export default {
   }
 
   .nav-buttons {
+    flex-direction: column;
+    gap: 15px;
     margin-top: 10px;
+  }
+
+  .user-info {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .logout-btn {
+    width: 100%;
+    text-align: center;
   }
 }
 </style>
