@@ -58,7 +58,8 @@
     methods: {
       async fetchUserData() {
         try {
-          const response = await axios.get("http://localhost:8080/user/get-info-by-username/hoangvodoi");
+          const username = localStorage.getItem("username");
+          const response = await axios.get(`http://localhost:8080/user/get-info-by-username/${username}`);
           this.userData = response.data;
         } catch (error) {
           console.error("Error fetching user data:", error);
@@ -132,20 +133,20 @@
   }
   
   .edit-btn {
-    background-color: #007bff;
+    background-color: #066506;
     color: white;
   }
   
   .edit-btn:hover {
-    background-color: #0056b3;
+    background-color: #066506;
   }
   
   .save-btn {
-    background-color: #28a745;
+    background-color: #066506;
     color: white;
   }
   
   .save-btn:hover {
-    background-color: #1e7e34;
+    background-color: #066506;
   }
   </style>

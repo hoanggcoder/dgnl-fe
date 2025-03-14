@@ -25,18 +25,20 @@
     </ul>
 
     <div class="nav-buttons">
-      <div v-if="user">
-        <div class="user-info">
-          <img :src="user.avatar || defaultAvatar" alt="User Avatar" class="avatar" />
-          <span>{{ user.username }}</span>
-          <button @click="logout" class="logout-btn">Đăng xuất</button>
-        </div>
-      </div>
-      <div v-else>
-        <router-link to="/login"><button class="sign-in" @click="setActive('login')">Đăng nhập</button></router-link>
-        <router-link to="/register"><button class="sign-up" @click="setActive('register')">Đăng ký</button></router-link>
-      </div>
+  <div v-if="user" class="user-container">
+    <div class="user-info">
+      <router-link :to="`/user-info/${user.username}`">
+        <img :src="user.avatar || defaultAvatar" alt="User Avatar" class="avatar" />
+        <span class="username">{{ user.username }}</span>
+      </router-link>
     </div>
+    <button @click="logout" class="logout-btn">Đăng xuất</button>
+  </div>
+  <div v-else>
+    <router-link to="/login"><button class="sign-in">Đăng nhập</button></router-link>
+    <router-link to="/register"><button class="sign-up">Đăng ký</button></router-link>
+  </div>
+  </div>
   </nav>
 </template>
 
@@ -129,13 +131,20 @@ export default {
 .nav-buttons {
   display: flex;
   align-items: center;
-  gap: 100px;
+}
+
+.user-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%; 
+  gap: 20px; 
 }
 
 .user-info {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
   background: rgba(255, 255, 255, 0.2);
   padding: 5px 15px;
   border-radius: 20px;
@@ -144,6 +153,12 @@ export default {
 
 .user-info:hover {
   background: rgba(255, 255, 255, 0.3);
+}
+
+.user-info a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
 }
 
 .avatar {
@@ -156,6 +171,7 @@ export default {
 
 .username {
   font-weight: bold;
+  color: white;
 }
 
 .logout-btn {
@@ -163,11 +179,12 @@ export default {
   border: 1px solid white;
   color: white;
   background: #7b7c7b;
-  padding: 5px 12px;
+  padding: 6px 15px;
   border-radius: 15px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
   transition: 0.3s ease, color 0.3s ease;
+  margin-left: auto;
 }
 
 

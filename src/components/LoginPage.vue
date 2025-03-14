@@ -45,6 +45,7 @@ export default {
         const response_user = await axios.get(`http://localhost:8080/user/get-by-username/${this.username}`);
 
         localStorage.setItem('token', response_auth.data);
+        localStorage.setItem('username', response_user.data.username);
         localStorage.setItem('user', JSON.stringify(response_user.data));
         window.dispatchEvent(new Event('userUpdated'));
         this.$router.push('/');
