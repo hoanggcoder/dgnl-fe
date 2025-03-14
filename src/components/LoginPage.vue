@@ -46,10 +46,7 @@ export default {
 
         localStorage.setItem('token', response_auth.data);
         localStorage.setItem('user', JSON.stringify(response_user.data));
-
-        // Trigger a custom event to notify the Navbar of the login change
         window.dispatchEvent(new Event('userUpdated'));
-
         this.$router.push('/');
       } catch (error) {
         this.errorMessage = 'Invalid username or password';
@@ -77,10 +74,12 @@ export default {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   width: 320px;
+  
 }
 .input-group {
   margin: 15px 0;
   text-align: left;
+  padding-right: 20px;
 }
 label {
   display: block;
