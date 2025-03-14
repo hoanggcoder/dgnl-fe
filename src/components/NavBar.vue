@@ -162,6 +162,7 @@ export default {
   background: transparent;
   border: 1px solid white;
   color: white;
+  background: #7b7c7b;
   padding: 5px 12px;
   border-radius: 15px;
   cursor: pointer;
@@ -170,7 +171,6 @@ export default {
 }
 
 .logout-btn:hover {
-  background: white;
   color: #066506;
 }
 
