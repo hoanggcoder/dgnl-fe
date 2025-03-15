@@ -10,6 +10,7 @@ import ArticlePage from '@/components/ArticlePage.vue';
 import TestPage from '@/components/TestPage.vue';
 import ExamPage from '@/components/ExamPage.vue';
 import UserInfoView from '@/views/UserInfoView.vue';
+import AddArticleView from '@/views/AddArticleView.vue';
 
 const routes = [
   { path: '/', component: HomeView },
@@ -22,7 +23,8 @@ const routes = [
   { path: '/exam/:id', component: ExamPage, props: true },
   { path: '/article/:id', component: ArticlePage, props: true },
   { path: '/test/:id', component: TestPage, props: true },
-  { path: '/user-info/:username', component: UserInfoView, props: true}
+  { path: '/user-info/:username', component: UserInfoView, props: true},
+  { path: '/add-article', component: AddArticleView, props: true}
 ];
 
 const router = createRouter({
