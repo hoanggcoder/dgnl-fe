@@ -19,8 +19,11 @@
       <li>
         <router-link to="/create-question" @click="setActive('create-question')" :class="{ active: activeLink === 'create-question' }">Sinh câu hỏi</router-link>
       </li>
-      <li>
+      <li v-if = "role !== 'admin'">
         <router-link to="/about" @click="setActive('about')" :class="{ active: activeLink === 'about' }">Về Website</router-link>
+      </li>
+      <li v-if = "role === 'admin'">
+        <router-link to="/add-article" @click="setActive('add-article')" :class="{ active: activeLink === 'add-article' }">Thêm bài viết</router-link>
       </li>
     </ul>
 
@@ -51,6 +54,7 @@ export default {
       activeLink: '',
       user: null,
       defaultAvatar,
+      role: null,
     };
   },
   mounted() {
@@ -67,11 +71,16 @@ export default {
     loadUser() {
       const storedUser = localStorage.getItem('user');
       this.user = storedUser && storedUser !== "undefined" ? JSON.parse(storedUser) : null;
+      const storedRole = localStorage.getItem('role');
+      this.role = storedRole && storedRole !== "undefined" ? storedRole : null;
     },
     logout() {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
+      localStorage.removeItem('role');
+      localStorage.removeItem('username');
       this.user = null;
+      this.role = null;
       window.dispatchEvent(new Event('userUpdated'));
       this.$router.push('/login');
     }
@@ -175,16 +184,15 @@ export default {
 }
 
 .logout-btn {
-  background: transparent;
-  border: 1px solid white;
-  color: white;
   background: #7b7c7b;
-  padding: 6px 15px;
-  border-radius: 15px;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
   cursor: pointer;
   font-size: 14px;
-  transition: 0.3s ease, color 0.3s ease;
-  margin-left: auto;
+  transition: 0.3s ease, transform 0.2s ease;
+  margin: 0 5px;
 }
 
 

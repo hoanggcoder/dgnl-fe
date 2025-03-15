@@ -46,7 +46,9 @@ export default {
 
         localStorage.setItem('token', response_auth.data);
         localStorage.setItem('username', response_user.data.username);
+        localStorage.setItem('role', response_user.data.role);
         localStorage.setItem('user', JSON.stringify(response_user.data));
+        localStorage.setItem('id', response_user.data.id);
         window.dispatchEvent(new Event('userUpdated'));
         this.$router.push('/');
       } catch (error) {

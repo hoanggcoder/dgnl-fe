@@ -3,11 +3,6 @@
       <h2>Thêm Bài Viết</h2>
       <form @submit.prevent="submitArticle">
         <div class="form-group">
-          <label for="creatorId">ID Người Tạo</label>
-          <input type="number" id="creatorId" v-model="article.creatorId" required />
-        </div>
-  
-        <div class="form-group">
           <label for="topicId">ID Chủ Đề</label>
           <input type="number" id="topicId" v-model="article.topicId" required />
         </div>
@@ -63,7 +58,9 @@
       async submitArticle() {
         try {
           const token = localStorage.getItem("token"); 
-          const response = await axios.post("http://localhost:8080/articles", this.article, {
+          const userId = localStorage.getItem("id");
+          this.article.creatorId = userId;
+          await axios.post("http://localhost:8080/articles", this.article, {
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
@@ -71,7 +68,6 @@
           });
           this.message = "Bài viết đã được thêm thành công!";
           this.error = "";
-          console.log(response.data);
           this.resetForm();
         } catch (err) {
           this.error = "Lỗi khi thêm bài viết. Kiểm tra quyền hoặc dữ liệu nhập vào.";
@@ -80,7 +76,7 @@
       },
       resetForm() {
         this.article = {
-          creatorId: null,
+          creatorId: localStorage.getItem("id"),
           topicId: null,
           title: "",
           description: "",
