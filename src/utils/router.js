@@ -14,6 +14,7 @@ import AddArticleView from '@/views/AddArticleView.vue';
 import ManagePage from '@/components/ManagePage.vue';
 import EditArticlePage from '@/components/EditArticlePage.vue';
 import ArticleListPageEdit from '@/components/ArticleListPageEdit.vue';
+import ExamListPageEdit from '@/components/ExamListPageEdit.vue';
 
 const routes = [
   { path: '/', component: HomeView },
@@ -30,7 +31,8 @@ const routes = [
   { path: '/add-article', component: AddArticleView, props: true},
   { path: '/manage', component: ManagePage, props: true},
   { path: '/edit-article/:id', component: EditArticlePage, props: true},
-  {path : '/article-list-edit', component: ArticleListPageEdit}
+  {path : '/article-list-edit', component: ArticleListPageEdit},
+  {path : '/exam-list-edit', component: ExamListPageEdit}
 ];
 
 const router = createRouter({

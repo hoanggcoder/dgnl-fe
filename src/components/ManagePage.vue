@@ -11,7 +11,7 @@
     <div class="management-sections">
       <div class="section">
         <h2>Quản lý bài viết</h2>
-        <p>Thêm, sửa hoặc xóa bài viết một cách dễ dàng.</p>
+        <p>Thêm, sửa hoặc xóa các bài viết</p>
         <div class="btn-group">
           <router-link to="/add-article">
             <button class="action-btn">Thêm</button>
@@ -19,24 +19,18 @@
           <router-link to="/article-list-edit">
             <button class="action-btn">Sửa</button>
           </router-link>
-          <router-link to="/delete-article">
-            <button class="action-btn danger">Xóa</button>
-          </router-link>
         </div>
       </div>
 
       <div class="section">
-        <h2>Quản lý đề thi</h2>
-        <p>Tạo mới, chỉnh sửa hoặc xóa đề thi.</p>
+        <h2>Quản lý cuộc thi</h2>
+        <p>Tạo mới, chỉnh sửa hoặc xóa cuộc thi.</p>
         <div class="btn-group">
           <router-link to="/add-exam">
             <button class="action-btn">Thêm</button>
           </router-link>
-          <router-link to="/modify-exam">
+          <router-link to="/exam-list-edit">
             <button class="action-btn">Sửa</button>
-          </router-link>
-          <router-link to="/delete-exam">
-            <button class="action-btn danger">Xóa</button>
           </router-link>
         </div>
       </div>

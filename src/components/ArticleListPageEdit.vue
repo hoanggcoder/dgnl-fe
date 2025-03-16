@@ -1,7 +1,11 @@
 <template>
     <div class="container">
       <div v-for="article in paginatedArticles" :key="article.id" class="article">
-        <img :src="article.image || defaultImage" class="article-image" alt="Article Image" />
+        <img 
+          :src="article.image || defaultImage" 
+          class="article-image" 
+          alt="Article Image" 
+        />
         <div class="article-content">
           <router-link :to="`/article/${article.id}`">
             <h2 class="article-title">{{ article.title }}</h2>
@@ -19,8 +23,9 @@
           v-for="page in totalPages" 
           :key="page" 
           @click="currentPage = page" 
-          :class="{'active': currentPage === page}" 
-          class="page-button">
+          :class="{ active: currentPage === page }" 
+          class="page-button"
+        >
           {{ page }}
         </button>
       </div>
@@ -84,6 +89,7 @@
     margin: auto;
     padding: 20px;
   }
+  
   .article {
     display: flex;
     align-items: center;
@@ -91,27 +97,39 @@
     padding: 10px 0;
     border-bottom: 1px solid #ddd;
   }
+  
   .article-image {
     width: 50px;
     height: 50px;
     object-fit: cover;
     border-radius: 5px;
   }
+  
   .article-content {
     flex: 1;
     margin-left: 15px;
   }
+
+  .article-content a {
+  text-decoration: none;
+  color: inherit;
+}
+  
   .article-title {
     font-size: 18px;
     color: #333;
+    text-decoration: none;
   }
+  
   .article-description {
     color: #666;
   }
+  
   .actions {
     display: flex;
     gap: 5px;
   }
+  
   .edit-btn, .delete-btn {
     border: none;
     padding: 5px 8px;
@@ -119,18 +137,22 @@
     font-size: 14px;
     border-radius: 5px;
   }
+  
   .edit-btn {
-    background-color: #007bff;
+    background-color: #066506;
     color: white;
   }
+  
   .delete-btn {
-    background-color: #dc3545;
+    background-color: #fa0404;
     color: white;
   }
+  
   .pagination {
     text-align: center;
     margin-top: 20px;
   }
+  
   .page-button {
     margin: 0 5px;
     padding: 5px 10px;
@@ -139,6 +161,7 @@
     cursor: pointer;
     border-radius: 3px;
   }
+  
   .page-button.active {
     background: #066506;
     color: white;

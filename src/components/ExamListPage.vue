@@ -3,10 +3,10 @@
       <div v-for="exam in paginatedExams" :key="exam.id" class="exam">
         <img :src="exam.image ? exam.image : require('@/assets/exam_default.png')" class="exam-image" alt="exam Image" />
         <div class="exam-content">
-          <h2 class="exam-title">{{ exam.title }}</h2>
           <router-link :to="`/exam/${exam.id}`">
-          <p class="exam-description">{{ exam.description }}</p>
+          <h2 class="exam-title">{{ exam.name }}</h2>
           </router-link>
+          <p class="exam-description">{{ exam.description }}</p>
           <p class="exam-difficulty">Mức độ : {{ exam.difficulty }}</p>
         </div>
       </div>
@@ -49,6 +49,7 @@ export default {
       try {
         const response = await axios.get('http://localhost:8080/exam');
         this.exams = response.data;
+        console.log('Exams:', this.exams);
       } catch (error) {
         console.error('Error fetching exams:', error);
       }
