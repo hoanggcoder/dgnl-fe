@@ -23,7 +23,7 @@
         <router-link to="/about" @click="setActive('about')" :class="{ active: activeLink === 'about' }">Về Website</router-link>
       </li>
       <li v-if = "role === 'admin'">
-        <router-link to="/add-article" @click="setActive('add-article')" :class="{ active: activeLink === 'add-article' }">Thêm bài viết</router-link>
+        <router-link to="/manage" @click="setActive('manage')" :class="{ active: activeLink === 'manage' }">Quản lý</router-link>
       </li>
     </ul>
 
@@ -152,12 +152,14 @@ export default {
 
 .user-info {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  align-items: center; 
+  justify-content: center; 
+  gap: 8px;
   background: rgba(255, 255, 255, 0.2);
-  padding: 5px 15px;
-  border-radius: 20px;
+  padding: 10px 15px;
+  border-radius: 25px;
   transition: 0.3s ease;
+  height: 50px; 
 }
 
 .user-info:hover {
@@ -171,16 +173,21 @@ export default {
 }
 
 .avatar {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   object-fit: cover;
+  margin-left: 25px;
   border: 2px solid white;
 }
 
 .username {
   font-weight: bold;
   color: white;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 .logout-btn {

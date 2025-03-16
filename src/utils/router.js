@@ -11,6 +11,9 @@ import TestPage from '@/components/TestPage.vue';
 import ExamPage from '@/components/ExamPage.vue';
 import UserInfoView from '@/views/UserInfoView.vue';
 import AddArticleView from '@/views/AddArticleView.vue';
+import ManagePage from '@/components/ManagePage.vue';
+import EditArticlePage from '@/components/EditArticlePage.vue';
+import ArticleListPageEdit from '@/components/ArticleListPageEdit.vue';
 
 const routes = [
   { path: '/', component: HomeView },
@@ -24,7 +27,10 @@ const routes = [
   { path: '/article/:id', component: ArticlePage, props: true },
   { path: '/test/:id', component: TestPage, props: true },
   { path: '/user-info/:username', component: UserInfoView, props: true},
-  { path: '/add-article', component: AddArticleView, props: true}
+  { path: '/add-article', component: AddArticleView, props: true},
+  { path: '/manage', component: ManagePage, props: true},
+  { path: '/edit-article/:id', component: EditArticlePage, props: true},
+  {path : '/article-list-edit', component: ArticleListPageEdit}
 ];
 
 const router = createRouter({
