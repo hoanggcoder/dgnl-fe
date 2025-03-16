@@ -34,6 +34,32 @@
           </router-link>
         </div>
       </div>
+
+      <div class="section">
+        <h2>Quản lý người dùng</h2>
+        <p>Xem danh sách người dùng và tạo tài khoản quản lý</p>
+        <div class="btn-group">
+          <router-link to="/add-admin">
+            <button class="action-btn">Thêm</button>
+          </router-link>
+          <router-link to="/user-list">
+            <button class="action-btn">Thông tin người dùng</button>
+          </router-link>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Quản lý câu hỏi</h2>
+        <p>Tạo mới, chỉnh sửa hoặc xóa câu hỏi.</p>
+        <div class="btn-group">
+          <router-link to="/add-question">
+            <button class="action-btn">Thêm</button>
+          </router-link>
+          <router-link to="/question-list-edit">
+            <button class="action-btn">Sửa</button>
+          </router-link>
+        </div>
+      </div>
     </div>
   </div>
 </template>
