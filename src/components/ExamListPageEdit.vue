@@ -59,10 +59,17 @@ export default {
     editExam(id) {
       this.$router.push(`/edit-exam/${id}`);
     },
+    
     async deleteExam(id) {
+      const token = localStorage.getItem("token");
       if (confirm("Bạn có chắc muốn xóa bài thi này?")) {
         try {
-          await axios.delete(`http://localhost:8080/exam/${id}`);
+          await axios.delete(`http://localhost:8080/exam/${id}`,
+          {headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          }
+        });
           this.exams = this.exams.filter(exam => exam.id !== id);
           alert("Bài thi đã được xóa.");
         } catch (error) {

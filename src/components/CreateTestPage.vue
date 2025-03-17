@@ -181,8 +181,6 @@ export default {
           },
         });
         const testId = response.data;
-        console.log("testId response:", testId);
-        console.log("examId response:", examId);
         createInput.testId = testId;
         createInput.examId = examId;
         await axios.post("http://localhost:8080/exam/create", createInput, {
