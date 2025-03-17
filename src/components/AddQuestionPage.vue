@@ -41,7 +41,6 @@
   const submitQuestion = async () => {
   try {
     const token = localStorage.getItem("token");
-    console.log(token);
     await axios.post('http://localhost:8080/questions', question.value, {
       headers: {
         Authorization: `Bearer ${token}`

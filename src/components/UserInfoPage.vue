@@ -47,8 +47,8 @@
           address: { label: "Address", type: "text", placeholder: "Enter address" },
           phone: { label: "Phone Number", type: "tel", placeholder: "+1234567890" },
           email: { label: "Email", type: "email", placeholder: "Enter email" },
-          username: { label: "Username", type: "text", placeholder: "Your username", disabled: true },
-          profilePicturePath: { label: "Profile Picture", type: "text", placeholder: "Profile Picture URL" }
+          profilePicturePath: { label: "Profile Picture", type: "text", placeholder: "Profile Picture URL" },
+          role: { label: "Role", type: "text", placeholder: "Your role" }
         }
       };
     },

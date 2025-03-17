@@ -1,6 +1,24 @@
 <template>
     <div class="container">
       <h2>All Questions</h2>
+  
+      <div class="filters">
+        <input v-model="searchQuery" placeholder="Tìm kiếm văn bản" class="search-input" />
+  
+        <select v-model="selectedType" class="filter-select">
+          <option value="">Tất cả các loại câu hỏi</option>
+          <option value="multiple_choices">Trắc nghiệm khách quan</option>
+          <option value="fill_in">Điền đáp án</option>
+        </select>
+  
+        <select v-model="selectedTopic" class="filter-select">
+          <option value="">Chủ đề</option>
+          <option v-for="topic in uniqueTopics" :key="topic" :value="topic">
+            Topic {{ topic }}
+          </option>
+        </select>
+      </div>
+  
       <div v-for="question in paginatedQuestions" :key="question.id" class="question-item">
         <div class="question-content">
           <h3>{{ question.detail }}</h3>
@@ -38,15 +56,32 @@
         questions: [],
         currentPage: 1,
         itemsPerPage: 10,
+        searchQuery: '',
+        selectedType: '',
+        selectedTopic: '',
       };
     },
     computed: {
-      totalPages() {
-        return Math.ceil(this.questions.length / this.itemsPerPage);
+      uniqueTopics() {
+        return [...new Set(this.questions.map(q => q.topicId))];
       },
+      
+      filteredQuestions() {
+        return this.questions.filter(q => {
+          const matchesText = q.detail.toLowerCase().includes(this.searchQuery.toLowerCase());
+          const matchesType = this.selectedType ? q.type === this.selectedType : true;
+          const matchesTopic = this.selectedTopic ? q.topicId == this.selectedTopic : true;
+          return matchesText && matchesType && matchesTopic;
+        });
+      },
+      
+      totalPages() {
+        return Math.ceil(this.filteredQuestions.length / this.itemsPerPage);
+      },
+  
       paginatedQuestions() {
         const start = (this.currentPage - 1) * this.itemsPerPage;
-        return this.questions.slice(start, start + this.itemsPerPage);
+        return this.filteredQuestions.slice(start, start + this.itemsPerPage);
       },
     },
     methods: {
@@ -88,6 +123,19 @@
     max-width: 800px;
     margin: auto;
     padding: 20px;
+  }
+  
+  .filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .search-input, .filter-select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    flex: 1;
   }
   
   .question-item {
