@@ -66,9 +66,8 @@ export default {
         }
         const response = await axios.get(`http://localhost:8080/user/get-info-by-username/${username}`);
         
-        // Format date correctly for input
         if (response.data.dob) {
-          response.data.dob = response.data.dob.split("T")[0]; // Remove time part
+          response.data.dob = response.data.dob.split("T")[0]; 
         }
 
         this.userData = response.data;
@@ -124,6 +123,7 @@ h2 {
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 15px;
+  margin-right: 10px;
 }
 
 .form-group label {

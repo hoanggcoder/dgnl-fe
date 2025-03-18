@@ -9,25 +9,25 @@
       <li>
         <label>
           <input type="radio" :name="'question-' + question.id" :value="question.choice1" v-model="selectedAnswer" @change="submitAnswer">
-          {{ question.choice1 }}
+          (A) {{ question.choice1 }}
         </label>
       </li>
       <li>
         <label>
           <input type="radio" :name="'question-' + question.id" :value="question.choice2" v-model="selectedAnswer" @change="submitAnswer">
-          {{ question.choice2 }}
+          (B) {{ question.choice2 }}
         </label>
       </li>
       <li>
         <label>
           <input type="radio" :name="'question-' + question.id" :value="question.choice3" v-model="selectedAnswer" @change="submitAnswer">
-          {{ question.choice3 }}
+          (C) {{ question.choice3 }}
         </label>
       </li>
       <li>
         <label>
           <input type="radio" :name="'question-' + question.id" :value="question.choice4" v-model="selectedAnswer" @change="submitAnswer">
-          {{ question.choice4 }}
+          (D) {{ question.choice4 }}
         </label>
       </li>
     </ul>

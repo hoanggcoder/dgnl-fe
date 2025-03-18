@@ -8,7 +8,6 @@
         <p class="exam-difficulty">Mức độ: {{ exam.difficulty }}</p>
       </div>
       <div class="actions">
-        <button @click="editExam(exam.id)" class="edit-btn">✏️</button>
         <button @click="deleteExam(exam.id)" class="delete-btn">🗑</button>
       </div>
     </div>
@@ -55,9 +54,6 @@ export default {
       } catch (error) {
         console.error("Error fetching exams:", error);
       }
-    },
-    editExam(id) {
-      this.$router.push(`/edit-exam/${id}`);
     },
     
     async deleteExam(id) {
@@ -116,25 +112,21 @@ export default {
 }
 .exam-difficulty {
   font-weight: bold;
-  color: #007bff;
+  color: #066506;
 }
 .actions {
   display: flex;
   gap: 5px;
 }
-.edit-btn, .delete-btn {
+ .delete-btn {
   border: none;
   padding: 5px 8px;
   cursor: pointer;
   font-size: 14px;
   border-radius: 5px;
 }
-.edit-btn {
-  background-color: #007bff;
-  color: white;
-}
 .delete-btn {
-  background-color: #dc3545;
+  background-color: #fa0404;
   color: white;
 }
 .pagination {

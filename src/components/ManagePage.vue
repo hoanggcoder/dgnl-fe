@@ -24,13 +24,13 @@
 
       <div class="section">
         <h2>Quản lý cuộc thi</h2>
-        <p>Tạo mới, chỉnh sửa hoặc xóa cuộc thi.</p>
+        <p>Tạo mới hoặc xóa cuộc thi.</p>
         <div class="btn-group">
           <router-link to="/add-exam">
             <button class="action-btn">Thêm</button>
           </router-link>
           <router-link to="/exam-list-edit">
-            <button class="action-btn">Sửa</button>
+            <button class="action-btn">Xóa</button>
           </router-link>
         </div>
       </div>

@@ -19,6 +19,7 @@ import AddQuestionPage from '@/components/AddQuestionPage.vue';
 import QuestionListPageEdit from '@/components/QuestionListPageEdit.vue';
 import EditQuestionPage from '@/components/EditQuestionPage.vue';
 import CreateTestPage from '@/components/CreateTestPage.vue';
+import RegisterAdminPage from '@/components/RegisterAdminPage.vue';
 
 const routes = [
   { path: '/', component: HomeView },
@@ -41,6 +42,7 @@ const routes = [
   { path : '/question-list-edit', component: QuestionListPageEdit},
   { path : '/edit-question/:id', component: EditQuestionPage, props: true},
   { path : '/add-exam', component: CreateTestPage},
+  { path : '/add-admin', component: RegisterAdminPage},
 ];
 
 const router = createRouter({
