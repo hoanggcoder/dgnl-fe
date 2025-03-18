@@ -14,6 +14,9 @@
     </button>
     </div>
   </div>
+  <div v-if="score !== null" class="score-message">
+  <p>Bạn đã đạt được <strong>{{ score }}</strong> điểm!</p>
+</div>
 </template>
   
 <script>
@@ -26,6 +29,12 @@
         questions: [],
         answers: {},
         test: null,
+        answerInput : {
+          testId: this.$route.params.id,
+          answerList: '',
+          userId: localStorage.getItem('id'),
+        },
+        score: null,
       };
     },
     created() {
@@ -35,12 +44,23 @@
       handleAnswer({ id, answer }) {
         this.answers[id] = answer; 
       },
-      submitTest() {
-        const formattedAnswers = Object.entries(this.answers)
-          .map(([id, answer]) => `Q${id}=${answer};`)
-          .join("");
-
-        console.log(formattedAnswers);
+      async submitTest() {
+        const formattedAnswers = this.questions
+        .map((question, index) => `Q${index + 1}=${this.answers[question.id] || ''};`)
+        .join("");
+        this.answerInput.answerList = formattedAnswers;
+        try {
+          const response = await axios.post(`http://localhost:8080/test/answer-test`, this.answerInput, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          console.log(formattedAnswers);
+          this.score = response.data.score;
+        } 
+        catch (error) {
+          console.error("Error fetching test:", error);
+        } 
       },
       async fetchTest() {
         const testId = this.$route.params.id;
@@ -87,5 +107,17 @@
 }
 h1 {
   text-align: center;
+}
+
+.score-message {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #28a745;
+  background: #e6ffe6;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 128, 0, 0.3);
 }
 </style>
