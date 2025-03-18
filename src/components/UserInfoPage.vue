@@ -5,6 +5,7 @@
       <div class="form-group" v-for="(field, key) in formFields" :key="key">
         <label :for="key">{{ field.label }}</label>
         <input
+          v-if="key !== 'profilePicture'"
           :type="field.type"
           :id="key"
           v-model="userData[key]"
@@ -13,10 +14,13 @@
           required
         />
       </div>
+      <div class="form-group">
+        <label>Profile Picture</label>
+        <input type="file" accept="image/*" @change="handleImageUpload" :disabled="!isEditing" />
+        <img v-if="previewImage" :src="previewImage" class="profile-preview" alt="Profile Preview" />
+      </div>
 
-      <button v-if="!isEditing" @click.prevent="toggleEdit" class="edit-btn">
-        Edit
-      </button>
+      <button v-if="!isEditing" @click.prevent="toggleEdit" class="edit-btn">Edit</button>
       <button v-else type="submit" class="save-btn">Save</button>
     </form>
     <p v-if="message" :class="{ success: isSuccess, error: !isSuccess }">{{ message }}</p>
@@ -37,11 +41,12 @@ export default {
         address: "",
         email: "",
         profilePicture: "",
-        phoneNumber: ""
+        phoneNumber: "",
       },
       isEditing: false,
       message: "",
       isSuccess: false,
+      previewImage: "", 
       formFields: {
         firstName: { label: "First Name", type: "text", placeholder: "Enter first name" },
         lastName: { label: "Last Name", type: "text", placeholder: "Enter last name" },
@@ -49,9 +54,8 @@ export default {
         address: { label: "Address", type: "text", placeholder: "Enter address" },
         phoneNumber: { label: "Phone Number", type: "tel", placeholder: "+1234567890" },
         email: { label: "Email", type: "email", placeholder: "Enter email" },
-        profilePicture: { label: "Profile Picture", type: "text", placeholder: "Profile Picture URL" },
-        role: { label: "Role", type: "text", placeholder: "Your role", disabled: true }
-      }
+        role: { label: "Role", type: "text", placeholder: "Your role", disabled: true },
+      },
     };
   },
   async mounted() {
@@ -61,16 +65,14 @@ export default {
     async fetchUserData() {
       try {
         const username = localStorage.getItem("username");
-        if (!username) {
-          throw new Error("Username not found in localStorage.");
-        }
+        if (!username) throw new Error("Username not found in localStorage.");
+
         const response = await axios.get(`http://localhost:8080/user/get-info-by-username/${username}`);
-        
-        if (response.data.dob) {
-          response.data.dob = response.data.dob.split("T")[0]; 
-        }
+
+        if (response.data.dob) response.data.dob = response.data.dob.split("T")[0]; 
 
         this.userData = response.data;
+        this.previewImage = response.data.profilePicture; 
       } catch (error) {
         console.error("Error fetching user data:", error);
         this.message = "Failed to load user data.";
@@ -83,12 +85,10 @@ export default {
     async updateUserInfo() {
       try {
         const username = localStorage.getItem("username");
-        if (!username) {
-          throw new Error("Username not found in localStorage.");
-        }
+        if (!username) throw new Error("Username not found in localStorage.");
 
         await axios.put(`http://localhost:8080/user/edit-info/${username}`, this.userData);
-        
+
         this.message = "User information updated successfully!";
         this.isSuccess = true;
         this.isEditing = false;
@@ -97,8 +97,33 @@ export default {
         this.message = "Error updating user information.";
         this.isSuccess = false;
       }
-    }
-  }
+    },
+    handleImageUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.resizeImage(e.target.result, 300, 300, (resizedImage) => {
+          this.previewImage = resizedImage;
+          this.userData.profilePicture = resizedImage; 
+        });
+      };
+      reader.readAsDataURL(file);
+    },
+    resizeImage(imageSrc, width, height, callback) {
+      const img = new Image();
+      img.src = imageSrc;
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = width;
+        canvas.height = height;
+        ctx.drawImage(img, 0, 0, width, height);
+        callback(canvas.toDataURL("image/jpeg"));
+      };
+    },
+  },
 };
 </script>
 
@@ -123,7 +148,6 @@ h2 {
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 15px;
-  margin-right: 10px;
 }
 
 .form-group label {
@@ -136,6 +160,15 @@ h2 {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+.profile-preview {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-top: 10px;
+  border: 2px solid #ccc;
 }
 
 .edit-btn, .save-btn {

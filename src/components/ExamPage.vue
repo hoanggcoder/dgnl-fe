@@ -56,7 +56,8 @@
         this.$router.push({
         path: `/test/${this.test.id}`,
         query: {
-            examName: this.exam.name
+            examName: this.exam.name,
+            examId: this.$route.params.id,
         }
         });
         }
