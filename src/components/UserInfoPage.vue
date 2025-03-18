@@ -148,6 +148,7 @@ h2 {
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 15px;
+  margin-right: 15px;
 }
 
 .form-group label {

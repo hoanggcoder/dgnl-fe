@@ -1,28 +1,32 @@
 <template>
-    <div class="container">
-      <div v-for="article in paginatedArticles" :key="article.id" class="article">
-        <img :src="article.image ? article.image : require('@/assets/article_default.png')" class="article.image" alt="Article Image" />
-        <div class="article-content">
-          <router-link :to="`/article/${article.id}`">
-          <h2 class="article-title">{{ article.title }}</h2>
-          </router-link>
-          <p class="article-description">{{ article.description }}</p>
-        </div>
-      </div>
-      
-      <div class="pagination">
-        <button 
-          v-for="page in totalPages" 
-          :key="page" 
-          @click="currentPage = page" 
-          class="page-button" 
-          :class="{'active': currentPage === page}">
-          {{ page }}
-        </button>
+  <div class="container">
+    <div v-for="article in paginatedArticles" :key="article.id" class="article-card">
+      <img 
+        :src="article.image ? article.image : require('@/assets/article_default.png')" 
+        class="article-image" 
+        alt="Article Image" 
+      />
+      <div class="article-content">
+        <router-link :to="`/article/${article.id}`" class="article-title">
+          <h2>{{ article.title }}</h2>
+        </router-link>
+        <p class="article-description">{{ article.description }}</p>
       </div>
     </div>
-  </template>
-  
+
+    <div class="pagination">
+      <button 
+        v-for="page in totalPages" 
+        :key="page" 
+        @click="currentPage = page" 
+        class="page-button" 
+        :class="{ 'active': currentPage === page }">
+        {{ page }}
+      </button>
+    </div>
+  </div>
+</template>
+
 <script>
 import axios from 'axios';
 
@@ -59,53 +63,87 @@ export default {
   }
 };
 </script>
-  
-  <style>
-  .container {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
-  }
-  .article {
-    display: flex;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  .article-image {
-    width: 20%; 
-    height: 40px; 
-    object-fit: scale-down;
-    border-radius: 5px;
+
+<style scoped>
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
 }
-  .article-content {
-    margin-left: 20px;
-    flex: 1;
-  }
-  .article-title {
-    font-size: 20px;
-    font-weight: bold;
-    text-decoration: none;  
-    color: inherit;
-  }
-  .article-description {
-    color: #666;
-  }
-  .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  .page-button {
-    margin: 0 5px;
-    padding: 8px 12px;
-    border: 1px solid #066506;
-    background: white;
-    cursor: pointer;
-    border-radius: 3px;
-  }
-  .page-button.active {
-    background: #066506;
-    color: white;
-  }
+
+.article-card {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.article-card:hover {
+  transform: translateY(-5px);
+}
+
+.article-image {
+  width: 100px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.article-content {
+  margin-left: 20px;
+  flex: 1;
+}
+
+.article-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.article-title h2 {
+  margin: 0;
+}
+
+.article-title:hover {
+  color: #066506;
+}
+
+.article-description {
+  color: #555;
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.page-button {
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: 1px solid #066506;
+  background: white;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.page-button:hover {
+  background: #066506;
+  color: white;
+}
+
+.page-button.active {
+  background: #066506;
+  color: white;
+}
 </style>
