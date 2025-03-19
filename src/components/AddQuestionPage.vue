@@ -51,7 +51,7 @@
       creatorId: localStorage.getItem("id"),
       type: 'multiple_choices',
       topicId: '',
-      articleId: '',
+      articleId: '',   
       detail: '',
       choice1: '',
       choice2: '',

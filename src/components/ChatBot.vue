@@ -43,12 +43,12 @@ export default {
         const response = await fetch('http://localhost:8080/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: userMessage }),
+          body: JSON.stringify({ question: userMessage }),
         });
 
         const data = await response.json();
-        if (data.length > 0) {
-          this.messages.push({ text: data[0].text, sender: 'bot' });
+        if (data.answer) {
+          this.messages.push({ text: data.answer, sender: 'bot' });
         }
       } catch (error) {
         console.error("Error sending message:", error);

@@ -1,7 +1,7 @@
 <template>
   <div class="user-dashboard">
     <div class="user-info-container">
-      <h2>User Information</h2>
+      <h2>Thông tin của người dùng</h2>
       <form @submit.prevent="updateUserInfo">
         <div class="form-group" v-for="(field, key) in formFields" :key="key">
           <label :for="key">{{ field.label }}</label>
@@ -16,13 +16,13 @@
           />
         </div>
         <div class="form-group">
-          <label>Profile Picture</label>
+          <label>Ảnh đại diện</label>
           <input type="file" accept="image/*" @change="handleImageUpload" :disabled="!isEditing" />
           <img v-if="previewImage" :src="previewImage" class="profile-preview" alt="Profile Preview" />
         </div>
 
-        <button v-if="!isEditing" @click.prevent="toggleEdit" class="edit-btn">Edit</button>
-        <button v-else type="submit" class="save-btn">Save</button>
+        <button v-if="!isEditing" @click.prevent="toggleEdit" class="edit-btn">Thay đổi thông tin</button>
+        <button v-else type="submit" class="save-btn">Lưu</button>
       </form>
       <p v-if="message" :class="{ success: isSuccess, error: !isSuccess }">{{ message }}</p>
     </div>
@@ -55,13 +55,13 @@ export default {
       isSuccess: false,
       previewImage: "", 
       formFields: {
-        firstName: { label: "First Name", type: "text", placeholder: "Enter first name" },
-        lastName: { label: "Last Name", type: "text", placeholder: "Enter last name" },
-        dob: { label: "Date of Birth", type: "date", placeholder: "YYYY-MM-DD" },
-        address: { label: "Address", type: "text", placeholder: "Enter address" },
-        phoneNumber: { label: "Phone Number", type: "tel", placeholder: "+1234567890" },
+        firstName: { label: "Tên", type: "text", placeholder: "Enter first name" },
+        lastName: { label: "Họ", type: "text", placeholder: "Enter last name" },
+        dob: { label: "Ngày sinh", type: "date", placeholder: "YYYY-MM-DD" },
+        address: { label: "Địa chỉ", type: "text", placeholder: "Enter address" },
+        phoneNumber: { label: "Số điện thoại", type: "tel", placeholder: "+1234567890" },
         email: { label: "Email", type: "email", placeholder: "Enter email" },
-        role: { label: "Role", type: "text", placeholder: "Your role", disabled: true },
+        role: { label: "Vai trò", type: "text", placeholder: "Your role", disabled: true },
       },
     };
   },
