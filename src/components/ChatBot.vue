@@ -40,7 +40,7 @@ export default {
       this.userMessage = '';
 
       try {
-        const response = await fetch('http://localhost:5005/webhooks/rest/webhook', {
+        const response = await fetch('http://localhost:8080/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message: userMessage }),
