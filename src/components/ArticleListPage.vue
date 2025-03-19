@@ -1,15 +1,18 @@
 <template>
   <div class="container">
-    <div v-for="article in paginatedArticles" :key="article.id" class="article-card">
+    <div 
+      v-for="article in paginatedArticles" 
+      :key="article.id" 
+      class="article-card"
+      @click="$router.push(`/article/${article.id}`)"
+    >
       <img 
         :src="article.image ? article.image : require('@/assets/article_default.png')" 
         class="article-image" 
         alt="Article Image" 
       />
       <div class="article-content">
-        <router-link :to="`/article/${article.id}`" class="article-title">
-          <h2>{{ article.title }}</h2>
-        </router-link>
+        <h2 class="article-title">{{ article.title }}</h2>
         <p class="article-description">{{ article.description }}</p>
       </div>
     </div>
@@ -80,6 +83,7 @@ export default {
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
+  cursor: pointer;
 }
 
 .article-card:hover {
@@ -104,10 +108,6 @@ export default {
   color: #333;
   text-decoration: none;
   transition: color 0.3s;
-}
-
-.article-title h2 {
-  margin: 0;
 }
 
 .article-title:hover {
