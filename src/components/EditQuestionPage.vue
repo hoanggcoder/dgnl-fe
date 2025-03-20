@@ -74,7 +74,7 @@
     border-radius: 4px;
   }
   .btn {
-    background-color: #007bff;
+    background-color: #066506;
     color: white;
     padding: 10px;
     border: none;
@@ -84,7 +84,7 @@
     margin-top: 10px;
   }
   .btn:hover {
-    background-color: #0056b3;
+    background-color: #066506;
   }
   </style>
   

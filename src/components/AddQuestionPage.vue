@@ -1,20 +1,20 @@
 <template>
     <div class="container">
-      <h2>Add New Question</h2>
+      <h2>Thêm câu hỏi</h2>
       <form @submit.prevent="submitQuestion">
         <select v-model="question.type" required class="input-field">
-          <option value="multiple_choices">Multiple Choices</option>
-          <option value="fill_in">Fill in</option>
+          <option value="multiple_choices">Trắc nghiệm khách quan</option>
+          <option value="fill_in">Điền đáp án</option>
         </select>
-        <input v-model="question.topicId" type="number" placeholder="Topic ID" required class="input-field" />
-        <textarea v-model="question.detail" placeholder="Detail" required class="input-field"></textarea>
-        <input v-model="question.choice1" placeholder="Choice 1" required class="input-field" />
-        <input v-model="question.choice2" placeholder="Choice 2" required class="input-field" />
-        <input v-model="question.choice3" placeholder="Choice 3" required class="input-field" />
-        <input v-model="question.choice4" placeholder="Choice 4" required class="input-field" />
-        <input v-model="question.answer" placeholder="Answer" required class="input-field" />
-        <input v-model="question.picturePath" placeholder="Picture Path" class="input-field" />
-        <button type="submit" class="btn">Submit</button>
+        <input v-model="question.topicId" type="number" placeholder="Chủ đề" required class="input-field" />
+        <textarea v-model="question.detail" placeholder="Đề bài" required class="input-field"></textarea>
+        <input v-model="question.choice1" placeholder="Phương án A" required class="input-field" />
+        <input v-model="question.choice2" placeholder="Phương án B" required class="input-field" />
+        <input v-model="question.choice3" placeholder="Phương án C" required class="input-field" />
+        <input v-model="question.choice4" placeholder="Phương án D" required class="input-field" />
+        <input v-model="question.answer" placeholder="Đáp án" required class="input-field" />
+        <input v-model="question.picturePath" placeholder="Đường dẫn hình ảnh" class="input-field" />
+        <button type="submit" class="btn">Thêm</button>
       </form>
     </div>
   </template>
@@ -80,7 +80,7 @@
     border-radius: 4px;
   }
   .btn {
-    background-color: #4CAF50;
+    background-color: #066506;
     color: white;
     padding: 10px;
     border: none;
@@ -90,6 +90,6 @@
     margin-top: 10px;
   }
   .btn:hover {
-    background-color: #45a049;
+    background-color: #066506;
   }
   </style>

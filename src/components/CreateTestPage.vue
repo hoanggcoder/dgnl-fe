@@ -28,12 +28,12 @@
       
       <div class="form-group">
         <label for="startTime">Thời Gian Bắt Đầu</label>
-        <input type="time" id="startTime" v-model="exam.startTime" required />
+        <input type="datetime-local" id="startTime" v-model="exam.startTime" required />
       </div>
       
       <div class="form-group">
         <label for="endTime">Thời Gian Kết Thúc</label>
-        <input type="time" id="endTime" v-model="exam.endTime" required />
+        <input type="datetime-local" id="endTime" v-model="exam.endTime" required />
       </div>
       
       <h3>Thông Tin Bài Kiểm Tra</h3>
@@ -108,6 +108,18 @@ export default {
       questionsList: []
     });
 
+    const formatDateTimeForDatabase = (dateString) => {
+      if (!dateString) return null;
+      
+      const date = new Date(dateString);
+
+      const offset = 7 * 60; 
+      date.setMinutes(date.getMinutes() + offset);
+
+      
+      return date.toISOString().replace("Z", "+07:00");
+    };
+
     const createInput = reactive({
       testId: null,
       examId: null,
@@ -162,6 +174,10 @@ export default {
     const submitExam = async () => {
       try {
         const token = localStorage.getItem("token");
+
+        exam.startTime = formatDateTimeForDatabase(exam.startTime);
+        exam.endTime = formatDateTimeForDatabase(exam.endTime);
+        console.log("Exam:", exam);
         const examResponse = await axios.post("http://localhost:8080/exam", exam, {
           headers: {
             "Content-Type": "application/json",
@@ -171,8 +187,8 @@ export default {
         
         const examId = examResponse.data.id;
         const formattedQuestionsList = testInput.questionsList
-        .map((questionId, index) => `Q${index + 1}=${questionId}`)
-        .join(";") + ";";
+          .map((questionId, index) => `Q${index + 1}=${questionId}`)
+          .join(";") + ";";
         testInput.questionsList = formattedQuestionsList;
         
         const response = await axios.post("http://localhost:8080/test/create", testInput, {

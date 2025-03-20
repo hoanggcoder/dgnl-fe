@@ -1,30 +1,34 @@
 <template>
   <div class="query-container">
-    <label for="queryInput">Nhập câu hỏi:</label>
-    <textarea id="queryInput" v-model="query" class="input-box"></textarea>
+    <div class="input-section">
+      <label for="queryInput">Nhập câu hỏi:</label>
+      <textarea id="queryInput" v-model="query" class="input-box"></textarea>
+      
+      <button @click="submitQuery" class="submit-btn">Gửi</button>
 
-    <div class="options-container">
-      <div class="option-group">
-        <label class="option-title">Mức độ:</label>
-        <label v-for="option in difficultyOptions" :key="option.value" class="option-box">
-          <input type="radio" v-model="selectedDifficulty" :value="option.value" />
-          {{ option.label }}
-        </label>
-      </div>
-
-      <div class="option-group">
-        <label class="option-title">Phương thức trả lời:</label>
-        <label v-for="option in responseOptions" :key="option.value" class="option-box">
-          <input type="radio" v-model="selectedResponseType" :value="option.value" />
-          {{ option.label }}
-        </label>
-      </div>
+      <label for="outputArea">Câu trả lời:</label>
+      <textarea id="outputArea" v-model="responseText" class="output-box" readonly></textarea>
     </div>
 
-    <button @click="submitQuery" class="submit-btn">Gửi</button>
+    <div class="options-container">
+      <div class="options-box">
+        <div class="option-group">
+          <label class="option-title">Mức độ:</label>
+          <label v-for="option in difficultyOptions" :key="option.value" class="option-box">
+            <input type="radio" v-model="selectedDifficulty" :value="option.value" />
+            {{ option.label }}
+          </label>
+        </div>
 
-    <label for="outputArea">Câu trả lời:</label>
-    <textarea id="outputArea" v-model="responseText" class="output-box" readonly></textarea>
+        <div class="option-group">
+          <label class="option-title">Phương thức trả lời:</label>
+          <label v-for="option in responseOptions" :key="option.value" class="option-box">
+            <input type="radio" v-model="selectedResponseType" :value="option.value" />
+            {{ option.label }}
+          </label>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -48,15 +52,6 @@ export default {
       ]
     };
   },
-  computed: {
-    formattedQuestion() {
-      let optionsString = "";
-      if (this.selectedDifficulty) optionsString += ` [Mức độ: ${this.selectedDifficulty}]`;
-      if (this.selectedResponseType) optionsString += ` [Thực hiện yêu cầu: ${this.selectedResponseType}]`;
-
-      return "Với câu hỏi cho trước sau " +this.query.trim() + optionsString + "Nếu đây không phải một đề bài, trả lời hãy đưa ra một câu hỏi hợp lệ.";
-    }
-  },
   methods: {
     async submitQuery() {
       if (!this.query.trim()) {
@@ -65,11 +60,11 @@ export default {
       }
 
       try {
-        console.log("Sending question:", this.formattedQuestion);
+        console.log("Sending question:", this.query);
         const response = await fetch("http://localhost:8080/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ question: this.formattedQuestion }) 
+          body: JSON.stringify({ question: this.query }) 
         });
 
         const result = await response.json();
@@ -85,11 +80,31 @@ export default {
 
 <style scoped>
 .query-container {
-  max-width: 700px;
+  display: flex;
+  max-width: 900px;
   margin: auto;
+  gap: 20px;
+}
+
+.input-section {
+  flex: 2;
   display: flex;
   flex-direction: column;
-  font-family: Arial, sans-serif;
+}
+
+.options-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.options-box {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
 }
 
 label {
@@ -97,63 +112,57 @@ label {
   margin-top: 10px;
 }
 
-.input-box {
+.input-box, .output-box {
   width: 100%;
-  height: 120px;
-  padding: 10px;
+  height: 150px;
+  padding: 12px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 16px;
-  margin-top: 5px;
-}
-
-.output-box {
-  width: 100%;
-  height: 120px;
-  background-color: #f0f0f0;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 16px;
-  margin-top: 5px;
   resize: none;
 }
 
-.options-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 10px 0;
+.output-box {
+  background-color: #f0f0f0;
 }
 
 .option-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  margin-bottom: 15px;
 }
 
 .option-title {
   font-weight: bold;
-  width: 100%;
 }
 
 .option-box {
   display: flex;
   align-items: center;
   gap: 5px;
+  margin-left: 10px;
 }
 
 .submit-btn {
-  padding: 10px;
+  padding: 12px;
   background-color: #066506;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
   margin-top: 10px;
+  transition: 0.3s;
 }
 
 .submit-btn:hover {
   background-color: #054a04;
+}
+
+@media (max-width: 768px) {
+  .query-container {
+    flex-direction: column;
+  }
+  .options-container {
+    justify-content: flex-start;
+  }
 }
 </style>

@@ -1,43 +1,48 @@
 <template>
-    <div class="management-container">
-      <aside class="sidebar">
-        <h3>Quản Lý</h3>
-        <ul>
-          <li @click="changeEntity('admin')" :class="{ active: selectedEntity === 'admin' }">Quản Trị Viên</li>
-          <li @click="changeEntity('exam')" :class="{ active: selectedEntity === 'exam' }">Kỳ Thi</li>
-          <li @click="changeEntity('article')" :class="{ active: selectedEntity === 'article' }">Bài Viết</li>
-          <li @click="changeEntity('question')" :class="{ active: selectedEntity === 'question' }">Câu hỏi</li>
-        </ul>
-      </aside>
-      
-      <main class="content">
-        <h2>Danh Sách {{ entityName }}</h2>
-        <button class="add-btn" @click="addItem">➕ Thêm Mới</button>
-        
-        <div class="item-list">
-          <div v-for="item in paginatedItems" :key="item.id" class="item">
-            <p v-if="selectedEntity === 'admin'">{{ item.username }} - Vai trò :{{ item.role }}</p>
-            <p v-else-if="selectedEntity === 'exam'">{{ item.name }} - Độ khó: {{ item.difficulty }}</p>
-            <p v-else-if="selectedEntity === 'article'">{{ item.title }} - Chủ Đề: {{ item.topicId }}</p>
-            <p v-else-if="selectedEntity === 'question'">{{ item.detail }} - Đáp án: {{ item.answer }}</p>
-            <div class="actions">
-              <button v-if="selectedEntity !== 'admin'" @click="editItem(item.id)">✏️</button>
-              <button @click="deleteItem(item.id)">🗑</button>
-            </div>
-          </div>
-        </div>
-  
-        <div class="pagination">
-          <button v-for="page in totalPages" :key="page" @click="currentPage = page" :class="{ active: currentPage === page }">
-            {{ page }}
-          </button>
-        </div>
-      </main>
-    </div>
-  </template>
-  
-  <script>
-import axios from 'axios';
+  <div class="management-container">
+    <aside class="sidebar">
+      <h3>Quản Lý</h3>
+      <ul>
+        <li @click="changeEntity('admin')" :class="{ active: selectedEntity === 'admin' }">Quản Trị Viên</li>
+        <li @click="changeEntity('exam')" :class="{ active: selectedEntity === 'exam' }">Kỳ Thi</li>
+        <li @click="changeEntity('article')" :class="{ active: selectedEntity === 'article' }">Bài Viết</li>
+        <li @click="changeEntity('question')" :class="{ active: selectedEntity === 'question' }">Câu Hỏi</li>
+      </ul>
+    </aside>
+
+    <main class="content">
+      <h2>Danh Sách {{ entityName }}</h2>
+      <button class="add-btn" @click="addItem">➕ Thêm Mới</button>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th v-for="header in tableHeaders" :key="header">{{ header }}</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in paginatedItems" :key="item.id">
+            <td v-for="field in tableFields" :key="field">{{ item[field] }}</td>
+            <td class="actions">
+              <button v-if="selectedEntity !== 'admin'" class="edit-btn" @click="editItem(item.id)">✏️</button>
+              <button class="delete-btn" @click="deleteItem(item.id)">🗑</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="pagination">
+        <button v-for="page in totalPages" :key="page" @click="currentPage = page" :class="{ active: currentPage === page }">
+          {{ page }}
+        </button>
+      </div>
+    </main>
+  </div>
+</template>
+
+<script>
+import axios from "axios";
 
 export default {
   data() {
@@ -62,6 +67,34 @@ export default {
         : this.selectedEntity === "article" ? "Bài Viết"
         : "Câu Hỏi";
     },
+    tableHeaders() {
+      switch (this.selectedEntity) {
+        case "admin":
+          return ["Tên đăng nhập", "Vai trò"];
+        case "exam":
+          return ["Tên kỳ thi", "Độ khó"];
+        case "article":
+          return ["Tiêu đề", "Chủ đề", "Mô tả"];
+        case "question":
+          return ["Nội dung", "Đáp án"];
+        default:
+          return [];
+      }
+    },
+    tableFields() {
+      switch (this.selectedEntity) {
+        case "admin":
+          return ["username", "role"];
+        case "exam":
+          return ["name", "difficulty"];
+        case "article":
+          return ["title", "topicId", "description"];
+        case "question":
+          return ["detail", "answer"];
+        default:
+          return [];
+      }
+    },
     totalPages() {
       return Math.ceil(this.items.length / this.itemsPerPage);
     },
@@ -73,13 +106,24 @@ export default {
   methods: {
     async fetchItems() {
       try {
-        const response = await axios.get(this.apiEndpoints[this.selectedEntity], {
+        if (this.selectedEntity === "admin") {
+          const response = await axios.get('http://localhost:8080/user/admin', {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${this.token}`,
+            }
+          });
+          this.items = response.data;
+        } else {
+          const response = await axios.get(this.apiEndpoints[this.selectedEntity], {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${this.token}`,
           }
-        });
+        })
         this.items = response.data;
+        }
+        
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -116,84 +160,128 @@ export default {
   }
 };
 </script>
-  
-  <style scoped>
-  .management-container {
-    display: flex;
-  }
-  
-  .sidebar {
-    width: 200px;
-    background: #f4f4f4;
-    padding: 20px;
-  }
-  
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .sidebar li {
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .sidebar li.active {
-    background: #066506;
-    color: white;
-  }
-  
-  .content {
-    flex: 1;
-    padding: 20px;
-  }
-  
-  .add-btn {
-    padding: 8px 12px;
-    margin-bottom: 10px;
-    background: #066506;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .item-list {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .item {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .actions button {
-    margin-left: 5px;
-    border: none;
-    cursor: pointer;
-    padding: 5px 8px;
-    border-radius: 5px;
-  }
-  
-  .pagination {
-    margin-top: 10px;
-  }
-  
-  .pagination button {
-    margin: 0 5px;
-    padding: 5px 10px;
-    border: 1px solid #066506;
-    background: white;
-    cursor: pointer;
-    border-radius: 3px;
-  }
-  
-  .pagination button.active {
-    background: #066506;
-    color: white;
-  }
-  </style>
+
+<style scoped>
+.management-container {
+  display: flex;
+}
+
+.sidebar {
+  width: 200px;
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition:  0.3s;
+}
+
+.sidebar li:hover {
+  background: #ddd;
+}
+
+.sidebar li.active {
+  background: #066506;
+  color: white;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.add-btn {
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  background: #066506;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition:  0.3s;
+}
+
+.add-btn:hover {
+  background: #055005;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.data-table th, .data-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.data-table th {
+  background-color: #f4f4f4;
+}
+
+.data-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.data-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-btn, .delete-btn {
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.edit-btn {
+  background: #066506;
+  color: black;
+}
+
+.edit-btn:hover {
+  background: #066506;
+}
+
+.delete-btn {
+  background: #dc3545;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #c82333;
+}
+
+.pagination {
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 5px;
+  padding: 5px 10px;
+  border: 1px solid #066506;
+  background: white;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.pagination button.active {
+  background: #066506;
+  color: white;
+}
+</style>

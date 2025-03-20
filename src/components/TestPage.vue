@@ -19,7 +19,7 @@
 
     <div v-if="score !== null" class="score-container">
     <p class="score-message">
-      Bạn đã đạt được <strong>{{ score }}</strong> điểm!
+      Bạn đã đạt được <strong>{{ parseFloat(score).toFixed(2)}}</strong> điểm!
     </p>
     <p v-if="passed" class="pass-message">🎉 Chúc mừng! Bạn đã vượt qua bài kiểm tra! 🎉</p>
     <p v-else class="fail-message">❌ Rất tiếc! Bạn chưa đạt điểm yêu cầu. ❌</p>
@@ -75,7 +75,6 @@
             },
           });
           this.score = response.data.score;
-          console.log("Score:", this.scoreToPass);
           this.passed = this.score >= this.scoreToPass;
         } catch (error) {
           console.error("Error fetching test:", error);

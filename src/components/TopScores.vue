@@ -1,28 +1,28 @@
 <template>
     <div class="container">
-      <h2>Top 10 Users - {{ examName }}</h2>
+      <h2>Danh sách điểm cao - {{ examName }}</h2>
       <div v-if="scores.length > 0">
         <table class="score-table">
           <thead>
             <tr>
-              <th>Rank</th>
-              <th>User</th>
-              <th>Score</th>
-              <th>Date</th>
+              <th>Hạng</th>
+              <th>Username</th>
+              <th>Điểm</th>
+              <th>Ngày thi</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(score, index) in scores" :key="score.id">
               <td>#{{ index + 1 }}</td>
               <td>{{ score.username }}</td>
-              <td>{{ score.score }}</td>
+              <td>{{ parseFloat(score.score).toFixed(2) }}</td>
               <td>{{ formatDate(score.finishDate) }}</td>
             </tr>
           </tbody>
         </table>
       </div>
       <div v-else>
-        <p>No scores available.</p>
+        <p>Chưa có điểm số nào</p>
       </div>
     </div>
   </template>
