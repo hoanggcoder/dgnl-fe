@@ -7,7 +7,6 @@
           <option value="fill_in">Fill in</option>
         </select>
         <input v-model="question.topicId" type="number" placeholder="Topic ID" required class="input-field" />
-        <input v-model="question.articleId" type="number" placeholder="Article ID" class="input-field" />
         <textarea v-model="question.detail" placeholder="Detail" required class="input-field"></textarea>
         <input v-model="question.choice1" placeholder="Choice 1" required class="input-field" />
         <input v-model="question.choice2" placeholder="Choice 2" required class="input-field" />
@@ -28,7 +27,6 @@
     creatorId: localStorage.getItem("id"),
     type: 'multiple_choices',
     topicId: '',
-    articleId: '',
     detail: '',
     choice1: '',
     choice2: '',
@@ -51,7 +49,6 @@
       creatorId: localStorage.getItem("id"),
       type: 'multiple_choices',
       topicId: '',
-      articleId: '',   
       detail: '',
       choice1: '',
       choice2: '',

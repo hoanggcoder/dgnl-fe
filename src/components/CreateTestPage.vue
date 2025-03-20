@@ -98,6 +98,7 @@ export default {
       difficulty: "easy",
       startTime: "",
       endTime: "",
+      active: "A"
     });
     
     const testInput = reactive({
@@ -151,7 +152,7 @@ export default {
 
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/questions");
+        const response = await axios.get("http://localhost:8080/question");
         questions.value = response.data;
       } catch (err) {
         console.error("Lỗi khi lấy danh sách câu hỏi", err);

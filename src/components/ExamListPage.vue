@@ -40,12 +40,15 @@ export default {
     };
   },
   computed: {
+    filteredExams() {
+      return this.exams.filter(exam => exam.active);
+    },
     totalPages() {
-      return Math.ceil(this.exams.length / this.itemsPerPage);
+      return Math.ceil(this.filteredExams.length / this.itemsPerPage);
     },
     paginatedExams() {
       const start = (this.currentPage - 1) * this.itemsPerPage;
-      return this.exams.slice(start, start + this.itemsPerPage);
+      return this.filteredExams.slice(start, start + this.itemsPerPage);
     }
   },
   methods: {
@@ -53,7 +56,6 @@ export default {
       try {
         const response = await axios.get('http://localhost:8080/exam');
         this.exams = response.data;
-        console.log('Exams:', this.exams);
       } catch (error) {
         console.error('Error fetching exams:', error);
       }

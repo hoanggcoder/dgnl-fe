@@ -60,7 +60,7 @@
           const token = localStorage.getItem("token"); 
           const userId = localStorage.getItem("id");
           this.article.creatorId = userId;
-          await axios.post("http://localhost:8080/articles", this.article, {
+          await axios.post("http://localhost:8080/article", this.article, {
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",

@@ -56,7 +56,7 @@
     methods: {
       async fetchArticles() {
         try {
-          const response = await axios.get("http://localhost:8080/articles");
+          const response = await axios.get("http://localhost:8080/article");
           this.articles = response.data;
         } catch (error) {
           console.error("Error fetching articles:", error);

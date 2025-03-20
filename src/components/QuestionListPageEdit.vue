@@ -88,7 +88,7 @@ export default {
   methods: {
     async fetchQuestions() {
       try {
-        const response = await axios.get('http://localhost:8080/questions');
+        const response = await axios.get('http://localhost:8080/question');
         this.questions = response.data;
       } catch (error) {
         console.error('Lỗi khi tải danh sách câu hỏi:', error);
@@ -101,7 +101,7 @@ export default {
       if (confirm('Bạn có chắc chắn muốn xóa câu hỏi này không?')) {
         try {
           const token = localStorage.getItem("token");
-          await axios.delete(`http://localhost:8080/questions/${id}`, {
+          await axios.delete(`http://localhost:8080/question/${id}`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           this.questions = this.questions.filter(q => q.id !== id);

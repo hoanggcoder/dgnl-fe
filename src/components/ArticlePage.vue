@@ -39,7 +39,7 @@ export default {
     async fetchArticle() {
       const articleId = this.$route.params.id;
       try {
-        const response = await axios.get(`http://localhost:8080/articles/${articleId}`);
+        const response = await axios.get(`http://localhost:8080/article/${articleId}`);
         this.article = response.data;
         console.log("Fetched article:", this.article);
       } catch (error) {
@@ -48,7 +48,7 @@ export default {
     },
     async fetchRelatedNews() {
       try {
-        const response = await axios.get("http://localhost:8080/articles");
+        const response = await axios.get("http://localhost:8080/article");
         this.relatedNews = response.data.slice(0, 4);
       } catch (error) {
         console.error("Error fetching related news:", error);

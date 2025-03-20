@@ -11,8 +11,8 @@
         </div>
       </div>
       <div class="input-box">
-        <input v-model="userMessage" @keyup.enter="sendMessage" placeholder="Type a message..." />
-        <button @click="sendMessage">Send</button>
+        <input v-model="userMessage" @keyup.enter="sendMessage" placeholder="Nhập câu hỏi liên quan tới kỳ thi ĐGNL" />
+        <button @click="sendMessage">Gửi</button>
       </div>
     </div>
   </div>

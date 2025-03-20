@@ -7,7 +7,6 @@
           <option value="fill_in">Fill in</option>
         </select>
         <input v-model="question.topicId" type="number" placeholder="Topic ID" required class="input-field" />
-        <input v-model="question.articleId" type="number" placeholder="Article ID" class="input-field" />
         <textarea v-model="question.detail" placeholder="Detail" required class="input-field"></textarea>
         <input v-model="question.choice1" placeholder="Choice 1" required class="input-field" />
         <input v-model="question.choice2" placeholder="Choice 2" required class="input-field" />
@@ -32,7 +31,7 @@
   const fetchQuestion = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(`http://localhost:8080/questions/${route.params.id}`, {
+      const response = await axios.get(`http://localhost:8080/question/${route.params.id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       question.value = response.data;
@@ -44,7 +43,7 @@
   const updateQuestion = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axios.put(`http://localhost:8080/questions/${route.params.id}`, question.value, {
+      await axios.put(`http://localhost:8080/question/${route.params.id}`, question.value, {
         headers: { Authorization: `Bearer ${token}` }
       });
       alert('Question updated successfully!');

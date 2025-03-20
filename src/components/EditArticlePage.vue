@@ -61,7 +61,7 @@
       async fetchArticle(id) {
         try {
           const token = localStorage.getItem("token");
-          const response = await axios.get(`http://localhost:8080/articles/${id}`, {
+          const response = await axios.get(`http://localhost:8080/article/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           this.article = response.data;
@@ -72,7 +72,7 @@
       async updateArticle() {
         try {
           const token = localStorage.getItem("token");
-          await axios.put(`http://localhost:8080/articles/${this.article.id}`, this.article, {
+          await axios.put(`http://localhost:8080/article/${this.article.id}`, this.article, {
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
