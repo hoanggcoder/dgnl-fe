@@ -11,7 +11,8 @@
             :id="key"
             v-model="userData[key]"
             :placeholder="field.placeholder"
-            :disabled="!isEditing"
+            :disabled="!isEditing || key === 'role'"
+            readonly="key === 'role'"
             required
           />
         </div>

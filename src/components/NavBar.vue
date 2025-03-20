@@ -30,8 +30,8 @@
     <div class="nav-buttons">
   <div v-if="user" class="user-container">
     <div class="user-info">
-      <router-link :to="`/user-info/${user.username}`">
         <img :src="user.avatar || defaultAvatar" alt="User Avatar" class="avatar" />
+      <router-link :to="`/user-info/${user.username}`">
         <span class="username">{{ user.username }}</span>
       </router-link>
     </div>
@@ -152,14 +152,17 @@ export default {
 
 .user-info {
   display: flex;
-  align-items: center; 
-  justify-content: center; 
-  gap: 8px;
+  align-items: center;
+  gap: 10px; 
   background: rgba(255, 255, 255, 0.2);
-  padding: 10px 15px;
+  padding: 5px 10px;
   border-radius: 25px;
   transition: 0.3s ease;
-  height: 50px; 
+  height: 50px;
+  width: auto; 
+  flex-direction: row; 
+  justify-content: flex-start;
+  white-space: nowrap; 
 }
 
 .user-info:hover {
@@ -177,8 +180,8 @@ export default {
   height: 35px;
   border-radius: 50%;
   object-fit: cover;
-  margin-left: 25px;
   border: 2px solid white;
+  flex-shrink: 0; 
 }
 
 .username {
@@ -188,6 +191,8 @@ export default {
   display: flex;
   align-items: center;
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .logout-btn {

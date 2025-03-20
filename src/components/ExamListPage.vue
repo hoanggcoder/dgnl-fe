@@ -1,17 +1,14 @@
 <template>
   <div class="container">
     <div v-for="exam in paginatedExams" :key="exam.id" class="exam-card">
-      <img 
-        :src="exam.image ? exam.image : require('@/assets/exam_default.png')" 
-        class="exam-image" 
-        alt="Exam Image" 
-      />
-      <div class="exam-content">
+      <div class="exam-info">
         <router-link :to="`/exam/${exam.id}`" class="exam-title">
           <h2>{{ exam.name }}</h2>
         </router-link>
         <p class="exam-description">{{ exam.description }}</p>
-        <p class="exam-difficulty">Mức độ: <span>{{ exam.difficulty }}</span></p>
+      </div>
+      <div class="exam-meta">
+        <p class="exam-difficulty"><strong>Mức độ:</strong> <span>{{ formattedDifficulty(exam.difficulty) }}</span></p>
       </div>
     </div>
 
@@ -50,6 +47,7 @@ export default {
       const start = (this.currentPage - 1) * this.itemsPerPage;
       return this.filteredExams.slice(start, start + this.itemsPerPage);
     }
+
   },
   methods: {
     async fetchExams() {
@@ -59,11 +57,24 @@ export default {
       } catch (error) {
         console.error('Error fetching exams:', error);
       }
+    },
+    formattedDifficulty(difficulty) {
+      switch (difficulty) {
+        case 'easy':
+          return 'Dễ';
+        case 'medium':
+          return 'Trung bình';
+        case 'hard':
+          return 'Khó';
+        default:
+          return 'Không xác định';
+      }
     }
   },
   mounted() {
     this.fetchExams();
-  }
+  },
+  
 };
 </script>
 
@@ -76,6 +87,7 @@ export default {
 
 .exam-card {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   background: #fff;
   padding: 15px;
@@ -85,16 +97,14 @@ export default {
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
+.exam-info {
+  flex: 3;
+  text-align: left; 
+}
+
 .exam-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-}
-
-.exam-image {
-  width: 120px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 8px;
 }
 
 .exam-content {
@@ -110,8 +120,14 @@ export default {
   transition: color 0.3s;
 }
 
+.exam-meta {
+  flex: 1;
+  text-align: right;
+}
+
 .exam-title h2 {
   margin: 0;
+  font-size: 20px;
 }
 
 .exam-title:hover {
@@ -126,9 +142,7 @@ export default {
 
 .exam-difficulty {
   font-size: 16px;
-  color: #333;
   font-weight: bold;
-  margin-top: 5px;
 }
 
 .exam-difficulty span {

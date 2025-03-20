@@ -13,7 +13,7 @@
           </thead>
           <tbody>
             <tr v-for="(score, index) in scores" :key="score.id">
-              <td>#{{ index + 1 }}</td>
+              <td>{{ index + 1 }}</td>
               <td>{{ score.username }}</td>
               <td>{{ parseFloat(score.score).toFixed(2) }}</td>
               <td>{{ formatDate(score.finishDate) }}</td>

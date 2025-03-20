@@ -12,7 +12,7 @@
         <tbody>
           <tr v-for="score in examScores" :key="score.examId">
             <td>{{ score.examname }}</td>
-            <td>{{ score.score }}</td>
+            <td>{{ parseFloat(score.score).toFixed(2) }}</td>
             <td>{{ formatDate(score.finishDate) }}</td>
           </tr>
         </tbody>

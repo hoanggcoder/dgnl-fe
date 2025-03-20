@@ -7,7 +7,6 @@
         <p><strong>Tên:</strong> {{ exam.name }}</p>
         <p><strong>Loại:</strong> {{ exam.type }}</p>
         <p><strong>Mô tả:</strong> {{ exam.description || 'Không có mô tả' }}</p>
-        <p><strong>Độ khó:</strong> {{ exam.difficulty }}</p>
         <p><strong>Thời gian bắt đầu:</strong> {{ formatDate(exam.startTime) }}</p>
         <p><strong>Thời gian kết thúc:</strong> {{ formatDate(exam.endTime) }}</p>
       </div>
@@ -79,7 +78,7 @@ export default {
         day: "numeric",
         hour: "2-digit",
         minute: "2-digit",
-      });
+      }).substring(4);
     },
   },
 };
