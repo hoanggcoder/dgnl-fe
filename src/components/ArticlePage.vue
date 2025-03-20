@@ -9,7 +9,7 @@
     </div>
 
     <div class="sidebar">
-      <h2>Related News</h2>
+      <h2>Tin khác</h2>
       <ul>
         <li v-for="news in relatedNews" :key="news.id" class="news-item">
           <img :src="news.image || defaultImage" alt="News Image" class="news-image" />
@@ -28,7 +28,7 @@ export default {
     return {
       article: null,
       relatedNews: [],
-      defaultImage: require('@/assets/article_default.png')
+      defaultImage: require('@/assets/news_default.png')
     };
   },
   created() {

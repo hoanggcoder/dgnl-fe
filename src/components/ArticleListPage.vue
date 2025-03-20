@@ -1,19 +1,21 @@
 <template>
   <div class="container">
-    <div 
-      v-for="article in paginatedArticles" 
-      :key="article.id" 
-      class="article-card"
-      @click="$router.push(`/article/${article.id}`)"
-    >
-      <img 
-        :src="article.image ? article.image : require('@/assets/article_default.png')" 
-        class="article-image" 
-        alt="Article Image" 
-      />
-      <div class="article-content">
-        <h2 class="article-title">{{ article.title }}</h2>
-        <p class="article-description">{{ article.description }}</p>
+    <div class="articles-grid">
+      <div 
+        v-for="article in paginatedArticles" 
+        :key="article.id" 
+        class="article-card"
+        @click="$router.push(`/article/${article.id}`)"
+      >
+        <img 
+          :src="article.image ? article.image : require('@/assets/news_default.png')" 
+          class="article-image" 
+          alt="Article Image" 
+        />
+        <div class="article-content">
+          <h2 class="article-title">{{ article.title }}</h2>
+          <p class="article-description">{{ article.description }}</p>
+        </div>
       </div>
     </div>
 
@@ -38,7 +40,7 @@ export default {
     return {
       articles: [],
       currentPage: 1,
-      itemsPerPage: 10
+      itemsPerPage: 9 
     };
   },
   computed: {
@@ -69,21 +71,24 @@ export default {
 
 <style scoped>
 .container {
-  max-width: 900px;
+  max-width: 1200px;
   margin: auto;
   padding: 20px;
 }
 
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
 .article-card {
-  display: flex;
-  align-items: center;
   background: #fff;
-  padding: 15px;
-  margin-bottom: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
+  overflow: hidden;
   cursor: pointer;
+  transition: transform 0.2s;
 }
 
 .article-card:hover {
@@ -91,23 +96,21 @@ export default {
 }
 
 .article-image {
-  width: 100px;
-  height: 80px;
+  width: 100%;
+  height: 200px;
   object-fit: cover;
-  border-radius: 8px;
 }
 
 .article-content {
-  margin-left: 20px;
-  flex: 1;
+  padding: 15px;
+  text-align: center;
 }
 
 .article-title {
   font-size: 20px;
   font-weight: bold;
   color: #333;
-  text-decoration: none;
-  transition: color 0.3s;
+  margin-bottom: 5px;
 }
 
 .article-title:hover {
@@ -117,7 +120,6 @@ export default {
 .article-description {
   color: #555;
   font-size: 16px;
-  margin-top: 5px;
 }
 
 .pagination {
@@ -145,5 +147,16 @@ export default {
 .page-button.active {
   background: #066506;
   color: white;
+}
+@media (max-width: 900px) {
+  .articles-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .articles-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 </style>
