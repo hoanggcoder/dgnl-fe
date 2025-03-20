@@ -25,9 +25,6 @@
       <li v-if = "role === 'admin'">
         <router-link to="/manage" @click="setActive('manage')" :class="{ active: activeLink === 'manage' }">Quản lý</router-link>
       </li>
-      <li v-if = "role === 'admin'">
-        <router-link to="/manage-new" @click="setActive('manage-new')" :class="{ active: activeLink === 'manage-new' }">Mới</router-link>
-      </li>
     </ul>
 
     <div class="nav-buttons">

@@ -11,7 +11,6 @@ import TestPage from '@/components/TestPage.vue';
 import ExamPage from '@/components/ExamPage.vue';
 import UserInfoView from '@/views/UserInfoView.vue';
 import AddArticleView from '@/views/AddArticleView.vue';
-import ManagePage from '@/components/ManagePage.vue';
 import EditArticlePage from '@/components/EditArticlePage.vue';
 import ArticleListPageEdit from '@/components/ArticleListPageEdit.vue';
 import ExamListPageEdit from '@/components/ExamListPageEdit.vue';
@@ -20,7 +19,7 @@ import QuestionListPageEdit from '@/components/QuestionListPageEdit.vue';
 import EditQuestionPage from '@/components/EditQuestionPage.vue';
 import CreateTestPage from '@/components/CreateTestPage.vue';
 import RegisterAdminPage from '@/components/RegisterAdminPage.vue';
-import ManagePageNew from '@/components/ManagePageNew.vue';
+import ManagePage from '@/components/ManagePage.vue';
 
 const routes = [
   { path: '/', component: HomeView },
@@ -44,7 +43,7 @@ const routes = [
   { path : '/edit-question/:id', component: EditQuestionPage, props: true},
   { path : '/add-exam', component: CreateTestPage},
   { path : '/add-admin', component: RegisterAdminPage},
-  { path : '/manage-new', component: ManagePageNew},
+  { path : '/manage', component: ManagePage},
 ];
 
 const router = createRouter({
