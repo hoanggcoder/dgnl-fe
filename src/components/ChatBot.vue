@@ -60,7 +60,6 @@ export default {
   
 
 <style scoped>
-/* Chatbot Container */
 .chat-container {
   position: fixed;
   right: 20px;

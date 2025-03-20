@@ -181,12 +181,12 @@ h1 {
   font-size: 16px;
   border: none;
   border-radius: 5px;
-  background: #007bff;
+  background: #066506;
   color: white;
   cursor: pointer;
 }
 
 .return-button:hover {
-  background: #0056b3;
+  background: #066506;
 }
 </style>
