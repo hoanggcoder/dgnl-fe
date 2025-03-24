@@ -12,7 +12,7 @@
 
     <main class="content">
       <h2>Danh Sách {{ entityName }}</h2>
-      <button class="add-btn" @click="addItem">➕ Thêm Mới</button>
+      <button class="add-btn" @click="addItem">Thêm Mới</button>
 
       <table class="data-table">
         <thead>
@@ -130,6 +130,7 @@ export default {
     },
     changeEntity(entity) {
       this.selectedEntity = entity;
+      this.currentPage = 1;
       this.fetchItems();
     },
     addItem() {

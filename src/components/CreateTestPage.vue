@@ -62,20 +62,25 @@
         </select>
       </div>
       
-      <div v-for="question in paginatedQuestions" :key="question.id" class="question-item">
-        <input type="checkbox" :value="question.id" v-model="testInput.questionsList" />
+      <div v-for="question in paginatedQuestions" 
+           :key="question.id" 
+           class="question-item"
+           :class="{ selected: testInput.questionsList.includes(question.id) }"
+           @click="toggleQuestionSelection(question.id)">
         <div class="question-content">
-          <h3>{{ question.detail }}</h3>
+          <p><strong>Đề bài:</strong>  {{ question.detail }}</p>
           <p><strong>Đáp án:</strong> {{ question.answer }}</p>
         </div>
       </div>
       
       <div class="pagination">
-        <button @click="prevPage" :disabled="currentPage === 1">Trang trước</button>
-        <span>Trang {{ currentPage }} / {{ totalPages }}</span>
-        <button @click="nextPage" :disabled="currentPage === totalPages">Trang sau</button>
+        <span v-for="page in totalPages" :key="page" 
+              :class="{ active: currentPage === page }"
+              @click="goToPage(page)">
+          {{ page }}
+        </span>
       </div>
-      
+
       <button type="submit">Thêm Kỳ Thi và Bài Kiểm Tra</button>
     </form>
     
@@ -100,6 +105,15 @@ export default {
       endTime: "",
       active: "A"
     });
+
+    const toggleQuestionSelection = (questionId) => {
+      const index = testInput.questionsList.indexOf(questionId);
+      if (index === -1) {
+        testInput.questionsList.push(questionId);
+      } else {
+        testInput.questionsList.splice(index, 1);
+      }
+    };
     
     const testInput = reactive({
       timeLimit: null,
@@ -147,16 +161,8 @@ export default {
       return filteredQuestions.value.slice(start, start + itemsPerPage);
     });
     
-    const prevPage = () => {
-      if (currentPage.value > 1) {
-        currentPage.value--;
-      }
-    };
-    
-    const nextPage = () => {
-      if (currentPage.value < totalPages.value) {
-        currentPage.value++;
-      }
+    const goToPage = (page) => {
+      currentPage.value = page;
     };
     
     const message = ref("");
@@ -217,7 +223,7 @@ export default {
     
     onMounted(fetchQuestions);
 
-    return { exam, testInput, searchQuery, selectedType, paginatedQuestions, currentPage, totalPages, prevPage, nextPage, message, error, submitExam };
+    return { exam, testInput, searchQuery, selectedType, paginatedQuestions, currentPage, totalPages, goToPage, message, error, submitExam,toggleQuestionSelection };
   },
 };
 </script>
@@ -267,5 +273,66 @@ button {
 
 button:hover {
   background-color: #054b04;
+}
+
+.question-item {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.question-item.selected {
+  background-color: #d4edda;
+  border-color: #28a745;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 5px;
+}
+
+.pagination button {
+  background-color: #066506;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #054b04;
+}
+
+.pagination span {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: 0.3s, color 0.3s;
+}
+
+.pagination span:hover {
+  background-color: #28a745;
+  color: white;
+}
+
+.pagination span.active {
+  background-color: #066506;
+  color: white;
 }
 </style>
