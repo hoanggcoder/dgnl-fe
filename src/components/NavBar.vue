@@ -97,6 +97,13 @@ export default {
   padding: 15px 50px;
   color: white;
   font-family: Arial, sans-serif;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 93vw;
+  z-index: 1000;
 }
 
 .nav-left {

@@ -84,6 +84,7 @@ export default {
   max-width: 900px;
   margin: auto;
   gap: 20px;
+  padding-top: 20px;
 }
 
 .input-section {

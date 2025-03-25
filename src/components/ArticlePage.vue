@@ -11,7 +11,7 @@
     <div class="sidebar">
       <h2>Tin khác</h2>
       <ul>
-        <li v-for="news in relatedNews" :key="news.id" class="news-item">
+        <li v-for="news in relatedNews" :key="news.id"  class="news-item">
           <img :src="news.image || defaultImage" alt="News Image" class="news-image" />
           <router-link :to="`/article/${news.id}`" class="news-title">{{ news.title }}</router-link>
         </li>
@@ -49,11 +49,14 @@ export default {
     async fetchRelatedNews() {
       try {
         const response = await axios.get("http://localhost:8080/article");
-        this.relatedNews = response.data.slice(0, 4);
+        const currentArticleId = this.$route.params.id; 
+        this.relatedNews = response.data
+          .filter(news => news.id != currentArticleId) 
+          .slice(0, 4); 
       } catch (error) {
         console.error("Error fetching related news:", error);
       }
-    }
+    } 
   },
   watch: {
     '$route.params.id': {
