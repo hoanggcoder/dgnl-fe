@@ -21,7 +21,8 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import axios from 'axios';
 import CardPage from '@/components/CardPage.vue';
 import DailyQuestionPage from '@/components/DailyQuestionPage.vue';
 import ChatBot from '@/components/ChatBot.vue';
@@ -59,16 +60,24 @@ const cards = ref([
   }
 ]);
 
-const questionData = ref({
-  type: "multiple_choices",
-  detail: "Thủ đô của nước Pháp là?",
-  choice1: "Berlin",
-  choice2: "Madrid",
-  choice3: "Paris",
-  choice4: "Rome",
-  answer: "Paris",
-  picturePath: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Flag_of_France.svg/188px-Flag_of_France.svg.png",
-});
+const questionData = ref(null);
+
+const fetchDailyQuestion = async () => {
+  try {
+    const response = await axios.get("http://localhost:8080/question/daily-question");
+    const questionId = response.data;
+
+    if (questionId) {
+      const questionResponse = await axios.get(`http://localhost:8080/question/${questionId}`);
+      questionData.value = questionResponse.data;
+      console.log(questionData);
+    }
+  } catch (error) {
+    console.error("Error fetching daily question:", error);
+  }
+};
+
+onMounted(fetchDailyQuestion);
 
 const currentIndex = ref(0);
 const visibleCards = computed(() => {

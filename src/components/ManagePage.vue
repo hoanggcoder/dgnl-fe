@@ -26,6 +26,7 @@
             <td v-for="field in tableFields" :key="field">{{ item[field] }}</td>
             <td class="actions">
               <button v-if="selectedEntity !== 'admin'" class="edit-btn" @click="editItem(item.id)">✏️</button>
+              <button v-if="selectedEntity === 'question'" class="daily-btn" @click="addDaily(item.id)">⭐</button>
               <button class="delete-btn" @click="deleteItem(item.id)">🗑</button>
             </td>
           </tr>
@@ -139,6 +140,22 @@ export default {
     editItem(id) {
       this.$router.push(`/edit-${this.selectedEntity}/${id}`);
     },
+    async addDaily(id) {
+      if (confirm("Bạn có chắc muốn đặt đây làm câu hỏi của ngày này?")) {
+        try {
+          await axios.post(`${this.apiEndpoints[this.selectedEntity]}/${id}`, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${this.token}`,
+            }
+          });
+          alert("Đã đặt thành công!");
+        } catch (error) {
+          console.error("Lỗi khi xóa:", error);
+        }
+      }
+    }
+    ,
     async deleteItem(id) {
       if (confirm("Bạn có chắc muốn xóa mục này?")) {
         try {
@@ -243,11 +260,20 @@ export default {
   gap: 8px;
 }
 
-.edit-btn, .delete-btn {
+.edit-btn, .delete-btn, .daily-btn {
   border: none;
   padding: 6px 10px;
   cursor: pointer;
   border-radius: 5px;
+}
+
+.daily-btn {
+  background: #7b7c7b;
+  color: black;
+}
+
+.daily-btn:hover {
+  background: #7b7c7b;
 }
 
 .edit-btn {
