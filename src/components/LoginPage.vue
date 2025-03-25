@@ -120,4 +120,10 @@ button:disabled {
   cursor: pointer;
   font-weight: bold;
 }
+
+.toggle a {
+  text-decoration: none;
+  color: #066506;
+  font-weight: bold;
+}
 </style>

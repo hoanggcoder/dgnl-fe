@@ -54,6 +54,14 @@ export default {
         console.error("Error fetching related news:", error);
       }
     }
+  },
+  watch: {
+    '$route.params.id': {
+      immediate: true,
+      handler() {
+        this.fetchArticle();
+      }
+    }
   }
 };
 </script>

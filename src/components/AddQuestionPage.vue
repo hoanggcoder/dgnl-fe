@@ -68,6 +68,7 @@
     max-width: 500px;
     margin: 20px auto;
     padding: 20px;
+    padding-right: 40px;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
