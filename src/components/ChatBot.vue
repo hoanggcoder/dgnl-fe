@@ -72,6 +72,7 @@ export default {
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
 }
 
 .chat-box {
@@ -99,7 +100,6 @@ export default {
   align-self: flex-start;
 }
 
-/* Input Box */
 .input-box {
   display: flex;
   padding: 10px;
@@ -123,7 +123,6 @@ export default {
   margin-left: 5px;
 }
 
-/* Toggle Button */
 .toggle-btn {
   position: fixed;
   right: 20px;
