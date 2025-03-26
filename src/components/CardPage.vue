@@ -1,11 +1,13 @@
 <template>
   <div class="card">
     <img v-if="thumbnail" :src="thumbnail" :alt="title" class="card-image" />
-    
+
     <div class="card-content">
-      <h2 class="card-title">{{ title }}</h2>
+      <router-link :to="link" class="card-title-link">
+        <h2 class="card-title">{{ title }}</h2>
+      </router-link>
       <p class="card-description">{{ description }}</p>
-      
+
       <div class="card-tags">
         <span v-for="(tag, index) in tags" :key="index" class="tag">{{ tag }}</span>
       </div>
@@ -15,22 +17,24 @@
 
 <script setup>
 import { defineProps } from 'vue';
+
 defineProps({
   title: String,
   description: String,
   thumbnail: String,
-  tags: Array 
+  tags: Array,
+  link: String
 });
 </script>
 
 <style scoped>
 .card {
-  width: 400px; 
+  width: 400px;
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   overflow: hidden;
-  margin: 20px; 
+  margin: 20px;
   transition: transform 0.2s ease-in-out;
 }
 
@@ -52,7 +56,14 @@ defineProps({
   font-size: 22px;
   font-weight: bold;
   margin-bottom: 10px;
+  color: #333;
 }
+
+.card-title-link {
+  text-decoration: none;
+  color: inherit;
+}
+
 
 .card-description {
   font-size: 16px;

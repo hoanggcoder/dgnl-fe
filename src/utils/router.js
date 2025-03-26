@@ -18,6 +18,10 @@ import CreateTestPage from '@/components/CreateTestPage.vue';
 import RegisterAdminPage from '@/components/RegisterAdminPage.vue';
 import ManagePage from '@/components/ManagePage.vue';
 import UserScorePage from '@/components/UserScorePage.vue';
+import AboutExamPage from '@/components/AboutExamPage.vue';
+import AboutSchedulePage from '@/components/AboutSchedulePage.vue';
+import AboutLocationPage from '@/components/AboutLocationPage.vue';
+import AboutUniversityPage from '@/components/AboutUniversityPage.vue';
 
 const routes = [
   { path: '/', component: HomeView },
@@ -39,7 +43,11 @@ const routes = [
   { path : '/add-exam', component: CreateTestPage},
   { path : '/add-admin', component: RegisterAdminPage},
   { path : '/manage', component: ManagePage},
-  { path : '/user-score/:username', component: UserScorePage, props: true}
+  { path : '/user-score/:username', component: UserScorePage, props: true},
+  { path : '/about-exam', component: AboutExamPage},
+  { path : '/about-schedule', component: AboutSchedulePage},
+  { path : '/about-location', component: AboutLocationPage},
+  { path : '/about-university', component: AboutUniversityPage},
 ];
 
 const router = createRouter({
