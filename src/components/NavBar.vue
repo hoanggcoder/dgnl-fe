@@ -29,11 +29,14 @@
 
     <div class="nav-buttons">
   <div v-if="user" class="user-container">
-    <div class="user-info">
+    <div class="user-info" @click="toggleDropdown">
         <img :src="user.avatar || defaultAvatar" alt="User Avatar" class="avatar" />
-      <router-link :to="`/user-info/${user.username}`" @click="noActive()">
         <span class="username">{{ user.username }}</span>
-      </router-link>
+    </div>
+    <div class="dropdown-menu" :class="{ show: showDropdown }">
+          <router-link :to="`/user-info/${user.username}`">Thông tin tài khoản</router-link>
+          <router-link :to="`/user-score/${user.username}`">Quá trình luyện thi</router-link>
+          <router-link :to="`/change-password/${user.username}`">Đổi mật khẩu</router-link>
     </div>
     <button @click="logout" class="logout-btn">Đăng xuất</button>
   </div>
@@ -55,14 +58,17 @@ export default {
       user: null,
       defaultAvatar,
       role: null,
+      showDropdown: false,
     };
   },
   mounted() {
     this.loadUser();
     window.addEventListener('userUpdated', this.loadUser);
+    document.addEventListener("click", this.handleClickOutside);
   },
   beforeUnmount() {
     window.removeEventListener('userUpdated', this.loadUser);
+    document.removeEventListener("click", this.handleClickOutside);
   },
   methods: {
     setActive(link) {
@@ -70,7 +76,6 @@ export default {
     },
     noActive() {
       this.activeLink = '';
-      console.log('a' + this.activeLink);
     }
     ,
     loadUser() {
@@ -88,7 +93,17 @@ export default {
       this.role = null;
       window.dispatchEvent(new Event('userUpdated'));
       this.$router.push('/login');
-    }
+    },
+    toggleDropdown(event) {
+      this.activeLink = ''
+      event.stopPropagation();
+      this.showDropdown = !this.showDropdown;
+    },
+    handleClickOutside(event) {
+      if (!this.$el.contains(event.target)) {
+        this.showDropdown = false;
+      }
+    },
   }
 };
 </script>
@@ -155,11 +170,13 @@ export default {
 }
 
 .user-container {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%; 
   gap: 20px; 
+  cursor: pointer;
 }
 
 .user-info {
@@ -264,5 +281,49 @@ export default {
     width: 100%;
     text-align: center;
   }
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%; 
+  right: 42%;
+  background: white;
+  color: black;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  width: 180px;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease;
+  z-index: 1000;
+  display: flex;
+  pointer-events: none; 
+
+}
+
+.user-container .dropdown-menu.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown-menu a,
+.dropdown-menu button {
+  padding: 12px;
+  text-align: left;
+  background: none;
+  border: none;
+  color: black;
+  cursor: pointer;
+  text-decoration: none;
+  width: 100%;
+  transition: 0.3s;
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu button:hover {
+  background: #066506;
+  color: #fff;
 }
 </style>

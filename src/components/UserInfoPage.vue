@@ -1,45 +1,37 @@
 <template>
-  <div class="user-dashboard">
-    <div class="user-info-container">
-      <h2>Thông tin của người dùng</h2>
-      <form @submit.prevent="updateUserInfo">
-        <div class="form-group" v-for="(field, key) in formFields" :key="key">
-          <label :for="key">{{ field.label }}</label>
-          <input
-            v-if="key !== 'profilePicture'"
-            :type="field.type"
-            :id="key"
-            v-model="userData[key]"
-            :placeholder="field.placeholder"
-            :disabled="!isEditing || key === 'role'"
-            readonly="key === 'role'"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label>Ảnh đại diện</label>
-          <input type="file" accept="image/*" @change="handleImageUpload" :disabled="!isEditing" />
-          <img v-if="previewImage" :src="previewImage" class="profile-preview" />
-        </div>
+  <div class="user-info-container">
+    <h2>Thông tin của người dùng</h2>
+    <form @submit.prevent="updateUserInfo">
+      <div class="form-group" v-for="(field, key) in formFields" :key="key">
+        <label :for="key">{{ field.label }}</label>
+        <input
+          v-if="key !== 'profilePicture'"
+          :type="field.type"
+          :id="key"
+          v-model="userData[key]"
+          :placeholder="field.placeholder"
+          :disabled="!isEditing || key === 'role'"
+          readonly="key === 'role'"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label>Ảnh đại diện</label>
+        <input type="file" accept="image/*" @change="handleImageUpload" :disabled="!isEditing" />
+        <img v-if="previewImage" :src="previewImage" class="profile-preview" />
+      </div>
 
-        <button v-if="!isEditing" @click.prevent="toggleEdit" class="edit-btn">Thay đổi thông tin</button>
-        <button v-else type="submit" class="save-btn">Lưu</button>
-      </form>
-      <p v-if="message" :class="{ success: isSuccess, error: !isSuccess }">{{ message }}</p>
-    </div>
-
-    <PersonalScore :userId=this.userData.id />
-    <ScoreChart :userId=this.userData.id />
+      <button v-if="!isEditing" @click.prevent="toggleEdit" class="edit-btn">Thay đổi thông tin</button>
+      <button v-else type="submit" class="save-btn">Lưu</button>
+    </form>
+    <p v-if="message" :class="{ success: isSuccess, error: !isSuccess }">{{ message }}</p>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import PersonalScore from "./PersonalScore.vue"; 
-import ScoreChart from "./ScoreChart.vue";
 
 export default {
-  components: { PersonalScore, ScoreChart }, 
   data() {
     return {
       userData: {
@@ -56,14 +48,14 @@ export default {
       isEditing: false,
       message: "",
       isSuccess: false,
-      previewImage: "", 
+      previewImage: "",
       formFields: {
-        firstName: { label: "Tên", type: "text"},
-        lastName: { label: "Họ", type: "text"},
+        firstName: { label: "Tên", type: "text" },
+        lastName: { label: "Họ", type: "text" },
         dob: { label: "Ngày sinh", type: "date", placeholder: "YYYY-MM-DD" },
-        address: { label: "Địa chỉ", type: "text"},
+        address: { label: "Địa chỉ", type: "text" },
         phoneNumber: { label: "Số điện thoại", type: "tel", placeholder: "+1234567890" },
-        email: { label: "Email", type: "email"},
+        email: { label: "Email", type: "email" },
         role: { label: "Vai trò", type: "text", placeholder: "Your role", disabled: true },
       },
     };
@@ -78,7 +70,6 @@ export default {
         if (!username) throw new Error("Username not found in localStorage.");
 
         const response = await axios.get(`http://localhost:8080/user/get-info-by-username/${username}`);
-
         if (response.data.dob) response.data.dob = response.data.dob.split("T")[0];
 
         this.userData = response.data;
@@ -138,33 +129,28 @@ export default {
 </script>
 
 <style scoped>
-.user-dashboard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  padding: 20px;
-}
 
-
-
-.user-info-container,
-.personal-score-container,
-.chart-container {
+.user-info-container {
   width: 100%;
   max-width: 500px;
   padding: 20px;
   background: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  text-align: left; 
+  align-self: center;
+  justify-content: center;
+  padding-top: 350px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   margin-bottom: 15px;
-  margin-right: 15px;
 }
 
 .form-group label {
@@ -174,6 +160,7 @@ export default {
 
 .form-group input {
   width: 100%;
+  max-width: 480px;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -230,13 +217,7 @@ export default {
 }
 
 @media (max-width: 768px) {
-  .user-dashboard {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .user-info-container,
-  .personal-score-container {
+  .user-info-container {
     max-width: 100%;
   }
 }
