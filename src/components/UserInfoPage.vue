@@ -19,7 +19,7 @@
         <div class="form-group">
           <label>Ảnh đại diện</label>
           <input type="file" accept="image/*" @change="handleImageUpload" :disabled="!isEditing" />
-          <img v-if="previewImage" :src="previewImage" class="profile-preview" alt="Profile Preview" />
+          <img v-if="previewImage" :src="previewImage" class="profile-preview" />
         </div>
 
         <button v-if="!isEditing" @click.prevent="toggleEdit" class="edit-btn">Thay đổi thông tin</button>
@@ -29,15 +29,17 @@
     </div>
 
     <PersonalScore :userId=this.userData.id />
+    <ScoreChart :userId=this.userData.id />
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import PersonalScore from "./PersonalScore.vue"; 
+import ScoreChart from "./ScoreChart.vue";
 
 export default {
-  components: { PersonalScore }, 
+  components: { PersonalScore, ScoreChart }, 
   data() {
     return {
       userData: {
@@ -56,12 +58,12 @@ export default {
       isSuccess: false,
       previewImage: "", 
       formFields: {
-        firstName: { label: "Tên", type: "text", placeholder: "Enter first name" },
-        lastName: { label: "Họ", type: "text", placeholder: "Enter last name" },
+        firstName: { label: "Tên", type: "text"},
+        lastName: { label: "Họ", type: "text"},
         dob: { label: "Ngày sinh", type: "date", placeholder: "YYYY-MM-DD" },
-        address: { label: "Địa chỉ", type: "text", placeholder: "Enter address" },
+        address: { label: "Địa chỉ", type: "text"},
         phoneNumber: { label: "Số điện thoại", type: "tel", placeholder: "+1234567890" },
-        email: { label: "Email", type: "email", placeholder: "Enter email" },
+        email: { label: "Email", type: "email"},
         role: { label: "Vai trò", type: "text", placeholder: "Your role", disabled: true },
       },
     };
@@ -138,26 +140,21 @@ export default {
 <style scoped>
 .user-dashboard {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   gap: 20px;
   padding: 20px;
 }
 
-.user-info-container {
-  flex: 1;
-  max-width: 400px;
+
+
+.user-info-container,
+.personal-score-container,
+.chart-container {
+  width: 100%;
+  max-width: 500px;
   padding: 20px;
   background: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
-
-.personal-score-container {
-  flex: 1;
-  max-width: 400px;
-  padding: 20px;
-  background: #f5f5f5;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
