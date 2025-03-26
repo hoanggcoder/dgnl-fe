@@ -29,34 +29,34 @@ import ChatBot from '@/components/ChatBot.vue';
 
 const cards = ref([
   {
-    title: "Vue Card Example",
-    description: "This is a simple Vue card.",
+    title: "Giới thiệu về kỳ thi ĐGNL",
+    description: "Về quy chế, quy định, tổ chức của bài thi năm 2025",
     thumbnail: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Flag_of_France.svg/188px-Flag_of_France.svg.png",
-    tags: ["Vue", "No Tailwind", "Component"]
+    tags: ["Quy chế", "Quy định", "ĐGNL"]
   },
   {
-    title: "Second Card",
-    description: "Another card with a different image.",
+    title: "Đề thi minh họa",
+    description: "Một đề thi minh họa về môn Lịch sử",
     thumbnail: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Flag_of_France.svg/188px-Flag_of_France.svg.png",
-    tags: ["Technology", "UI"]
+    tags: ["Minh họa", "Đề thi", "Lịch sử"]
   },
   {
-    title: "Third Card",
-    description: "This is the third card.",
+    title: "Lịch thi ĐGNL",
+    description: "Lịch thi mới nhất được cập nhật",
     thumbnail: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Flag_of_France.svg/188px-Flag_of_France.svg.png",
-    tags: ["Vue", "Example", "Web"]
+    tags: ["Lịch thi", "Mới nhất"]
   },
   {
-    title: "Fourth Card",
-    description: "This is the fourth card.",
+    title: "Địa điểm tổ chức thi",
+    description: "Các địa điểm tổ chức thi trên địa bàn Hà Nội và các tỉnh khác",
     thumbnail: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Flag_of_France.svg/188px-Flag_of_France.svg.png",
-    tags: ["Coding", "Frontend"]
+    tags: ["Địa điểm", "Hà Nội"]
   },
   {
-    title: "Fifth Card",
-    description: "This is the fifth card.",
+    title: "Bảng vàng thi thử lần 1 tháng 3-2025",
+    description: "Bảng điểm chi tiết của các thí sinh dự thi lần 1",
     thumbnail: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Flag_of_France.svg/188px-Flag_of_France.svg.png",
-    tags: ["Web", "Development"]
+    tags: ["Bảng điểm", "Thi thử"]
   }
 ]);
 
@@ -70,7 +70,6 @@ const fetchDailyQuestion = async () => {
     if (questionId) {
       const questionResponse = await axios.get(`http://localhost:8080/question/${questionId}`);
       questionData.value = questionResponse.data;
-      console.log(questionData);
     }
   } catch (error) {
     console.error("Error fetching daily question:", error);
