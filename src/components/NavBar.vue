@@ -1,8 +1,8 @@
 <template>
   <nav class="navbar">
     <div class="nav-left">
-      <router-link to="/">
-        <div class="logo"><img src="@/assets/hsa_logo.png" alt="Logo" /></div>
+      <router-link to="/" @click="setActive('home')">
+        <div class="logo"><img src="@/assets/logo_new.png" alt="Logo" /></div>
       </router-link>
     </div>
 
@@ -285,9 +285,9 @@ export default {
 
 .dropdown-menu {
   position: absolute;
-  top: 100%; 
+  top: 115%; 
   right: 42%;
-  background: white;
+  background: #066506;
   color: black;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   overflow: hidden;
@@ -299,7 +299,7 @@ export default {
   z-index: 1000;
   display: flex;
   pointer-events: none; 
-
+  border-radius: 10px;
 }
 
 .user-container .dropdown-menu.show {
@@ -312,18 +312,19 @@ export default {
 .dropdown-menu button {
   padding: 12px;
   text-align: left;
-  background: none;
+  background: #066506;
   border: none;
-  color: black;
+  color: #fff;
   cursor: pointer;
   text-decoration: none;
   width: 100%;
   transition: 0.3s;
+  font-size: 14px;
 }
 
 .dropdown-menu a:hover,
 .dropdown-menu button:hover {
-  background: #066506;
+  background: rgba(255, 255, 255, 0.3);
   color: #fff;
 }
 </style>
