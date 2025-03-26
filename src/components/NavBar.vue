@@ -31,15 +31,15 @@
   <div v-if="user" class="user-container">
     <div class="user-info">
         <img :src="user.avatar || defaultAvatar" alt="User Avatar" class="avatar" />
-      <router-link :to="`/user-info/${user.username}`">
+      <router-link :to="`/user-info/${user.username}`" @click="noActive()">
         <span class="username">{{ user.username }}</span>
       </router-link>
     </div>
     <button @click="logout" class="logout-btn">Đăng xuất</button>
   </div>
   <div v-else>
-    <router-link to="/login"><button class="sign-in">Đăng nhập</button></router-link>
-    <router-link to="/register"><button class="sign-up">Đăng ký</button></router-link>
+    <router-link to="/login" @click="noActive()"><button class="sign-in">Đăng nhập</button></router-link>
+    <router-link to="/register" @click="noActive()"><button class="sign-up">Đăng ký</button></router-link>
   </div>
   </div>
   </nav>
@@ -68,6 +68,11 @@ export default {
     setActive(link) {
       this.activeLink = link;
     },
+    noActive() {
+      this.activeLink = '';
+      console.log('a' + this.activeLink);
+    }
+    ,
     loadUser() {
       const storedUser = localStorage.getItem('user');
       this.user = storedUser && storedUser !== "undefined" ? JSON.parse(storedUser) : null;
