@@ -12,9 +12,6 @@
           :id="'question-' + index"
           @answer-submitted="handleAnswer"
         />
-        <div class="button-container">
-          <button @click="submitTest" class="submit-button">Nộp bài</button>
-        </div>
       </div>
 
       <div v-if="score !== null" class="score-container">
@@ -28,6 +25,10 @@
     </div>
 
     <aside class="question-tracker">
+      <CountdownTimer v-if="timeLimit !== null" :timeLimit="timeLimit" @time-up="handleTimeUp" />
+      <div class="button-container">
+          <button @click="submitTest" class="submit-button">Nộp bài</button>
+      </div>
       <QuestionTracker
         :questions="questions"
         :answers="answers"
@@ -40,10 +41,11 @@
 <script>
 import QuestionTracker from "@/components/QuestionTracker.vue";
 import TestQuestion from "@/components/TestQuestion.vue";
+import CountdownTimer from "./CountdownTimer.vue";
 import axios from "axios";
 
 export default {
-  components: { TestQuestion, QuestionTracker },
+  components: { TestQuestion, QuestionTracker, CountdownTimer },
   data() {
     return {
       questions: [],
@@ -59,6 +61,7 @@ export default {
       score: null,
       examId: this.$route.query.examId || null,
       scoreToPass: 0,
+      timeLimit: null,
       passed: false,
     };
   },
@@ -78,6 +81,11 @@ export default {
         this.$router.push(`/exam/${this.examId}`);
       }
     },
+    handleTimeUp() {
+    alert("⏳ Time's up! Submitting test...");
+    this.submitTest();
+    }
+    ,
     async submitTest() {
       const formattedAnswers = this.questions
         .map(
@@ -105,9 +113,10 @@ export default {
       const testId = this.$route.params.id;
       try {
         const response = await axios.get(`http://localhost:8080/test/${testId}`);
-        this.questions = response.data.questionList;
         this.test = response.data;
-        this.scoreToPass = response.data.scoreToPass;
+        this.timeLimit = this.test.timeLimit;
+        this.questions = this.test.questionList;
+        this.scoreToPass = this.test.scoreToPass;
       } catch (error) {
         console.error("Error fetching test:", error);
       }
@@ -136,13 +145,15 @@ export default {
 .question-tracker {
   width: 20%;
   height: 100vh;
-  padding: 15px;
+  padding: 10px;
   background: #f9f9f9;
   position: fixed;
   right: 0;
   top: 0;
   overflow-y: hidden;
-  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .blur-content {
@@ -162,6 +173,7 @@ export default {
   font-size: 20px;
   font-weight: bold;
   padding: 14px 28px;
+  margin-bottom: 20px;
   border: none;
   border-radius: 8px;
   cursor: pointer;

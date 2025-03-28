@@ -55,7 +55,7 @@ export default {
   
 <style scoped>
 .tracker-container {
-  background: rgba(0, 128, 0, 0.2);
+  background: #7b7c7b;
   backdrop-filter: blur(10px);
   padding: 10px;
   border-radius: 8px;
