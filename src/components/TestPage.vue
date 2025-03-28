@@ -69,6 +69,10 @@ export default {
   },
   created() {
     this.fetchTest();
+    window.addEventListener("beforeunload", this.handleBeforeUnload);
+  },
+  beforeUnmount() {
+    window.removeEventListener("beforeunload", this.handleBeforeUnload);
   },
   methods: {
     handleAnswer({ id, answer }) {
@@ -84,11 +88,18 @@ export default {
       }
     },
     handleTimeUp() {
-    alert("⏳ Time's up! Submitting test...");
-    this.submitTest();
-    }
-    ,
+      alert("⏳ Time's up! Submitting test...");
+      this.submitTest();
+    },
+    handleBeforeUnload(event) {
+      if (!this.score) {
+        this.submitTest();
+        event.preventDefault();
+        event.returnValue = "";
+      }
+    },
     async submitTest() {
+      if (this.score !== null) return;
       const formattedAnswers = this.questions
         .map(
           (question, index) => `Q${index + 1}=${this.answers[question.id] || ""};`
@@ -126,6 +137,7 @@ export default {
   },
 };
 </script>
+
   
 <style scoped>
 .test-container {

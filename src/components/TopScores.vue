@@ -51,7 +51,6 @@
         try {
           const response = await axios.get(`http://localhost:8080/score/exam/${this.examId}/top10`);
           this.scores = response.data;
-            console.log("Fetched scores:", this.scores);
         } catch (error) {
           console.error("Error fetching scores:", error);
         }

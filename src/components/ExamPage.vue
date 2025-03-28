@@ -4,17 +4,17 @@
     
     <div class="exam-card">
       <div class="exam-details">
-        <p><strong>Tên:</strong> {{ exam.name }}</p>
-        <p><strong>Loại:</strong> {{ exam.type }}</p>
-        <p><strong>Mô tả:</strong> {{ exam.description || 'Không có mô tả' }}</p>
-        <p><strong>Thời gian bắt đầu:</strong> {{ formatDate(exam.startTime) }}</p>
-        <p><strong>Thời gian kết thúc:</strong> {{ formatDate(exam.endTime) }}</p>
+        <p><i class="fas fa-file-signature"></i> {{ exam.name }}</p>
+        <p><i class="fas fa-list-alt"></i> {{ exam.type }}</p>
+        <p><i class="fas fa-align-left"></i> {{ exam.description || 'Không có mô tả' }}</p>
+        <p><i class="far fa-clock"></i> {{ formatDate(exam.startTime) }} - {{ formatDate(exam.endTime) }}</p>
       </div>
-      <button @click="goToTest" class="start-button" :disabled="!test">Bắt đầu thi</button>
+      <button @click="goToTest" class="start-button" :disabled="!test">
+        <i class="fas fa-play"></i> Bắt đầu thi
+      </button>
     </div>
 
     <TopScores :examId="exam.id" :examName="exam.name" />
-
   </div>
   
   <p v-else class="loading-message">Đang tải thông tin cuộc thi...</p>
@@ -22,11 +22,11 @@
 
 <script>
 import axios from "axios";
-import TopScores from "@/components/TopScores.vue"; 
+import TopScores from "@/components/TopScores.vue";
 
 export default {
   name: "ExamPage",
-  components: { TopScores }, 
+  components: { TopScores },
   data() {
     return {
       exam: null,
@@ -43,7 +43,6 @@ export default {
       try {
         const response = await axios.get(`http://localhost:8080/exam/${examId}`);
         this.exam = response.data;
-        console.log("Fetched exam:", this.exam);
       } catch (error) {
         console.error("Error fetching exam:", error);
       }
@@ -53,7 +52,6 @@ export default {
       try {
         const response = await axios.get(`http://localhost:8080/exam/get-test/${examId}`);
         this.test = response.data;
-        console.log("Fetched test:", this.test);
       } catch (error) {
         console.error("Error fetching test:", error);
       }
@@ -67,8 +65,6 @@ export default {
             examId: this.$route.params.id,
           },
         });
-      } else {
-        console.error("Test data is not available");
       }
     },
     formatDate(date) {
@@ -100,16 +96,19 @@ export default {
 }
 
 .exam-card {
-  background: white;
+  background: rgb(255, 255, 255);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: left;
-}
+} 
 
 .exam-details p {
   font-size: 18px;
   margin: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .start-button {
@@ -126,7 +125,7 @@ export default {
 }
 
 .start-button:hover {
-  background: #218838;
+  background: #218837;
 }
 
 .start-button:disabled {
