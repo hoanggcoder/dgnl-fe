@@ -1,33 +1,22 @@
 <template>
   <div class="test-container">
-    <div class="test-content">
+    <div :class="{ 'blur-content': score !== null }" class="test-content">
       <h1>{{ this.$route.query.examName }}</h1>
 
-      <div :class="{ 'blur-content': score !== null }">
-        <TestQuestion
-          v-for="(question, index) in questions"
-          :key="question.id"
-          :question="question"
-          :index="index + 1"
-          :id="'question-' + index"
-          @answer-submitted="handleAnswer"
-        />
-      </div>
-
-      <div v-if="score !== null" class="score-container">
-        <p class="score-message">
-          Bạn đã đạt được <strong>{{ parseFloat(score).toFixed(2) }}</strong> điểm!
-        </p>
-        <p v-if="passed" class="pass-message">🎉 Chúc mừng! Bạn đã vượt qua bài kiểm tra! 🎉</p>
-        <p v-else class="fail-message">❌ Rất tiếc! Bạn chưa đạt điểm yêu cầu. ❌</p>
-        <button @click="goToExam" class="return-button">Quay lại trang cuộc thi</button>
-      </div>
+      <TestQuestion
+        v-for="(question, index) in questions"
+        :key="question.id"
+        :question="question"
+        :index="index + 1"
+        :id="'question-' + index"
+        @answer-submitted="handleAnswer"
+      />
     </div>
 
-    <aside class="question-tracker">
+    <aside :class="{ 'blur-aside': score !== null }" class="question-tracker">
       <CountdownTimer v-if="timeLimit !== null" :timeLimit="timeLimit" @time-up="handleTimeUp" />
       <div class="button-container">
-          <button @click="submitTest" class="submit-button">Nộp bài</button>
+        <button @click="submitTest" class="submit-button">Nộp bài</button>
       </div>
       <QuestionTracker
         :questions="questions"
@@ -35,6 +24,19 @@
         @get-current-question="getCurrentQuestion"
       />
     </aside>
+
+    <div v-if="score !== null">
+      <div class="overlay"></div>
+      <div class="score-container">
+        <canvas v-if="passed" ref="confettiCanvas" class="confetti"></canvas>
+        <p class="score-message">
+          Bạn đã đạt được <strong>{{ parseFloat(score).toFixed(2) }}</strong> điểm!
+        </p>
+        <p v-if="passed" class="pass-message">Bạn đã vượt qua bài kiểm tra</p>
+        <p v-else class="fail-message">Bạn chưa vượt qua mức điểm yêu cầu</p>
+        <button @click="goToExam" class="return-button">Quay lại trang thông tin bài thi</button>
+      </div>
+    </div>
   </div>
 </template>
   
@@ -145,7 +147,7 @@ export default {
 .question-tracker {
   width: 20%;
   height: 100vh;
-  padding: 10px;
+  padding: 15px;
   background: #f9f9f9;
   position: fixed;
   right: 0;
@@ -154,6 +156,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transition: filter 0.3s ease-in-out;
 }
 
 .blur-content {
@@ -187,42 +190,86 @@ export default {
 }
 
 .score-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
-  margin-top: 20px;
+  padding: 30px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3);
+  width: 400px;
+  max-width: 90%;
+  animation: fadeIn 0.5s ease-in-out;
+  z-index: 1001;
 }
 
 .score-message {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
   color: #333;
-  background: #f0f0f0;
-  padding: 10px;
+  padding: 15px;
   border-radius: 8px;
+}
+
+.blur-content, .blur-aside {
+  filter: blur(5px);
+  pointer-events: none;
 }
 
 .pass-message {
   color: #28a745;
+  font-size: 22px;
   font-weight: bold;
+  background: rgba(40, 167, 69, 0.1);
+  padding: 10px;
+  border-radius: 8px;
 }
 
 .fail-message {
   color: #dc3545;
+  font-size: 22px;
   font-weight: bold;
+  background: rgba(220, 53, 69, 0.1);
+  padding: 10px;
+  border-radius: 8px;
 }
 
 .return-button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  font-size: 16px;
+  margin-top: 20px;
+  padding: 12px 24px;
+  font-size: 18px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   background: #066506;
   color: white;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .return-button:hover {
-  background: #044404;
+  transform: scale(1.05);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @media (max-width: 900px) {
