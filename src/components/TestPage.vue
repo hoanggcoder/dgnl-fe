@@ -1,115 +1,148 @@
 <template>
-  <div>
-    <h1>{{ this.$route.query.examName }}</h1>
+  <div class="test-container">
+    <div class="test-content">
+      <h1>{{ this.$route.query.examName }}</h1>
 
-    <div :class="{ 'blur-content': score !== null }">
-      <TestQuestion 
-        v-for="(question, index) in questions" 
-        :key="question.id" 
-        :question="question" 
-        :index="index + 1"
-        @answer-submitted="handleAnswer"
-      />
-      <div class="button-container">
-        <button @click="submitTest" class="submit-button">
-          Nộp bài
-        </button>
+      <div :class="{ 'blur-content': score !== null }">
+        <TestQuestion
+          v-for="(question, index) in questions"
+          :key="question.id"
+          :question="question"
+          :index="index + 1"
+          :id="'question-' + index"
+          @answer-submitted="handleAnswer"
+        />
+        <div class="button-container">
+          <button @click="submitTest" class="submit-button">Nộp bài</button>
+        </div>
+      </div>
+
+      <div v-if="score !== null" class="score-container">
+        <p class="score-message">
+          Bạn đã đạt được <strong>{{ parseFloat(score).toFixed(2) }}</strong> điểm!
+        </p>
+        <p v-if="passed" class="pass-message">🎉 Chúc mừng! Bạn đã vượt qua bài kiểm tra! 🎉</p>
+        <p v-else class="fail-message">❌ Rất tiếc! Bạn chưa đạt điểm yêu cầu. ❌</p>
+        <button @click="goToExam" class="return-button">Quay lại trang cuộc thi</button>
       </div>
     </div>
 
-    <div v-if="score !== null" class="score-container">
-    <p class="score-message">
-      Bạn đã đạt được <strong>{{ parseFloat(score).toFixed(2)}}</strong> điểm!
-    </p>
-    <p v-if="passed" class="pass-message">🎉 Chúc mừng! Bạn đã vượt qua bài kiểm tra! 🎉</p>
-    <p v-else class="fail-message">❌ Rất tiếc! Bạn chưa đạt điểm yêu cầu. ❌</p>
-    <button @click="goToExam" class="return-button">Quay lại trang cuộc thi</button>
-    </div>
+    <aside class="question-tracker">
+      <QuestionTracker
+        :questions="questions"
+        :answers="answers"
+        @get-current-question="getCurrentQuestion"
+      />
+    </aside>
   </div>
 </template>
   
 <script>
-  import TestQuestion from "@/components/TestQuestion.vue";
-  import axios from 'axios';
-  
-  export default {
-    components: { TestQuestion },
-    data() {
-      return {
-        questions: [],
-        answers: {},
-        test: null,
-        answerInput: {
-          testId: this.$route.params.id,
-          answerList: '',
-          userId: localStorage.getItem('id'),
-        },
-        score: null,
-        examId: this.$route.query.examId || null, 
-        scoreToPass: 0,
-        passed: false, 
-      };
-    },
-    created() {
-      this.fetchTest();
-    },
-    methods: {
-      handleAnswer({ id, answer }) {
-        this.answers[id] = answer; 
+import QuestionTracker from "@/components/QuestionTracker.vue";
+import TestQuestion from "@/components/TestQuestion.vue";
+import axios from "axios";
+
+export default {
+  components: { TestQuestion, QuestionTracker },
+  data() {
+    return {
+      questions: [],
+      answers: {},
+      test: null,
+      currentQuestionId: null,
+      markedForReview: [],
+      answerInput: {
+        testId: this.$route.params.id,
+        answerList: "",
+        userId: localStorage.getItem("id"),
       },
-      goToExam() {
-        if (this.examId) {
-          this.$router.push(`/exam/${this.examId}`);
-        }
+      score: null,
+      examId: this.$route.query.examId || null,
+      scoreToPass: 0,
+      passed: false,
+    };
+  },
+  created() {
+    this.fetchTest();
+  },
+  methods: {
+    handleAnswer({ id, answer }) {
+      this.answers[id] = answer;
+      this.currentQuestionId = id;
+    },
+    getCurrentQuestion() {
+      return this.currentQuestionId;
+    },
+    goToExam() {
+      if (this.examId) {
+        this.$router.push(`/exam/${this.examId}`);
       }
-      ,
-      async submitTest() {
-        const formattedAnswers = this.questions
-          .map((question, index) => `Q${index + 1}=${this.answers[question.id] || ''};`)
-          .join("");
-        this.answerInput.answerList = formattedAnswers;
-        try {
-          const response = await axios.post(`http://localhost:8080/test/answer-test`, this.answerInput, {
+    },
+    async submitTest() {
+      const formattedAnswers = this.questions
+        .map(
+          (question, index) => `Q${index + 1}=${this.answers[question.id] || ""};`
+        )
+        .join("");
+      this.answerInput.answerList = formattedAnswers;
+      try {
+        const response = await axios.post(
+          `http://localhost:8080/test/answer-test`,
+          this.answerInput,
+          {
             headers: {
               "Content-Type": "application/json",
             },
-          });
-          this.score = response.data.score;
-          this.passed = this.score >= this.scoreToPass;
-        } catch (error) {
-          console.error("Error fetching test:", error);
-        }
-      },
-      async fetchTest() {
-        const testId = this.$route.params.id;
-        try {
-          const response = await axios.get(`http://localhost:8080/test/${testId}`);
-          this.questions = response.data.questionList;
-          this.test = response.data;
-          this.scoreToPass = response.data.scoreToPass;
-        } catch (error) {
-          console.error("Error fetching test:", error);
-        }
-      },
-    }
-  };
+          }
+        );
+        this.score = response.data.score;
+        this.passed = this.score >= this.scoreToPass;
+      } catch (error) {
+        console.error("Error submitting test:", error);
+      }
+    },
+    async fetchTest() {
+      const testId = this.$route.params.id;
+      try {
+        const response = await axios.get(`http://localhost:8080/test/${testId}`);
+        this.questions = response.data.questionList;
+        this.test = response.data;
+        this.scoreToPass = response.data.scoreToPass;
+      } catch (error) {
+        console.error("Error fetching test:", error);
+      }
+    },
+  },
+};
 </script>
   
 <style scoped>
-.score-message {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 24px;
-  font-weight: bold;
-  color: #28a745;
-  background: rgba(230, 255, 230, 0.9);
+.test-container {
+  display: flex;
+  width: 100%;
+  height: 100vh; 
+}
+
+.test-content {
+  width: 80%;
+  height: 100vh;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 128, 0, 0.3);
-  text-align: center;
-  width: 300px;
+  background: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; 
+}
+
+.question-tracker {
+  width: 20%;
+  height: 100vh;
+  padding: 15px;
+  background: #f9f9f9;
+  position: fixed;
+  right: 0;
+  top: 0;
+  overflow-y: hidden;
+  padding-top: 100px;
 }
 
 .blur-content {
@@ -139,15 +172,6 @@
 .submit-button:hover {
   background: linear-gradient(135deg, #ff1a1a, #d60000);
   transform: scale(1.08);
-}
-
-.submit-button:active {
-  transform: scale(0.96);
-  box-shadow: 0px 2px 8px rgba(214, 0, 0, 0.5);
-}
-
-h1 {
-  text-align: center;
 }
 
 .score-container {
@@ -186,6 +210,22 @@ h1 {
 }
 
 .return-button:hover {
-  background: #066506;
+  background: #044404;
+}
+
+@media (max-width: 900px) {
+  .test-container {
+    flex-direction: column;
+  }
+  .test-content {
+    width: 100%;
+  }
+  .question-tracker {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-left: none;
+    box-shadow: none;
+  }
 }
 </style>
