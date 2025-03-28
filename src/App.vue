@@ -17,4 +17,8 @@ export default {
 .content {
   padding-top: 70px; 
 }
+
+body {
+  font-family: 'Helvetica', sans-serif;
+}
 </style>

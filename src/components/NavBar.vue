@@ -116,7 +116,6 @@ export default {
   background-color: #066506;
   padding: 15px 50px;
   color: white;
-  font-family: Arial, sans-serif;
 
   position: fixed;
   top: 0;

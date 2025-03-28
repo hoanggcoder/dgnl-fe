@@ -186,6 +186,7 @@ export default {
 
 .sidebar {
   width: 200px;
+  height: 400px;
   background: #f4f4f4;
   padding: 20px;
 }

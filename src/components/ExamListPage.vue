@@ -8,7 +8,7 @@
         <p class="exam-description">{{ exam.description }}</p>
       </div>
       <div class="exam-meta">
-        <p class="exam-difficulty"><strong>Mức độ:</strong> <span>{{ formattedDifficulty(exam.difficulty) }}</span></p>
+        <p class="exam-difficulty">Mức độ: <span>{{ formattedDifficulty(exam.difficulty) }}</span></p>
       </div>
     </div>
 
