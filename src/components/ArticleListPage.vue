@@ -74,6 +74,7 @@ export default {
   max-width: 1200px;
   margin: auto;
   padding: 20px;
+  padding-top: 40px;
 }
 
 .articles-grid {

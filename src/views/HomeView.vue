@@ -34,35 +34,30 @@ import ChatBot from '@/components/ChatBot.vue';
 const cards = ref([
   {
     title: "Giới thiệu về kỳ thi ĐGNL",
-    description: "Về quy chế, quy định, tổ chức của bài thi năm 2025",
     thumbnail: aboutExamImage,
     tags: ["Quy chế", "Quy định", "ĐGNL"],
     link: "/about-exam"
   },
   {
     title: "Đề thi minh họa",
-    description: "Một đề thi minh họa về môn Lịch sử",
     thumbnail: aboutExamImage,
     tags: ["Minh họa", "Đề thi", "Lịch sử"],
     link: "/exam/20"
   },
   {
     title: "Lịch thi ĐGNL",
-    description: "Lịch thi mới nhất được cập nhật",
     thumbnail: aboutExamImage,
     tags: ["Lịch thi", "Mới nhất"],
     link: "/about-schedule"
   },
   {
     title: "Địa điểm tổ chức thi",
-    description: "Các địa điểm tổ chức thi trên địa bàn Hà Nội và các tỉnh khác",
     thumbnail: aboutExamImage,
     tags: ["Địa điểm", "Hà Nội"],
     link: "/about-location"
   },
   {
     title: "Các trường đại học sử dụng kết quả ĐGNL",
-    description: "Danh sách các trường đại học sử dụng kết quả ĐGNL cho mục đích tuyển sinh",
     thumbnail: aboutExamImage,
     tags: ["Đại học", "Tuyển sinh"],
     link: "/about-university"

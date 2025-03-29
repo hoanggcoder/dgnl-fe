@@ -6,7 +6,6 @@
       <router-link :to="link" class="card-title-link">
         <h2 class="card-title">{{ title }}</h2>
       </router-link>
-      <p class="card-description">{{ description }}</p>
 
       <div class="card-tags">
         <span v-for="(tag, index) in tags" :key="index" class="tag">{{ tag }}</span>
@@ -20,7 +19,6 @@ import { defineProps } from 'vue';
 
 defineProps({
   title: String,
-  description: String,
   thumbnail: String,
   tags: Array,
   link: String
@@ -57,6 +55,7 @@ defineProps({
   font-weight: bold;
   margin-bottom: 10px;
   color: #333;
+  text-align: center;
 }
 
 .card-title-link {
@@ -64,12 +63,6 @@ defineProps({
   color: inherit;
 }
 
-
-.card-description {
-  font-size: 16px;
-  color: #555;
-  margin-bottom: 15px;
-}
 
 .card-tags {
   display: flex;

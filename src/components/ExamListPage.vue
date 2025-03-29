@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <div v-for="exam in paginatedExams" :key="exam.id" class="exam-card">
+    <div v-for="exam in paginatedExams" :key="exam.id" 
+         class="exam-card" 
+         :class="difficultyClass(exam.difficulty)">
       <div class="exam-info">
         <router-link :to="`/exam/${exam.id}`" class="exam-title">
           <h2>{{ exam.name }}</h2>
@@ -8,7 +10,9 @@
         <p class="exam-description">{{ exam.description }}</p>
       </div>
       <div class="exam-meta">
-        <p class="exam-difficulty">Mức độ: <span>{{ formattedDifficulty(exam.difficulty) }}</span></p>
+        <p class="exam-difficulty">
+          Mức độ: <span>{{ formattedDifficulty(exam.difficulty) }}</span>
+        </p>
       </div>
     </div>
 
@@ -47,7 +51,6 @@ export default {
       const start = (this.currentPage - 1) * this.itemsPerPage;
       return this.filteredExams.slice(start, start + this.itemsPerPage);
     }
-
   },
   methods: {
     async fetchExams() {
@@ -69,12 +72,23 @@ export default {
         default:
           return 'Không xác định';
       }
+    },
+    difficultyClass(difficulty) {
+      switch (difficulty) {
+        case 'easy':
+          return 'easy-bg';
+        case 'medium':
+          return 'medium-bg';
+        case 'hard':
+          return 'hard-bg';
+        default:
+          return '';
+      }
     }
   },
   mounted() {
     this.fetchExams();
   },
-  
 };
 </script>
 
@@ -83,13 +97,13 @@ export default {
   max-width: 900px;
   margin: auto;
   padding: 20px;
+  padding-top: 40px;
 }
 
 .exam-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #fff;
   padding: 15px;
   margin-bottom: 20px;
   border-radius: 10px;
@@ -97,19 +111,31 @@ export default {
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.exam-info {
-  flex: 3;
-  text-align: left; 
-}
-
 .exam-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-.exam-content {
-  margin-left: 20px;
+.easy-bg {
+  background: #d4edda; 
+}
+
+.medium-bg {
+  background: #fff3cd;
+}
+
+.hard-bg {
+  background: #f8d7da;
+}
+
+.exam-info {
+  flex: 3;
+  text-align: left; 
+}
+
+.exam-meta {
   flex: 1;
+  text-align: right;
 }
 
 .exam-title {
@@ -118,11 +144,6 @@ export default {
   color: #333;
   text-decoration: none;
   transition: color 0.3s;
-}
-
-.exam-meta {
-  flex: 1;
-  text-align: right;
 }
 
 .exam-title h2 {

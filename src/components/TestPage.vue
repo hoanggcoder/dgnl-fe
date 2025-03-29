@@ -1,7 +1,7 @@
 <template>
   <div class="test-container">
     <div :class="{ 'blur-content': score !== null }" class="test-content">
-      <h1>{{ this.$route.query.examName }}</h1>
+      <h1 class="exam-name">{{ this.$route.query.examName }}</h1>
 
       <TestQuestion
         v-for="(question, index) in questions"
@@ -140,6 +140,9 @@ export default {
 
   
 <style scoped>
+.exam-name {
+  text-align: center;
+}
 .test-container {
   display: flex;
   width: 100%;
