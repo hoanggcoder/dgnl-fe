@@ -26,7 +26,7 @@
 import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
 
-import aboutExamImage from '@/assets/hsa_image.png';
+import aboutExamImage from '@/assets/hsa2.png';
 
 import CardPage from '@/components/CardPage.vue';
 import DailyQuestionPage from '@/components/DailyQuestionPage.vue';

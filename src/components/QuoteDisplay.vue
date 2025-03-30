@@ -70,8 +70,8 @@ export default {
 
 .refresh-btn {
   position: absolute;
-  top: 5px;
-  right: -5px;
+  top: 10px;
+  right: -10px;
   background: none;
   border: none;
   font-size: 20px;
