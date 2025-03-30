@@ -1,5 +1,6 @@
 <template>
   <div class="page-container">
+    <QuoteDisplay/>
     <div class="slider-container">
       <button @click="prevSlide">&#10094;</button>
       <div class="card-container">
@@ -30,6 +31,7 @@ import aboutExamImage from '@/assets/hsa_image.png';
 import CardPage from '@/components/CardPage.vue';
 import DailyQuestionPage from '@/components/DailyQuestionPage.vue';
 import ChatBot from '@/components/ChatBot.vue';
+import QuoteDisplay from '@/components/QuoteDisplay.vue';
 
 const cards = ref([
   {
@@ -100,7 +102,6 @@ const prevSlide = () => {
 <style scoped>
 .page-container {
   padding-left: 50px;
-  padding-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;

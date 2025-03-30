@@ -129,6 +129,9 @@ export default {
 </script>
 
 <style scoped>
+h2 {
+  text-align: center;
+}
 
 .user-info-container {
   width: 100%;
@@ -140,7 +143,7 @@ export default {
   text-align: left; 
   align-self: center;
   justify-content: center;
-  padding-top: 350px;
+  padding-top: 200px;
   position: absolute;
   top: 50%;
   left: 50%;

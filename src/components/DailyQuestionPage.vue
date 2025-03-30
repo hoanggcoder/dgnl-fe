@@ -179,12 +179,12 @@ export default {
   border-radius: 8px;
 }
 
-.message:contains("Chính xác") {
+.message:contains("✅") {
   color: #066506;
   background: #d4edda;
 }
 
-.message:contains("Không chính xác") {
+.message:contains("❌") {
   color: #721c24;
   background: #f8d7da;
 }
