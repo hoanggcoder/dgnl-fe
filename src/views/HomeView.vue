@@ -1,25 +1,32 @@
 <template>
   <div class="page-container">
-    <QuoteDisplay/>
-    <TimeProgress/>
-    <div class="slider-container">
-      <button @click="prevSlide">&#10094;</button>
-      <div class="card-container">
-        <CardPage
-          v-for="(card, index) in visibleCards"
-          :key="index"
-          :title="card.title"
-          :description="card.description"
-          :thumbnail="card.thumbnail"
-          :tags="card.tags"
-          :link="card.link"
-        />
+    <div class="content-wrapper">
+      <div class="main-content">
+        <QuoteDisplay />
+        <div class="slider-container">
+          <button @click="prevSlide">&#10094;</button>
+          <div class="card-container">
+            <CardPage
+              v-for="(card, index) in visibleCards"
+              :key="index"
+              :title="card.title"
+              :description="card.description"
+              :thumbnail="card.thumbnail"
+              :tags="card.tags"
+              :link="card.link"
+            />
+          </div>
+          <button @click="nextSlide">&#10095;</button>
+        </div>
       </div>
-      <button @click="nextSlide">&#10095;</button>
+      
+      <div class="time-progress">
+        <TimeProgress/>
+      </div>
     </div>
-    
-    <DailyQuestionPage v-if="questionData" :question="questionData"/>
-    <ChatBot/>
+
+    <DailyQuestionPage v-if="questionData" :question="questionData" />
+    <ChatBot />
   </div>
 </template>
 
@@ -103,10 +110,25 @@ const prevSlide = () => {
 
 <style scoped>
 .page-container {
-  padding-left: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 99%;
+  box-sizing: border-box;
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .slider-container {
@@ -114,14 +136,15 @@ const prevSlide = () => {
   align-items: center;
   justify-content: center;
   width: 100%;
+  margin-top: 20px;
 }
 
 .card-container {
   display: flex;
   gap: 10px;
-  overflow: hidden;
-  width: 100%;
   justify-content: center;
+  width: 100%;
+  max-width: 100%;
 }
 
 .card {
@@ -141,5 +164,36 @@ button {
 button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.time-progress {
+  position: absolute;
+  top: 175%;
+  right: 20px;
+  transform: translateY(-50%);
+  width: 30%;
+}
+
+.daily-question,
+.chat-bot {
+  width: 100%;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    width: 100%;
+  }
+
+  .time-progress {
+    width: 100%; 
+    position: relative;
+    transform: none;
+  }
+
+  .card {
+    max-width: 300px;
+    min-width: 200px;
+  }
 }
 </style>

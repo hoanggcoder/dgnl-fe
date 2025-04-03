@@ -40,13 +40,13 @@ export default {
 
 <style scoped>
 .banner-container {
-  width: 120%;
+  width: 103%;
   height: 25vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background: linear-gradient(to right, #7b7c7b, #fa0404);
-  color: white;
+  color: rgb(71, 66, 66);
   text-align: center;
 }
 
