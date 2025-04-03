@@ -12,6 +12,11 @@
 
     <main class="content">
       <h2>Danh Sách {{ entityName }}</h2>
+      
+      <div class="search-bar">
+        <input type="text" v-model="searchQuery" placeholder="Tìm kiếm..." />
+      </div>
+      
       <button class="add-btn" @click="addItem">Thêm Mới</button>
 
       <table class="data-table">
@@ -59,6 +64,7 @@ export default {
         question: "http://localhost:8080/question",
       },
       token: localStorage.getItem("token"),
+      searchQuery: "",
     };
   },
   computed: {
@@ -97,11 +103,33 @@ export default {
       }
     },
     totalPages() {
-      return Math.ceil(this.items.length / this.itemsPerPage);
+    return Math.max(1, Math.ceil(this.filteredItems.length / this.itemsPerPage));
     },
     paginatedItems() {
       const start = (this.currentPage - 1) * this.itemsPerPage;
-      return this.items.slice(start, start + this.itemsPerPage);
+      return this.filteredItems.slice(start, start + this.itemsPerPage);
+    },
+    filteredItems() {
+      return this.items.filter(item => {
+        let searchField;
+        switch (this.selectedEntity) {
+          case "admin":
+            searchField = "username";
+            break;
+          case "exam":
+            searchField = "name";
+            break;
+          case "article":
+            searchField = "title";
+            break;
+          case "question":
+            searchField = "detail";
+            break;
+          default:
+            searchField = "name";
+        }
+        return item[searchField]?.toLowerCase().includes(this.searchQuery.toLowerCase());
+      });
     },
   },
   methods: {
@@ -132,7 +160,13 @@ export default {
     changeEntity(entity) {
       this.selectedEntity = entity;
       this.currentPage = 1;
+      this.searchQuery = "";
       this.fetchItems();
+    },
+    watch: {
+      searchQuery() {
+        this.currentPage = 1;
+      }
     },
     addItem() {
       this.$router.push(`/add-${this.selectedEntity}`);
@@ -311,5 +345,15 @@ export default {
 .pagination button.active {
   background: #066506;
   color: white;
+}
+
+.search-bar {
+  margin-bottom: 10px;
+}
+.search-bar input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 </style>

@@ -2,6 +2,7 @@
   <div class="score-section">
     <div class="score-table">
       <PersonalScore :userId="userId" />
+      <DailyTips />
     </div>
     <div class="score-charts">
       <ScoreChart :userId="userId" />
@@ -14,9 +15,10 @@
 import PersonalScore from "./PersonalScore.vue";
 import ScoreChart from "./ScoreChart.vue";
 import ScoreChart2 from "./ScoreChart2.vue";
+import DailyTips from "./DailyTips.vue";
 
 export default {
-  components: { PersonalScore, ScoreChart, ScoreChart2 },
+  components: { PersonalScore, ScoreChart, ScoreChart2, DailyTips},
   data() {
     return {
       userId: localStorage.getItem("id"),
