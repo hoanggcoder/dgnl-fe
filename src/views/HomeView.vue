@@ -1,6 +1,7 @@
 <template>
   <div class="page-container">
     <QuoteDisplay/>
+    <TimeProgress/>
     <div class="slider-container">
       <button @click="prevSlide">&#10094;</button>
       <div class="card-container">
@@ -32,6 +33,7 @@ import CardPage from '@/components/CardPage.vue';
 import DailyQuestionPage from '@/components/DailyQuestionPage.vue';
 import ChatBot from '@/components/ChatBot.vue';
 import QuoteDisplay from '@/components/QuoteDisplay.vue';
+import TimeProgress from '@/components/TimeProgress.vue';
 
 const cards = ref([
   {
