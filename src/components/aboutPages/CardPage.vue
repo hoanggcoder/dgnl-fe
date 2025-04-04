@@ -31,12 +31,16 @@ defineProps({
 <style scoped>
 .card {
   width: 380px;
+  height: 350px; 
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   margin: 20px;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .card:hover {
@@ -64,16 +68,28 @@ defineProps({
 }
 
 .card-content {
-  padding: 18px;
+  padding: 14px;
   text-align: center;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
 }
 
+
 .card-title {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   color: #222;
-  transition: color 0.3s;
+  line-height: 1.3;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;       
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-title-link {
@@ -90,6 +106,7 @@ defineProps({
   justify-content: center;
   flex-wrap: wrap;
   gap: 8px;
+  margin-top: auto;
 }
 
 .tag {

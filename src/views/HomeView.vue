@@ -3,6 +3,7 @@
     <div class="content-wrapper">
       <div class="main-content">
         <QuoteDisplay />
+
         <div class="slider-container">
           <button @click="prevSlide">&#10094;</button>
           <div class="card-container">
@@ -19,16 +20,32 @@
           <button @click="nextSlide">&#10095;</button>
         </div>
       </div>
-      
+
       <div class="time-progress">
-        <TimeProgress/>
+        <TimeProgress />
+      </div>
+      <div class="subjects-list">
+        <h1 class="subject-title">Kiến thức theo môn học</h1>
+        <ul>
+          <li v-for="subject in subjects" :key="subject" @click="selectSubject(subject)">
+            {{ subject }}
+          </li>
+        </ul>
       </div>
     </div>
 
-    <DailyQuestionPage v-if="questionData" :question="questionData" />
+    <div class="extras-section">
+      <div class="daily-question">
+        <DailyQuestionPage v-if="questionData" :question="questionData" />
+      </div>
+
+      <div class="games-wrapper">
+        <WordleGame />
+        <HangmanGame />
+      </div>
+    </div>
+
     <ChatBot />
-    <WordleGame/>
-    <HangmanGame/>
   </div>
 </template>
 
@@ -72,7 +89,7 @@ const cards = ref([
     link: "/about-location"
   },
   {
-    title: "Các trường đại học sử dụng kết quả ĐGNL",
+    title: "Các trường đại học sử dụng kết quả ĐGNL cho mục đích tuyển sinh",
     thumbnail: aboutExamImage,
     tags: ["Đại học", "Tuyển sinh"],
     link: "/about-university"
@@ -80,6 +97,12 @@ const cards = ref([
 ]);
 
 const questionData = ref(null);
+
+const subjects = ["Toán", "Ngữ văn", "Tiếng Anh", "Vật lý", "Hóa học", "Sinh học", "Lịch sử", "Địa lý"];
+
+const selectSubject = (subject) => {
+  console.log("Selected subject:", subject);
+};
 
 const fetchDailyQuestion = async () => {
   try {
@@ -172,7 +195,7 @@ button:disabled {
 
 .time-progress {
   position: absolute;
-  top: 175%;
+  top: 180%;
   right: 20px;
   transform: translateY(-50%);
   width: 30%;
@@ -199,5 +222,47 @@ button:disabled {
     max-width: 300px;
     min-width: 200px;
   }
+}
+
+.subjects-list {
+  position: absolute;
+  top: 138%;
+  left: 5px;
+  transform: translateY(-50%);
+  width: 30%;
+  background-color: #f3f7f0;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.subjects-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.subjects-list li {
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  background-color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: center;
+  font-weight: 500;
+}
+
+.subjects-list li:hover {
+  background-color: #066506;
+  color: white;
+}
+
+.subject-title{
+  font-size: 20px;
+  font-weight: bold;
+  color: #066506;
+  margin-bottom: 15px;
+  text-align: center;
 }
 </style>

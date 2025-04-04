@@ -91,8 +91,10 @@ export default {
 }
 
 h1 {
-  color: #333;
-  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #066506;
+  margin-bottom: 15px;
 }
 
 .guess-row {

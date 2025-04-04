@@ -69,14 +69,16 @@
     max-width: 600px;
     margin: 20px auto;
     padding: 20px;
-    background: white;
+    background: #f3f7f0;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
   }
   
   h2 {
-    text-align: center;
-    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #066506;
+    margin-bottom: 15px;
   }
   
   .progress-container {
@@ -158,6 +160,7 @@
   
   .timeline-item.past {
     opacity: 0.6;
+    background-color: #066506;
   }
   </style>
   

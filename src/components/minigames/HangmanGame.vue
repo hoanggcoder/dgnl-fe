@@ -1,6 +1,6 @@
 <template>
     <div class="hangman-game">
-      <h1>Chiếc nón kỳ diệu</h1>
+      <h1>Hangman</h1>
   
       <div class="word-display">
         <div v-for="(letter, index) in targetWord.split('')" :key="index" class="letter-box">
@@ -22,7 +22,7 @@
         placeholder="Nhập một chữ cái"
       />
       <button @click="guessLetter" :disabled="gameOver || !currentLetter">
-        Đoán
+        Xác nhận
       </button>
   
       <p v-if="gameOver">
@@ -96,8 +96,10 @@
   }
   
   h1 {
-    color: #333;
-    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #066506;
+    margin-bottom: 15px;
   }
   
   .word-display {
@@ -137,7 +139,7 @@
     margin-top: 15px;
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #1e88e5;
+    background-color: #066506;
     color: white;
     border: none;
     border-radius: 8px;
@@ -145,10 +147,10 @@
     transition: background-color 0.3s ease;
   }
   button:hover {
-    background-color: #1565c0;
+    background-color: #066506;
   }
   button:disabled {
-    background-color: #90a4ae;
+    background-color: #7b7c7b;
     cursor: not-allowed;
   }
   
