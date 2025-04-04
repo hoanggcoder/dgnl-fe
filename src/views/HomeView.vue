@@ -28,6 +28,7 @@
     <DailyQuestionPage v-if="questionData" :question="questionData" />
     <ChatBot />
     <WordleGame/>
+    <HangmanGame/>
   </div>
 </template>
 
@@ -37,12 +38,13 @@ import axios from 'axios';
 
 import aboutExamImage from '@/assets/hsa2.png';
 
-import CardPage from '@/components/CardPage.vue';
-import DailyQuestionPage from '@/components/DailyQuestionPage.vue';
-import ChatBot from '@/components/ChatBot.vue';
-import QuoteDisplay from '@/components/QuoteDisplay.vue';
-import TimeProgress from '@/components/TimeProgress.vue';
-import WordleGame from '@/components/WordleGame.vue';
+import CardPage from '@/components/aboutPages/CardPage.vue';
+import DailyQuestionPage from '@/components/minigames/DailyQuestionPage.vue';
+import ChatBot from '@/components/misc/ChatBot.vue';
+import QuoteDisplay from '@/components/misc/QuoteDisplay.vue';
+import TimeProgress from '@/components/misc/TimeProgress.vue';
+import WordleGame from '@/components/minigames/WordleGame.vue';
+import HangmanGame from '@/components/minigames/HangmanGame.vue';
 
 const cards = ref([
   {

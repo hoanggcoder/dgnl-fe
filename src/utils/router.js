@@ -6,22 +6,22 @@ import RegisterView from '@/views/RegisterView.vue';
 import ArticleListView from '@/views/ArticleListView.vue';
 import CreateQuestionView from '@/views/CreateQuestionView.vue';
 import ExamListView from '@/views/ExamListView.vue';
-import ArticlePage from '@/components/ArticlePage.vue';
-import TestPage from '@/components/TestPage.vue';
-import ExamPage from '@/components/ExamPage.vue';
+import ArticlePage from '@/components/articlesPages/ArticlePage.vue';
+import TestPage from '@/components/testPages/TestPage.vue';
+import ExamPage from '@/components/testPages/ExamPage.vue';
 import UserInfoView from '@/views/UserInfoView.vue';
 import AddArticleView from '@/views/AddArticleView.vue';
-import EditArticlePage from '@/components/EditArticlePage.vue';
-import AddQuestionPage from '@/components/AddQuestionPage.vue';
-import EditQuestionPage from '@/components/EditQuestionPage.vue';
-import CreateTestPage from '@/components/CreateTestPage.vue';
-import RegisterAdminPage from '@/components/RegisterAdminPage.vue';
+import EditArticlePage from '@/components/articlesPages/EditArticlePage.vue';
+import AddQuestionPage from '@/components/questionPages/AddQuestionPage.vue';
+import EditQuestionPage from '@/components/questionPages/EditQuestionPage.vue';
+import CreateTestPage from '@/components/testPages/CreateTestPage.vue';
+import RegisterAdminPage from '@/components/userInfoPages/RegisterAdminPage.vue';
 import ManagePage from '@/components/ManagePage.vue';
-import UserScorePage from '@/components/UserScorePage.vue';
-import AboutExamPage from '@/components/AboutExamPage.vue';
-import AboutSchedulePage from '@/components/AboutSchedulePage.vue';
-import AboutLocationPage from '@/components/AboutLocationPage.vue';
-import AboutUniversityPage from '@/components/AboutUniversityPage.vue';
+import UserScorePage from '@/components/userInfoPages/UserScorePage.vue';
+import AboutExamPage from '@/components/aboutPages/AboutExamPage.vue';
+import AboutSchedulePage from '@/components/aboutPages/AboutSchedulePage.vue';
+import AboutLocationPage from '@/components/aboutPages/AboutLocationPage.vue';
+import AboutUniversityPage from '@/components/aboutPages/AboutUniversityPage.vue';
 
 const routes = [
   { path: '/', component: HomeView },

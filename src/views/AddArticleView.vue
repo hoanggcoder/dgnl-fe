@@ -2,7 +2,7 @@
     <AddArticlePage/>
   </template>
 <script>
-import AddArticlePage from '@/components/AddArticlePage.vue';
+import AddArticlePage from '@/components/articlesPages/AddArticlePage.vue';
 export default {
   components: {
     AddArticlePage

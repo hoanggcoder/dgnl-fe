@@ -41,8 +41,8 @@
 </template>
   
 <script>
-import QuestionTracker from "@/components/QuestionTracker.vue";
-import TestQuestion from "@/components/TestQuestion.vue";
+import QuestionTracker from "@/components/testPages/QuestionTracker.vue";
+import TestQuestion from "@/components/questionPages/TestQuestion.vue";
 import CountdownTimer from "./CountdownTimer.vue";
 import axios from "axios";
 

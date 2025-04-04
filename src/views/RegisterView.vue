@@ -2,7 +2,7 @@
     <RegisterPage/>
   </template>
 <script>
-import RegisterPage from '@/components/RegisterPage.vue';
+import RegisterPage from '@/components/loginPages/RegisterPage.vue';
 export default {
   components: {
     RegisterPage

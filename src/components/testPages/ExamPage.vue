@@ -22,7 +22,7 @@
 
 <script>
 import axios from "axios";
-import TopScores from "@/components/TopScores.vue";
+import TopScores from "@/components/userInfoPages/TopScores.vue";
 
 export default {
   name: "ExamPage",

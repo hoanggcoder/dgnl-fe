@@ -35,7 +35,7 @@
       Xác nhận
     </button>
 
-    <p v-if="gameOver">Từ cần điền là {{ targetWord }}</p>
+    <p v-if="gameOver">Từ cần tìm là {{ targetWord }}</p>
   </div>
 </template>
 

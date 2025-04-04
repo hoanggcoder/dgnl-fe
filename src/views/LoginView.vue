@@ -2,7 +2,7 @@
     <LoginPage/>
   </template>
 <script>
-import LoginPage from '@/components/LoginPage.vue';
+import LoginPage from '@/components/loginPages/LoginPage.vue';
 export default {
   components: {
     LoginPage
