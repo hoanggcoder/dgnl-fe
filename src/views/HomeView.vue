@@ -27,6 +27,7 @@
 
     <DailyQuestionPage v-if="questionData" :question="questionData" />
     <ChatBot />
+    <WordleGame/>
   </div>
 </template>
 
@@ -41,6 +42,7 @@ import DailyQuestionPage from '@/components/DailyQuestionPage.vue';
 import ChatBot from '@/components/ChatBot.vue';
 import QuoteDisplay from '@/components/QuoteDisplay.vue';
 import TimeProgress from '@/components/TimeProgress.vue';
+import WordleGame from '@/components/WordleGame.vue';
 
 const cards = ref([
   {
