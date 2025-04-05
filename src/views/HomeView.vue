@@ -214,7 +214,7 @@ button:disabled {
 
 .time-progress {
   position: absolute;
-  top: 180%;
+  top: 181%;
   right: 20px;
   transform: translateY(-50%);
   width: 30%;
@@ -245,7 +245,7 @@ button:disabled {
 
 .subjects-list {
   position: absolute;
-  top: 165%;
+  top: 166%;
   left: 5px;
   transform: translateY(-50%);
   width: 30%;

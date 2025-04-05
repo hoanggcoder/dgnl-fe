@@ -22,6 +22,7 @@ import AboutExamPage from '@/components/aboutPages/AboutExamPage.vue';
 import AboutSchedulePage from '@/components/aboutPages/AboutSchedulePage.vue';
 import AboutLocationPage from '@/components/aboutPages/AboutLocationPage.vue';
 import AboutUniversityPage from '@/components/aboutPages/AboutUniversityPage.vue';
+import EditGamePage from '@/components/minigames/EditGamePage.vue';
 
 const routes = [
   { path: '/', component: HomeView },
@@ -48,6 +49,7 @@ const routes = [
   { path : '/about-schedule', component: AboutSchedulePage},
   { path : '/about-location', component: AboutLocationPage},
   { path : '/about-university', component: AboutUniversityPage},
+  { path : '/edit-minigame', component: EditGamePage},
 ];
 
 const router = createRouter({

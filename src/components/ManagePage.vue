@@ -7,10 +7,11 @@
         <li @click="changeEntity('exam')" :class="{ active: selectedEntity === 'exam' }">Kỳ Thi</li>
         <li @click="changeEntity('article')" :class="{ active: selectedEntity === 'article' }">Bài Viết</li>
         <li @click="changeEntity('question')" :class="{ active: selectedEntity === 'question' }">Câu Hỏi</li>
+        <li @click="changeEntity('other')" :class="{ active: selectedEntity === 'other' }">Khác</li>
       </ul>
     </aside>
 
-    <main class="content">
+    <main class="content" v-if="selectedEntity !== 'other'">
       <h2>Danh Sách {{ entityName }}</h2>
       
       <div class="search-bar">
@@ -43,6 +44,10 @@
           {{ page }}
         </button>
       </div>
+    </main>
+    <main class="content" v-else>
+      <h2>Quản lý khác</h2>
+      <button class="minigame-btn" @click="editMinigame">Quản lý minigame</button>
     </main>
   </div>
 </template>
@@ -170,6 +175,9 @@ export default {
     },
     addItem() {
       this.$router.push(`/add-${this.selectedEntity}`);
+    },
+    editMinigame() {
+      this.$router.push(`/edit-minigame`);
     },
     editItem(id) {
       this.$router.push(`/edit-${this.selectedEntity}/${id}`);
