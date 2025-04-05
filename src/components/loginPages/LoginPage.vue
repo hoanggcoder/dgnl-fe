@@ -15,7 +15,7 @@
           <button type="submit" :disabled="loading">{{ loading ? 'Đang đăng nhập' : 'Đăng nhập' }}</button>
           <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
         </form>
-        <p class="toggle"><router-link to="/register">Đăng ký nếu chưa có tài khoản</router-link></p>
+        <p class="toggle"><router-link to="/register" @click="closeModal">Đăng ký nếu chưa có tài khoản</router-link></p>
       </div>
     </div>
 

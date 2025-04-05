@@ -1,7 +1,8 @@
 <template>
-    <div class="register-container">
-      <h2>Đăng ký tài khoản</h2>
-      <form @submit.prevent="submitForm">
+  <div class="register-container">
+    <h2>Đăng ký tài khoản</h2>
+    <form @submit.prevent="submitForm">
+      <div class="form-container"> 
         <div class="form-group" v-for="(field, key) in formFields" :key="key">
           <label :for="key">{{ field.label }}</label>
           <input
@@ -14,11 +15,11 @@
           />
           <p v-if="errors[key]" class="error-message">{{ errors[key] }}</p>
         </div>
-  
-        <button type="submit" class="submit-btn">Đăng ký</button>
-      </form>
-    </div>
-  </template>
+      </div>
+      <button type="submit" class="submit-btn">Đăng ký</button>
+    </form>
+  </div>
+</template>
   
 <script>
 import axios from "axios";
@@ -88,7 +89,7 @@ import axios from "axios";
       try {
         const response = await axios.post("http://localhost:8080/user/create", this.formData);
         alert(response.data.message || "Đăng ký thành công!");
-        this.$router.push("/login"); 
+        this.$router.push("/"); 
       } catch (error) {
         if (error.response && error.response.data) {
           alert(error.response.data.message || "Đăng ký không thành công!");
@@ -104,13 +105,13 @@ import axios from "axios";
 <style scoped>
 .register-container {
   width: 100%;
-  max-width: 400px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
   background: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  text-align: center; 
+  text-align: center;
 }
 
 h2 {
@@ -140,8 +141,10 @@ h2 {
 
 .error-message {
   color: red;
+  text-align: center;
   font-size: 12px;
   margin-top: 5px;
+  width: 100%;
 }
 
 .submit-btn {
@@ -163,5 +166,28 @@ h2 {
 
 .submit-btn:hover {
   background-color: #044404;
+}
+
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.form-group input {
+  width: 100%;
 }
 </style>
