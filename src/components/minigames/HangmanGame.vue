@@ -12,7 +12,7 @@
         <p class="wrong-letters">
           <i class="fas fa-times-circle"></i>
           <span>
-            {{  wrongLetters && wrongLetters.length ? ' ' + wrongLetters.join(', ') : ' Chưa có chữ cái sai' }}
+            {{  wrongLetters && wrongLetters.length ? ' ' + wrongLetters.join(', ') : ' _' }}
           </span>
         </p>
         <p class="remaining-guesses">

@@ -41,17 +41,23 @@
     <button @click="logout" class="logout-btn">Đăng xuất</button>
   </div>
   <div v-else>
-    <router-link to="/login" @click="noActive()"><button class="sign-in">Đăng nhập</button></router-link>
+    <button class="sign-in" @click="openLoginModal">Đăng nhập</button>
     <router-link to="/register" @click="noActive()"><button class="sign-up">Đăng ký</button></router-link>
   </div>
   </div>
   </nav>
+  <LoginPage ref="loginModal" />
 </template>
 
 <script>
 import defaultAvatar from "@/assets/avatar_default.png";
+import LoginPage from "./loginPages/LoginPage.vue";
 export default {
   name: "NavBar",
+  components: {
+    LoginPage,
+  }
+  ,
   data() {
     return {
       activeLink: '',
@@ -93,7 +99,7 @@ export default {
       this.user = null;
       this.role = null;
       window.dispatchEvent(new Event('userUpdated'));
-      this.$router.push('/login');
+      this.$router.push('/');
     },
     toggleDropdown(event) {
       this.activeLink = ''
@@ -104,6 +110,9 @@ export default {
       if (!this.$el.contains(event.target)) {
         this.showDropdown = false;
       }
+    },
+    openLoginModal() {
+      this.$refs.loginModal.openModal();
     },
   }
 };
@@ -117,12 +126,12 @@ export default {
   background-color: #066506;
   padding: 15px 50px;
   color: white;
-
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   max-width: 93vw;
+  height: 60px;
   z-index: 1000;
 }
 
@@ -167,6 +176,8 @@ export default {
 .nav-buttons {
   display: flex;
   align-items: center;
+  justify-content: flex-end;  /* Align to the right */
+  min-width: 200px;  /* Ensure a consistent width */
 }
 
 .user-container {
@@ -174,24 +185,24 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%; 
-  gap: 20px; 
+  width: auto;
+  gap: 20px;
   cursor: pointer;
 }
 
 .user-info {
   display: flex;
   align-items: center;
-  gap: 10px; 
+  gap: 10px;
   background: rgba(255, 255, 255, 0.2);
   padding: 5px 10px;
   border-radius: 25px;
   transition: 0.3s ease;
   height: 50px;
-  width: auto; 
-  flex-direction: row; 
+  width: auto;
+  flex-direction: row;
   justify-content: flex-start;
-  white-space: nowrap; 
+  white-space: nowrap;
 }
 
 .user-info:hover {
@@ -210,7 +221,7 @@ export default {
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid white;
-  flex-shrink: 0; 
+  flex-shrink: 0;
 }
 
 .username {
@@ -235,7 +246,6 @@ export default {
   transition: 0.3s ease, transform 0.2s ease;
   margin: 0 5px;
 }
-
 
 .sign-in, .sign-up {
   background: #7b7c7b;
@@ -269,6 +279,7 @@ export default {
     flex-direction: column;
     gap: 15px;
     margin-top: 10px;
+    width: 100%;  /* Ensure the nav buttons take the full width */
   }
 
   .user-info {
@@ -285,7 +296,7 @@ export default {
 
 .dropdown-menu {
   position: absolute;
-  top: 115%; 
+  top: 115%;
   right: 42%;
   background: #066506;
   color: black;
@@ -298,7 +309,7 @@ export default {
   transition: opacity 0.2s ease-in-out, transform 0.2s ease;
   z-index: 1000;
   display: flex;
-  pointer-events: none; 
+  pointer-events: none;
   border-radius: 10px;
 }
 
@@ -327,4 +338,5 @@ export default {
   background: rgba(255, 255, 255, 0.3);
   color: #fff;
 }
+
 </style>
