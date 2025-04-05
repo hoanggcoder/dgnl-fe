@@ -89,6 +89,7 @@ export default {
       localStorage.removeItem('user');
       localStorage.removeItem('role');
       localStorage.removeItem('username');
+      localStorage.removeItem('id');
       this.user = null;
       this.role = null;
       window.dispatchEvent(new Event('userUpdated'));

@@ -46,7 +46,6 @@
       </div>
     </main>
     <main class="content" v-else>
-      <h2>Quản lý khác</h2>
       <button class="minigame-btn" @click="editMinigame">Quản lý minigame</button>
     </main>
   </div>
@@ -363,5 +362,29 @@ export default {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+.minigame-btn {
+  background-color: #066506; 
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.75rem; 
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.minigame-btn:hover {
+  background-color: #066506; 
+  transform: translateY(-2px);
+}
+
+.minigame-btn:active {
+  background-color: #066506;
+  transform: translateY(0);
 }
 </style>

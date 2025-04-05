@@ -100,12 +100,21 @@ export default {
     },
     async submitTest() {
       if (this.score !== null) return;
+
+      const userId = localStorage.getItem("id");
+      if (!userId) {
+        alert("Bạn cần đăng nhập trước khi nộp bài.");
+        return;
+      }
+
       const formattedAnswers = this.questions
         .map(
           (question, index) => `Q${index + 1}=${this.answers[question.id] || ""};`
         )
         .join("");
       this.answerInput.answerList = formattedAnswers;
+      this.answerInput.userId = userId; 
+
       try {
         const response = await axios.post(
           `http://localhost:8080/test/answer-test`,
@@ -137,6 +146,7 @@ export default {
   },
 };
 </script>
+
 
   
 <style scoped>

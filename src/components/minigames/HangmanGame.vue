@@ -9,8 +9,16 @@
       </div>
   
       <div class="wrong-guesses">
-        <p>Sai: {{ wrongLetters.join(', ') }}</p>
-        <p>Lượt đoán còn lại: {{ remainingGuesses }}</p>
+        <p class="wrong-letters">
+          <i class="fas fa-times-circle"></i>
+          <span>
+            {{  wrongLetters && wrongLetters.length ? ' ' + wrongLetters.join(', ') : ' Chưa có chữ cái sai' }}
+          </span>
+        </p>
+        <p class="remaining-guesses">
+          <i class="fas fa-heart"></i>
+          <span>{{ " " + remainingGuesses }}</span>
+        </p>
       </div>
   
       <input
@@ -144,7 +152,6 @@ import axios from 'axios';
     text-transform: uppercase;
     border: 2px solid #ccc;
     border-radius: 8px;
-    margin-top: 10px;
     box-sizing: border-box;
   }
   
@@ -168,8 +175,25 @@ import axios from 'axios';
   }
   
   .wrong-guesses {
-    margin-bottom: 10px;
-    color: #d32f2f;
-  }
+  display: flex;
+  justify-content: center;
+  gap: 30px; 
+  align-items: center;
+  font-size: 20px; 
+  font-weight: 500;
+  color: #d32f2f;
+}
+
+.wrong-letters, .remaining-guesses {
+  display: flex;
+  align-items: center;
+}
+
+.wrong-letters i,
+.remaining-guesses i {
+  margin-right: 8px;
+  font-size: 24px;
+  color: #d32f2f;
+}
   </style>
   
