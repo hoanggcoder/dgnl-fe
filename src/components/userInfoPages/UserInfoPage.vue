@@ -56,7 +56,7 @@ export default {
         address: { label: "Địa chỉ", type: "text" },
         phoneNumber: { label: "Số điện thoại", type: "tel", placeholder: "+1234567890" },
         email: { label: "Email", type: "email" },
-        role: { label: "Vai trò", type: "text", placeholder: "Your role", disabled: true },
+        role: { label: "Vai trò", type: "text", placeholder: "Quyền hạn", disabled: true },
       },
     };
   },
@@ -76,7 +76,7 @@ export default {
         this.previewImage = response.data.profilePicture;
       } catch (error) {
         console.error("Error fetching user data:", error);
-        this.message = "Failed to load user data.";
+        this.message = "Không thể lấy ra dữ liệu.";
         this.isSuccess = false;
       }
     },
@@ -90,12 +90,12 @@ export default {
 
         await axios.put(`http://localhost:8080/user/edit-info/${username}`, this.userData);
 
-        this.message = "User information updated successfully!";
+        this.message = "Thông tin người dùng đã được cập nhật!";
         this.isSuccess = true;
         this.isEditing = false;
       } catch (error) {
         console.error("Error updating user information:", error);
-        this.message = "Error updating user information.";
+        this.message = "Đã có lỗi khi thực hiện cập nhật thông tin.";
         this.isSuccess = false;
       }
     },
@@ -213,10 +213,12 @@ h2 {
 
 .success {
   color: green;
+  text-align: center;
 }
 
 .error {
   color: red;
+  text-align: center;
 }
 
 @media (max-width: 768px) {

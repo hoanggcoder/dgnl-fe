@@ -84,7 +84,7 @@ export default {
 }
 
 .article-card {
-  background: #fff;
+  background: #f3f7f0;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;

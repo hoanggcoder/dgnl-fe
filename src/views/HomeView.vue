@@ -2,7 +2,6 @@
   <div class="page-container">
     <div class="content-wrapper">
       <div class="main-content">
-        <QuoteDisplay />
 
         <div class="slider-container">
           <button @click="prevSlide">&#10094;</button>
@@ -19,6 +18,7 @@
           </div>
           <button @click="nextSlide">&#10095;</button>
         </div>
+        <QuoteDisplay />
       </div>
 
       <div class="time-progress">
@@ -26,13 +26,13 @@
       </div>
 
       <div class="subjects-list">
-        <h1 class="subject-title">Kiến thức theo môn học</h1>
+        <h1 class="subject-title">Kiến thức theo từng phần</h1>
         <ul>
           <li v-for="subject in subjects" :key="subject" @click="selectSubject(subject)">
             {{ subject }}
           </li>
         </ul>
-
+        <h1 class="location">Địa điểm thi ĐGNL</h1>
         <div class="image-viewer">
           <img
             src="@\assets\map.png"
@@ -114,7 +114,7 @@ const cards = ref([
 
 const questionData = ref(null);
 
-const subjects = ["Toán", "Ngữ văn", "Tiếng Anh", "Vật lý", "Hóa học", "Sinh học", "Lịch sử", "Địa lý"];
+const subjects = ["Toán học và xử lý số liệu", "Ngôn ngữ - Văn học", "Khoa học"];
 
 const selectSubject = (subject) => {
   console.log("Selected subject:", subject);
@@ -277,7 +277,7 @@ button:disabled {
   color: white;
 }
 
-.subject-title{
+.subject-title, .location {
   font-size: 20px;
   font-weight: bold;
   color: #066506;
@@ -285,8 +285,12 @@ button:disabled {
   text-align: center;
 }
 
+.location {
+  margin-top: 40px;
+}
+
 .image-viewer {
-  margin-top: 100px;
+  margin-top: 10px;
   margin-bottom: 50px;
   text-align: center;
 }

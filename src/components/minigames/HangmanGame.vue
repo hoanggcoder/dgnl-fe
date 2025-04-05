@@ -27,7 +27,6 @@
         @keyup.enter="guessLetter"
         maxlength="1"
         :disabled="gameOver"
-        placeholder="Nhập một chữ cái"
       />
       <button @click="guessLetter" :disabled="gameOver || !currentLetter">
         Xác nhận

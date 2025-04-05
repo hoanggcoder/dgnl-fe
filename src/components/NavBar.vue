@@ -162,6 +162,11 @@ export default {
   transition: all 0.3s ease;
 }
 
+.nav-links a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+
 .nav-links a.active::after {
   content: "";
   position: absolute;
@@ -176,8 +181,8 @@ export default {
 .nav-buttons {
   display: flex;
   align-items: center;
-  justify-content: flex-end;  /* Align to the right */
-  min-width: 200px;  /* Ensure a consistent width */
+  justify-content: flex-end; 
+  min-width: 200px;  
 }
 
 .user-container {

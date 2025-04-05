@@ -70,7 +70,6 @@ export default {
 <style scoped>
 .question-container {
   max-width: 600px;
-  margin: 30px auto;
   padding: 25px;
   border-radius: 12px;
   text-align: center;

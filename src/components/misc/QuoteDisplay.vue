@@ -41,17 +41,17 @@ export default {
 <style scoped>
 .banner-container {
   width: 103%;
-  height: 25vh;
+  height: 20vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background: linear-gradient(to right, #7b7c7b, #fa0404);
-  color: rgb(71, 66, 66);
+  color: rgb(200, 222, 34);
   text-align: center;
 }
 
 .banner-content {
-  max-width: 800px;
+  max-width: 90%;
   padding: 20px;
   position: relative;
 }

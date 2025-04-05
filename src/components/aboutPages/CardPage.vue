@@ -32,13 +32,12 @@ defineProps({
 .card {
   width: 380px;
   height: 350px; 
-  background: #fff;
+  background: #f3f7f0;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   margin: 20px;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-
   display: flex;
   flex-direction: column;
 }
@@ -110,7 +109,7 @@ defineProps({
 }
 
 .tag {
-  background: #eef2f6;
+  background: #b9d0e7;
   color: #333;
   font-size: 13px;
   padding: 6px 10px;

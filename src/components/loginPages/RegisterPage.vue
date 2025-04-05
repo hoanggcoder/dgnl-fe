@@ -40,7 +40,6 @@ import LoginPage from "./LoginPage.vue";
           email: '',
           username: '',
           password: '',
-          universityId: null
         },
         errors: {},
         formFields: {
@@ -51,8 +50,7 @@ import LoginPage from "./LoginPage.vue";
           phone: { label: "Số điện thoại", type: "tel", placeholder: "+1234567890", pattern: /^(\+?[0-9]{10,15})$/ },
           email: { label: "Email", type: "email" },
           username: { label: "Username", type: "text", min: 4, max: 20, pattern: /^[a-zA-Z][a-zA-Z0-9_]*$/ },
-          password: { label: "Mật khẩu", type: "password", min: 8, max: 20 },
-          universityId: { label: "University ID", type: "number" }
+          password: { label: "Mật khẩu", type: "password", min: 8, max: 20 }
         }
       };
     },
@@ -113,8 +111,9 @@ import LoginPage from "./LoginPage.vue";
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
+  margin-top: 40px;
   padding: 20px;
-  background: #fff;
+  background: #f3f7f0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   text-align: center;

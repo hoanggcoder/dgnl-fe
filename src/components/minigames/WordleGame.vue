@@ -29,7 +29,6 @@
       @keyup.enter="makeGuess"
       maxlength="5"
       :disabled="gameOver"
-      placeholder="Nhập một từ tiếng Anh 5 chữ cái"
     />
     <button @click="makeGuess" :disabled="gameOver || currentGuess.length < 5">
       Xác nhận
