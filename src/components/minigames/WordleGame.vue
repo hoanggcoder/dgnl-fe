@@ -40,17 +40,32 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
-      targetWord: 'PLACE',
+      targetWord: '', 
       guesses: [],
       currentGuess: '',
       maxAttempts: 6,
-      gameOver: false
+      gameOver: false,
+      type: 'wordle', 
     };
   },
+  mounted() {
+    this.fetchTargetWord();
+  },
   methods: {
+    async fetchTargetWord() {
+      try {
+        this.type = 'wordle';
+        const response = await axios.get(`http://localhost:8080/game/value/${this.type}`); 
+        this.targetWord = response.data;  
+      } catch (error) {
+        console.error('Error fetching target word:', error);
+      }
+    },
     formatGuess() {
       this.currentGuess = this.currentGuess.toUpperCase().slice(0, 5);
     },
@@ -77,6 +92,8 @@ export default {
   }
 };
 </script>
+
+
 
 <style scoped>
 .wordle-game {

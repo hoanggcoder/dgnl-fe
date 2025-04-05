@@ -32,10 +32,11 @@
   </template>
   
   <script>
+import axios from 'axios';
   export default {
     data() {
       return {
-        targetWord: 'VIETNAM',
+        targetWord: '',
         guessedLetters: [],
         wrongLetters: [],
         currentLetter: '',
@@ -49,7 +50,19 @@
         return this.maxWrong - this.wrongLetters.length;
       }
     },
+    mounted() {
+      this.fetchTargetWord();
+    },
     methods: {
+      async fetchTargetWord() {
+        try {
+          this.type = 'hangman';
+          const response = await axios.get(`http://localhost:8080/game/value/${this.type}`); 
+          this.targetWord = response.data;  
+        } catch (error) {
+          console.error('Error fetching target word:', error);
+        }
+      },
       formatLetter() {
         this.currentLetter = this.currentLetter.toUpperCase().slice(0, 1);
       },

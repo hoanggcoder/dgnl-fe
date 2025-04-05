@@ -24,6 +24,7 @@
       <div class="time-progress">
         <TimeProgress />
       </div>
+
       <div class="subjects-list">
         <h1 class="subject-title">Kiến thức theo môn học</h1>
         <ul>
@@ -31,6 +32,16 @@
             {{ subject }}
           </li>
         </ul>
+
+        <div class="image-viewer">
+          <img
+            src="@\assets\map.png"
+            alt="Thumbnail"
+            class="thumbnail-image"
+            @click="showFullImage = true"
+          />
+          <p class="image-caption">Địa điểm tổ chức thi. Bấm vào hình để xem sơ đồ ĐHQGHN cơ sở 144 Xuân Thủy</p>
+        </div>
       </div>
     </div>
 
@@ -46,6 +57,10 @@
     </div>
 
     <ChatBot />
+
+    <div v-if="showFullImage" class="modal" @click="showFullImage = false">
+      <img src="@\assets\map_full.jpg" alt="Full Image" class="full-image" />
+    </div>
   </div>
 </template>
 
@@ -62,6 +77,7 @@ import QuoteDisplay from '@/components/misc/QuoteDisplay.vue';
 import TimeProgress from '@/components/misc/TimeProgress.vue';
 import WordleGame from '@/components/minigames/WordleGame.vue';
 import HangmanGame from '@/components/minigames/HangmanGame.vue';
+
 
 const cards = ref([
   {
@@ -133,6 +149,9 @@ const nextSlide = () => {
 const prevSlide = () => {
   currentIndex.value = (currentIndex.value - 1 + cards.value.length) % cards.value.length;
 };
+
+const showFullImage = ref(false);
+
 </script>
 
 <style scoped>
@@ -226,7 +245,7 @@ button:disabled {
 
 .subjects-list {
   position: absolute;
-  top: 138%;
+  top: 165%;
   left: 5px;
   transform: translateY(-50%);
   width: 30%;
@@ -264,5 +283,48 @@ button:disabled {
   color: #066506;
   margin-bottom: 15px;
   text-align: center;
+}
+
+.image-viewer {
+  margin-top: 100px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.thumbnail-image {
+  width: 250px;
+  height: auto;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+
+.thumbnail-image:hover {
+  transform: scale(1.05);
+}
+
+.image-caption {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #666;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.full-image {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
 }
 </style>
