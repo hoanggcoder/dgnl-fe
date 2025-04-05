@@ -16,14 +16,19 @@
           <p v-if="errors[key]" class="error-message">{{ errors[key] }}</p>
         </div>
       </div>
-      <button type="submit" class="submit-btn">Đăng ký</button>
+      <button type="submit" class="submit-btn" >Đăng ký</button>
     </form>
   </div>
+  <LoginPage ref="loginModal" />
 </template>
   
 <script>
 import axios from "axios";
+import LoginPage from "./LoginPage.vue";
   export default {
+    components: {
+      LoginPage
+    },
     data() {
       return {
         formData: {
@@ -89,7 +94,8 @@ import axios from "axios";
       try {
         const response = await axios.post("http://localhost:8080/user/create", this.formData);
         alert(response.data.message || "Đăng ký thành công!");
-        this.$router.push("/"); 
+        this.$refs.loginModal.openModalWithInfo(this.formData.username);
+        
       } catch (error) {
         if (error.response && error.response.data) {
           alert(error.response.data.message || "Đăng ký không thành công!");

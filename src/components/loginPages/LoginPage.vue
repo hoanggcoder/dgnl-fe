@@ -15,7 +15,7 @@
           <button type="submit" :disabled="loading">{{ loading ? 'Đang đăng nhập' : 'Đăng nhập' }}</button>
           <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
         </form>
-        <p class="toggle"><router-link to="/register" @click="closeModal">Đăng ký nếu chưa có tài khoản</router-link></p>
+        <p class="toggle" v-if="this.needRegister"><router-link to="/register" @click="closeModal">Đăng ký nếu chưa có tài khoản</router-link></p>
       </div>
     </div>
 
@@ -32,12 +32,19 @@ export default {
       password: '',
       loading: false,
       errorMessage: '',
-      isModalOpen: false, 
+      isModalOpen: false,
+      needRegister: true, 
     };
   },
   methods: {
     openModal() {
       this.isModalOpen = true;
+      document.body.classList.add('modal-open');
+    },
+    openModalWithInfo(username) {
+      this.isModalOpen = true;
+      this.username = username;
+      this.needRegister = false;
       document.body.classList.add('modal-open');
     },
     closeModal() {
