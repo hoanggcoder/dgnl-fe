@@ -52,7 +52,7 @@ export default {
         window.dispatchEvent(new Event('userUpdated'));
         this.$router.push('/');
       } catch (error) {
-        this.errorMessage = 'Invalid username or password';
+        this.errorMessage = 'Thông tin đăng nhập không chính xác!';
       } finally {
         this.loading = false;
       }

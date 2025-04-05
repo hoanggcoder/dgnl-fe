@@ -56,22 +56,22 @@ import axios from "axios";
         let rules = this.formFields[key];
   
         if (!value) {
-          this.errors[key] = `${rules.label} cannot be empty`;
+          this.errors[key] = `${rules.label} không được để trống`;
           return;
         }
   
         if (rules.min && value.length < rules.min) {
-          this.errors[key] = `${rules.label} must be at least ${rules.min} characters`;
+          this.errors[key] = `${rules.label} phải chứa ít nhất ${rules.min} ký tự`;
           return;
         }
   
         if (rules.max && value.length > rules.max) {
-          this.errors[key] = `${rules.label} must be at most ${rules.max} characters`;
+          this.errors[key] = `${rules.label} chỉ chứa tối đa ${rules.max} ký tự`;
           return;
         }
   
         if (rules.pattern && !rules.pattern.test(value)) {
-          this.errors[key] = `Invalid ${rules.label} format`;
+          this.errors[key] = `Định dạng ${rules.label} không hợp lệ`;
           return;
         }
   

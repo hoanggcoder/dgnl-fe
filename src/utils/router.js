@@ -23,6 +23,7 @@ import AboutSchedulePage from '@/components/aboutPages/AboutSchedulePage.vue';
 import AboutLocationPage from '@/components/aboutPages/AboutLocationPage.vue';
 import AboutUniversityPage from '@/components/aboutPages/AboutUniversityPage.vue';
 import EditGamePage from '@/components/minigames/EditGamePage.vue';
+import ChangePassword from '@/components/userInfoPages/ChangePassword.vue';
 
 const routes = [
   { path: '/', component: HomeView },
@@ -50,6 +51,7 @@ const routes = [
   { path : '/about-location', component: AboutLocationPage},
   { path : '/about-university', component: AboutUniversityPage},
   { path : '/edit-minigame', component: EditGamePage},
+  { path : '/change-password/:username', component: ChangePassword},
 ];
 
 const router = createRouter({
