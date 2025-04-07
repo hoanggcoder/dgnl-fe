@@ -2,18 +2,20 @@
   <div class="user-info-container">
     <h2>Thông tin của người dùng</h2>
     <form @submit.prevent="updateUserInfo">
-      <div class="form-group" v-for="(field, key) in formFields" :key="key">
-        <label :for="key">{{ field.label }}</label>
-        <input
-          v-if="key !== 'profilePicture'"
-          :type="field.type"
-          :id="key"
-          v-model="userData[key]"
-          :placeholder="field.placeholder"
-          :disabled="!isEditing || key === 'role'"
-          readonly="key === 'role'"
-          required
-        />
+      <div class="form-row">
+        <div class="form-group" v-for="(field, key) in formFields" :key="key">
+          <label :for="key">{{ field.label }}</label>
+          <input
+            v-if="key !== 'profilePicture'"
+            :type="field.type"
+            :id="key"
+            v-model="userData[key]"
+            :placeholder="field.placeholder"
+            :disabled="!isEditing || key === 'role'"
+            readonly="key === 'role'"
+            required
+          />
+        </div>
       </div>
       <div class="form-group">
         <label>Ảnh đại diện</label>
@@ -131,19 +133,22 @@ export default {
 <style scoped>
 h2 {
   text-align: center;
+  color : #066506;
+  font-size: 24px;
 }
 
 .user-info-container {
   width: 100%;
   max-width: 500px;
   padding: 20px;
-  background: #fff;
+  background: #f3f7f0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   text-align: left; 
   align-self: center;
   justify-content: center;
-  padding-top: 200px;
+  padding-top: 50px;
+  margin-top: 50px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -154,6 +159,8 @@ h2 {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
+  width: 110%;
+  
 }
 
 .form-group label {
@@ -219,6 +226,18 @@ h2 {
 .error {
   color: red;
   text-align: center;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-right: 20px;
+}
+
+.form-row .form-group {
+  flex: 1 1 calc(50% - 10px); 
+  min-width: 200px;
 }
 
 @media (max-width: 768px) {

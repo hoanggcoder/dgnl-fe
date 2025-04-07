@@ -245,7 +245,7 @@ button:disabled {
 
 .subjects-list {
   position: absolute;
-  top: 166%;
+  top: 146%;
   left: 5px;
   transform: translateY(-50%);
   width: 30%;

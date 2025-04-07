@@ -11,13 +11,10 @@
     data() {
       return {
         tips: [
-          "Start your day with a study plan.",
-          "Take short breaks to stay focused.",
-          "Practice past exam papers regularly.",
-          "Stay hydrated and eat healthy snacks.",
-          "Teach someone else to reinforce your learning.",
-          "Use mnemonic devices to remember key concepts.",
-          "Get enough sleep before the exam day.",
+          "HÃy sử dụng hết thời gian được cho phép và xem lại câu hỏi.",
+          "Ôn luyện kỹ hơn ở phần 1",
+          "Chú ý điền đúng chính tả và đúng cấu trúc được yêu cầu cho câu hỏi điền đáp án",
+          "Hãy làm các đề thi thử để làm quen với áp lực thời gian.",
         ],
         currentTip: "",
       };
@@ -37,13 +34,14 @@
   <style scoped>
   .daily-tips {
     text-align: center;
-    background: linear-gradient(135deg, #6e8efb, #a777e3);
-    color: white;
+    background: #f3f7f0;
+    color: #066506;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     max-width: 400px;
     margin: auto;
+    margin-top: 40px;
     font-family: 'Arial', sans-serif;
   }
   .tip {
