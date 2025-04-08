@@ -4,9 +4,9 @@
       <h3>Quản Lý</h3>
       <ul>
         <li @click="changeEntity('admin')" :class="{ active: selectedEntity === 'admin' }">Quản Trị Viên</li>
-        <li @click="changeEntity('exam')" :class="{ active: selectedEntity === 'exam' }">Kỳ Thi</li>
         <li @click="changeEntity('article')" :class="{ active: selectedEntity === 'article' }">Bài Viết</li>
         <li @click="changeEntity('question')" :class="{ active: selectedEntity === 'question' }">Câu Hỏi</li>
+        <li @click="changeEntity('exam')" :class="{ active: selectedEntity === 'exam' }">Kỳ Thi</li>
         <li @click="changeEntity('other')" :class="{ active: selectedEntity === 'other' }">Khác</li>
       </ul>
     </aside>

@@ -91,7 +91,7 @@
 
 <script>
 import axios from "axios";
-import { reactive, ref, computed, onMounted } from "vue";
+import { reactive, ref, computed, onMounted, watch } from "vue";
 
 export default {
   setup() {
@@ -167,6 +167,10 @@ export default {
     
     const message = ref("");
     const error = ref("");
+
+    watch([searchQuery, selectedType], () => {
+      currentPage.value = 1;
+    });
 
     const fetchQuestions = async () => {
       try {
@@ -278,6 +282,7 @@ button:hover {
 
 .question-item {
   padding: 10px;
+  margin-top: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-bottom: 10px;
