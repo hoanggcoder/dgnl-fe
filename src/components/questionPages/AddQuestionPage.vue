@@ -8,10 +8,10 @@
         </select>
         <input v-model="question.topicId" type="number" placeholder="Chủ đề" required class="input-field" />
         <textarea v-model="question.detail" placeholder="Đề bài" required class="input-field"></textarea>
-        <input v-model="question.choice1" placeholder="Phương án A" required class="input-field" />
-        <input v-model="question.choice2" placeholder="Phương án B" required class="input-field" />
-        <input v-model="question.choice3" placeholder="Phương án C" required class="input-field" />
-        <input v-model="question.choice4" placeholder="Phương án D" required class="input-field" />
+        <input v-model="question.choice1" v-if="question.type === 'multiple_choices'" placeholder="Phương án A" required class="input-field" />
+        <input v-model="question.choice2" v-if="question.type === 'multiple_choices'" placeholder="Phương án B" required class="input-field" />
+        <input v-model="question.choice3" v-if="question.type === 'multiple_choices'" placeholder="Phương án C" required class="input-field" />
+        <input v-model="question.choice4" v-if="question.type === 'multiple_choices'" placeholder="Phương án D" required class="input-field" />
         <input v-model="question.answer" placeholder="Đáp án" required class="input-field" />
         <input v-model="question.picturePath" placeholder="Đường dẫn hình ảnh" class="input-field" />
         <button type="submit" class="btn">Thêm</button>
@@ -39,7 +39,7 @@
   const submitQuestion = async () => {
   try {
     const token = localStorage.getItem("token");
-    await axios.post('http://localhost:8080/questions', question.value, {
+    await axios.post('http://localhost:8080/question', question.value, {
       headers: {
         Authorization: `Bearer ${token}`
       }
