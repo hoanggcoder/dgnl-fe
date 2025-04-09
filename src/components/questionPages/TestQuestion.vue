@@ -5,7 +5,7 @@
       <span class="question-bar"></span>
     </div>
 
-    <p v-html="question.detail"></p>
+    <div ref="detailContainer" v-html="question.detail"></div>
 
     <div v-if="question.type === 'fill_in'">
       <input
@@ -37,8 +37,10 @@
   </div>
 </template>
 
-
 <script>
+import 'katex/dist/katex.min.css'
+import renderMathInElement from 'katex/contrib/auto-render'
+
 export default {
   props: {
     question: Object,
@@ -64,6 +66,17 @@ export default {
       return this.hasFocused;
     }
   },
+  watch: {
+    question: {
+      immediate: true,
+      handler() {
+        this.renderQuestionDetail();
+      }
+    }
+  },
+  mounted() {
+    this.renderQuestionDetail();
+  },
   methods: {
     handleFocus() {
       this.hasFocused = true;
@@ -72,16 +85,29 @@ export default {
       if (this.selectedAnswer !== null && this.selectedAnswer !== "") {
         this.$emit("answer-submitted", { id: this.question.id, answer: this.selectedAnswer });
       }
+    },
+    renderQuestionDetail() {
+      this.$nextTick(() => {
+        if (this.$refs.detailContainer) {
+          renderMathInElement(this.$refs.detailContainer, {
+            delimiters: [
+              {left: "\\(", right: "\\)", display: false},
+              {left: "\\[", right: "\\]", display: true}
+            ],
+            throwOnError: false, 
+          });
+        }
+      });
     }
   }
 };
 </script>
 
-
 <style scoped>
 .question-card {
   padding: 8px;
   margin-bottom: 16px;
+  margin-right: 30px;
 }
 ul {
   list-style-type: none;
@@ -91,6 +117,7 @@ ul {
 .question-container {
   display: flex;
   align-items: stretch;
+  margin-bottom: 8px;
 }
 .question-name {
   background-color: #fa0404;
@@ -126,5 +153,4 @@ ul {
   color: black;
   border: 1px solid #14a614;
 }
-
 </style>

@@ -3,26 +3,26 @@
     <h2>Thêm câu hỏi</h2>
     <form @submit.prevent="submitQuestion">
       <div class="field">
-  <label>Loại câu hỏi</label>
-  <div class="button-group">
-      <button
-        type="button"
-        :class="{'active': question.type === 'multiple_choices'}"
-        @click="question.type = 'multiple_choices'"
-        class="toggle-btn"
-      >
-        Trắc nghiệm khách quan
-      </button>
-      <button
-        type="button"
-        :class="{'active': question.type === 'fill_in'}"
-        @click="question.type = 'fill_in'"
-        class="toggle-btn"
-      >
-        Điền đáp án
-      </button>
-    </div>
-  </div>
+        <label>Loại câu hỏi</label>
+        <div class="button-group">
+          <button
+            type="button"
+            :class="{ 'active': question.type === 'multiple_choices' }"
+            @click="question.type = 'multiple_choices'"
+            class="toggle-btn"
+          >
+            Trắc nghiệm khách quan
+          </button>
+          <button
+            type="button"
+            :class="{ 'active': question.type === 'fill_in' }"
+            @click="question.type = 'fill_in'"
+            class="toggle-btn"
+          >
+            Điền đáp án
+          </button>
+        </div>
+      </div>
 
       <div class="field">
         <label>Chủ đề (ID)</label>
@@ -31,28 +31,15 @@
 
       <div class="field">
         <label>Đề bài</label>
-        <textarea v-model="question.detail" placeholder="Nhập đề bài..." required class="input-field"></textarea>
+        <textarea v-model="question.detail" placeholder="Nhập đề bài..." required class="input-field" @input="renderPreview"></textarea>
+
+        <div ref="previewContainer" class="preview" v-html="question.detail"></div>
       </div>
 
       <template v-if="question.type === 'multiple_choices'">
-        <div class="field">
-          <label>Phương án A</label>
-          <input v-model="question.choice1" placeholder="Phương án A" required class="input-field" />
-        </div>
-
-        <div class="field">
-          <label>Phương án B</label>
-          <input v-model="question.choice2" placeholder="Phương án B" required class="input-field" />
-        </div>
-
-        <div class="field">
-          <label>Phương án C</label>
-          <input v-model="question.choice3" placeholder="Phương án C" required class="input-field" />
-        </div>
-
-        <div class="field">
-          <label>Phương án D</label>
-          <input v-model="question.choice4" placeholder="Phương án D" required class="input-field" />
+        <div class="field" v-for="n in 4" :key="n">
+          <label>Phương án {{ String.fromCharCode(64 + n) }}</label>
+          <input v-model="question['choice' + n]" :placeholder="'Phương án ' + String.fromCharCode(64 + n)" required class="input-field" />
         </div>
       </template>
 
@@ -72,8 +59,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch, onMounted, nextTick } from 'vue';
 import axios from 'axios';
+import 'katex/dist/katex.min.css'
+import renderMathInElement from 'katex/contrib/auto-render';
 
 const question = ref({
   creatorId: localStorage.getItem("id"),
@@ -86,6 +75,31 @@ const question = ref({
   choice4: '',
   answer: '',
   picturePath: ''
+});
+
+const previewContainer = ref(null);
+
+const renderPreview = () => {
+  nextTick(() => {
+    if (previewContainer.value) {
+      renderMathInElement(previewContainer.value, {
+        delimiters: [
+          {left: "\\(", right: "\\)", display: false},
+          {left: "\\[", right: "\\]", display: true},
+          {left: "$", right: "$", display: false}
+        ],
+        throwOnError: false,
+      });
+    }
+  });
+};
+
+watch(() => question.value.detail, () => {
+  renderPreview();
+});
+
+onMounted(() => {
+  renderPreview();
 });
 
 const submitQuestion = async () => {
@@ -109,6 +123,7 @@ const submitQuestion = async () => {
       answer: '',
       picturePath: ''
     };
+    renderPreview();
   } catch (error) {
     console.error('Error adding question:', error);
     alert('Thêm thất bại');
@@ -221,5 +236,17 @@ textarea.input-field {
 
 .btn:hover {
   background-color: #045104;
+}
+
+.preview {
+  width: 100%;
+  background: #f9f9f9;
+  border: 1px dashed #ccc;
+  padding: 10px;
+  margin-top: 10px;
+  min-height: 50px;
+  border-radius: 6px;
+  font-size: 18px;
+  color: #333;
 }
 </style>
