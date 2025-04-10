@@ -74,7 +74,6 @@ export default {
   border-radius: 12px;
   text-align: center;
   background: #f3f7f0;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease-in-out;
 }
 

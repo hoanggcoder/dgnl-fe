@@ -103,8 +103,12 @@ export default {
   font-family: Arial, sans-serif;
   background-color: #f3f7f0;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
+
+.wordle-game:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
+  }
 
 h1 {
   font-size: 24px;
@@ -156,6 +160,7 @@ input {
   border-radius: 8px;
   margin-top: 15px;
   box-sizing: border-box;
+  text-align: center;
 }
 
 button {

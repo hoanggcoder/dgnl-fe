@@ -306,7 +306,6 @@ export default {
   right: 42%;
   background: #066506;
   color: black;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   width: 180px;
   flex-direction: column;

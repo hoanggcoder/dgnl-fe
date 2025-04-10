@@ -34,10 +34,9 @@ defineProps({
   height: 350px; 
   background: #f3f7f0;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   margin: 20px;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
 }

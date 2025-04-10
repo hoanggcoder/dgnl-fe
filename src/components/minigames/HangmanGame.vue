@@ -21,16 +21,18 @@
         </p>
       </div>
   
-      <input
-        v-model="currentLetter"
-        @input="formatLetter"
-        @keyup.enter="guessLetter"
-        maxlength="1"
-        :disabled="gameOver"
-      />
-      <button @click="guessLetter" :disabled="gameOver || !currentLetter">
-        Xác nhận
-      </button>
+      <div class="input-group">
+        <input
+          v-model="currentLetter"
+          @input="formatLetter"
+          @keyup.enter="guessLetter"
+          maxlength="1"
+          :disabled="gameOver"
+        />
+        <button @click="guessLetter" :disabled="gameOver || !currentLetter">
+          Xác nhận
+        </button>
+      </div>
   
       <p v-if="gameOver">
         {{ isWinner ? 'Bạn đã tìm được từ bí ẩn' : 'Từ bí ẩn là : ' + targetWord }}
@@ -112,7 +114,11 @@ import axios from 'axios';
     font-family: Arial, sans-serif;
     background-color: #f3f7f0;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .hangman-game:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
   }
   
   h1 {
@@ -144,9 +150,10 @@ import axios from 'axios';
   }
   
   input {
-    width: 100%;
+    width: 20%;
     max-width: 350px;
     padding: 10px;
+    margin: 20px;
     font-size: 16px;
     text-transform: uppercase;
     border: 2px solid #ccc;
@@ -193,6 +200,16 @@ import axios from 'axios';
   margin-right: 8px;
   font-size: 24px;
   color: #d32f2f;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.input-group input {
+  margin-bottom: 10px;
+  text-align: center;
 }
   </style>
   
