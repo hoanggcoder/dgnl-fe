@@ -2,7 +2,7 @@
   <nav class="navbar">
     <div class="nav-left">
       <router-link to="/" @click="setActive('home')">
-        <div class="logo"><img src="@/assets/logo_new.png" alt="Logo" /></div>
+        <div class="logo"><img src="@/assets/logo_new2.png" alt="Logo" /></div>
       </router-link>
     </div>
 
@@ -143,6 +143,7 @@ export default {
 .logo img {
   height: 50px;
   width: auto;
+  border: #fff 1px solid;
 }
 
 .nav-links {
@@ -284,7 +285,7 @@ export default {
     flex-direction: column;
     gap: 15px;
     margin-top: 10px;
-    width: 100%;  /* Ensure the nav buttons take the full width */
+    width: 100%; 
   }
 
   .user-info {

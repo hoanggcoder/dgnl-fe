@@ -59,8 +59,8 @@ export default {
         return;
       }
       this.message = this.selectedAnswer === this.question.answer 
-        ? '✅ Chính xác' 
-        : '❌ Không chính xác. Hãy thử lại!';
+        ? '✅' 
+        : '❌';
       this.right = this.selectedAnswer === this.question.answer;
     },
   },

@@ -4,7 +4,7 @@
       <div class="main-content">
 
         <div class="slider-container">
-          <button @click="prevSlide">&#10094;</button>
+          <button class="back-button" @click="prevSlide">&#10094;</button>
           <div class="card-container">
             <CardPage
               v-for="(card, index) in visibleCards"
@@ -16,7 +16,7 @@
               :link="card.link"
             />
           </div>
-          <button @click="nextSlide">&#10095;</button>
+          <button class="forward-button" @click="nextSlide">&#10095;</button>
         </div>
         <QuoteDisplay />
       </div>
@@ -205,6 +205,15 @@ button {
   font-size: 24px;
   cursor: pointer;
   padding: 10px;
+}
+
+.back-button:hover {
+  transition: background-color 0.3s;
+  color: #066506;
+}
+.forward-button:hover {
+  transition: background-color 0.3s;
+  color: #066506;
 }
 
 button:disabled {

@@ -232,16 +232,15 @@ textarea.input-field {
   background-color: #045104;
 }
 
-.latex-preview {
+.preview {
+  width: 100%;
   background: #f9f9f9;
+  border: 1px dashed #ccc;
   padding: 10px;
-  border-radius: 8px;
-  margin-top: 5px;
-  font-size: 1.2em;
+  margin-top: 10px;
   min-height: 50px;
-}
-.preview span {
-  font-weight: bold;
-  color: #666;
+  border-radius: 6px;
+  font-size: 18px;
+  color: #333;
 }
 </style>

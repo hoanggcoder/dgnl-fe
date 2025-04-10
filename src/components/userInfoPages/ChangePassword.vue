@@ -106,7 +106,8 @@
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
-    background: #fff;
+    margin-top: 100px;
+    background: #f3f7f0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     text-align: center;
