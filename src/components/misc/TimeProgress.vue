@@ -106,10 +106,9 @@
   .progress-step {
     position: absolute;
     top: 0;
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 18px;
     background: #bbb;
-    border-radius: 50%;
     transform: translateX(-50%);
   }
   

@@ -1,15 +1,21 @@
 <template>
   <div>
-    <button class="toggle-btn" @click="toggleChat">
-      {{ isOpen ? 'V' : '💬' }}
+    <button v-if="!isOpen" class="toggle-btn" @click="toggleChat">
+      💬
     </button>
 
     <div v-if="isOpen" class="chat-container">
+      <div class="chat-header">
+        <span>Chatbot hỏi đáp về ĐGNL</span>
+        <button class="close-btn" @click="toggleChat">❌</button>
+      </div>
+
       <div class="chat-box">
         <div v-for="(msg, index) in messages" :key="index" :class="['message', msg.sender]">
           {{ msg.text }}
         </div>
       </div>
+
       <div class="input-box">
         <input v-model="userMessage" @keyup.enter="sendMessage" placeholder="Nhập câu hỏi liên quan tới kỳ thi ĐGNL" />
         <button @click="sendMessage">Gửi</button>
@@ -17,6 +23,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -63,7 +70,7 @@ export default {
 .chat-container {
   position: fixed;
   right: 20px;
-  bottom: 70px;
+  bottom: 20px;
   width: 350px;
   height: 500px;
   border: 1px solid #ccc;
@@ -73,6 +80,30 @@ export default {
   flex-direction: column;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   z-index: 9999;
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  font-weight: bold;
+  background-color: #066506;
+  color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.close-btn {
+  border: none; 
+  background: transparent;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #ffdede;
 }
 
 .chat-box {
@@ -127,21 +158,25 @@ export default {
   position: fixed;
   right: 20px;
   bottom: 20px;
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   background: #fa0404;
   color: white;
   border: none;
+  font-size: 32px;
+  font-weight: bold;
   cursor: pointer;
-  font-size: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .toggle-btn:hover {
-  background: #fa0404;
+  background: #e00404;
+  transform: scale(1.08);
 }
+
 </style>
