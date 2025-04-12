@@ -42,7 +42,7 @@
     max-width: 400px;
     margin: auto;
     margin-top: 40px;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Helvetica', sans-serif;
   }
   .tip {
     font-size: 18px;

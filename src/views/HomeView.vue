@@ -117,7 +117,13 @@ const questionData = ref(null);
 const subjects = ["Toán học và xử lý số liệu", "Ngôn ngữ - Văn học", "Khoa học"];
 
 const selectSubject = (subject) => {
-  console.log("Selected subject:", subject);
+  if (subject === "Toán học và xử lý số liệu") {
+    window.location.href = "/about-part-1";
+  } else if (subject === "Ngôn ngữ - Văn học") {
+    window.location.href = "/about-part-2";
+  } else if (subject === "Khoa học") {
+    window.location.href = "/about-part-3";
+  }
 };
 
 const fetchDailyQuestion = async () => {

@@ -55,7 +55,7 @@ export default {
   methods: {
     async fetchArticles() {
       try {
-        const response = await axios.get('http://localhost:8080/article');
+        const response = await axios.get('http://localhost:8080/article/news');
         this.articles = response.data;
         console.log('Fetched articles:', this.articles);
       } catch (error) {

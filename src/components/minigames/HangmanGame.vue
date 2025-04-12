@@ -111,7 +111,7 @@ import axios from 'axios';
     margin: 30px auto;
     padding: 20px;
     text-align: center;
-    font-family: Arial, sans-serif;
+    font-family: 'Helvetica', sans-serif;
     background-color: #f3f7f0;
     border-radius: 12px;
   }
