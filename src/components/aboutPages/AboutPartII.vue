@@ -57,7 +57,7 @@
   
   .section-title {
     text-align: center;
-    color: #6a1b9a;
+    color: #066506;
     font-size: 32px;
     margin-bottom: 30px;
   }
@@ -72,14 +72,14 @@
   
   .info-item {
     flex: 1 1 250px;
-    background: #e8f0fe;
+    background: #f3f7f0;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
   }
   
   .info-item h2 {
-    color: #0d47a1;
+    color: #066506;
     margin-bottom: 10px;
   }
   
@@ -93,7 +93,7 @@
   }
   
   .content-block h2 {
-    color: #d32f2f;
+    color: #066506;
     font-size: 24px;
     margin-bottom: 10px;
   }

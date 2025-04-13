@@ -52,7 +52,7 @@
     text-align: center;
     font-size: 28px;
     margin-bottom: 20px;
-    color: #333;
+    color: #066506;
   }
   
   .exam-table {
