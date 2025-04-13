@@ -27,6 +27,7 @@ import ChangePassword from '@/components/userInfoPages/ChangePassword.vue';
 import AboutPartI from '@/components/aboutPages/AboutPartI.vue';
 import AboutPartII from '@/components/aboutPages/AboutPartII.vue';
 import AboutPartIII from '@/components/aboutPages/AboutPartIII.vue';
+import ReviewPage from '@/components/aboutPages/ReviewPage.vue';
 
 const routes = [
   { path: '/', component: HomeView },
@@ -58,6 +59,7 @@ const routes = [
   { path : '/about-part-1', component: AboutPartI},
   { path : '/about-part-2', component: AboutPartII},
   { path : '/about-part-3', component: AboutPartIII},
+  { path : '/review', component: ReviewPage},
 ];
 
 const router = createRouter({

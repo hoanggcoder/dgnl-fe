@@ -14,6 +14,9 @@
         <router-link to="/article-list" @click="setActive('article-list')" :class="{ active: activeLink === 'article-list' }">Thông tin</router-link>
       </li>
       <li>
+        <router-link to="/review" @click="setActive('review')" :class="{ active: activeLink === 'review' }">Lý thuyết</router-link>
+      </li>
+      <li>
         <router-link to="/exam-list" @click="setActive('exam-list')" :class="{ active: activeLink === 'exam-list' }">Kỳ thi</router-link>
       </li>
       <li>

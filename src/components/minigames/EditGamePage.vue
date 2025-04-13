@@ -22,7 +22,7 @@
   import { ref, onMounted, watch } from 'vue';
   import axios from 'axios';
   
-  const selectedType = ref('hangman');
+  const selectedType = ref('wordle');
   const gameValue = ref('');
   const newValue = ref('');
   

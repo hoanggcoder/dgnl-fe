@@ -16,7 +16,8 @@ export default {
   name: 'ExamContent',
   data() {
     return {
-      topics: [] 
+      topics: [],
+      articleId: null
     };
   },
   methods: {
@@ -28,8 +29,14 @@ export default {
         console.error("Error fetching topics:", error);
       }
     },
-    selectTopic(topic) {
-      window.location.href = "/article/" + topic.id;
+    async selectTopic(topic) {
+      try {
+        const response = await axios.get('http://localhost:8080/article/tag/' + topic.id);
+        this.articleId = response.data;
+        this.$router.push("/article/" + this.articleId);
+      } catch (error) {
+        console.error("Error selecting topic:", error);
+      }
     }
   },
   mounted() {

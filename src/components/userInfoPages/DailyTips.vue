@@ -1,35 +1,52 @@
 <template>
-    <div class='daily-tips'>
-      <h2>Lời khuyên cho bạn</h2>
-      <p class='tip'>{{ currentTip }}</p>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    name: "DailyTips",
-    data() {
-      return {
-        tips: [
-          "HÃy sử dụng hết thời gian được cho phép và xem lại câu hỏi.",
-          "Ôn luyện kỹ hơn ở phần 1",
-          "Chú ý điền đúng chính tả và đúng cấu trúc được yêu cầu cho câu hỏi điền đáp án",
-          "Hãy làm các đề thi thử để làm quen với áp lực thời gian.",
-        ],
-        currentTip: "",
-      };
+  <div class="daily-tips">
+    <h2>Lời khuyên cho bạn</h2>
+    <p class="tip">{{ currentTip }}</p>
+  </div>
+</template>
+
+
+<script>
+import axios from "axios";
+
+export default {
+  name: "DailyTips",
+  data() {
+    return {
+      userId: localStorage.getItem("id"), 
+      currentTip: "",
+    };
+  },
+  mounted() {
+    this.getDailyTip();
+  },
+  methods: {
+    getDailyTip() {
+      if (this.userId) {
+        const userIdAsNumber = parseInt(this.userId, 10);
+        
+        if (!isNaN(userIdAsNumber)) {
+          axios
+            .get(`http://localhost:8080/user/daily-tip/${userIdAsNumber}`)
+            .then((response) => {
+              this.currentTip = response.data;
+            })
+            .catch((error) => {
+              console.error("There was an error fetching the daily tip:", error);
+              this.currentTip = "Lỗi khi tải lời khuyên."; 
+            });
+        } else {
+          console.error("Invalid userId format");
+          this.currentTip = "ID người dùng không hợp lệ."; 
+        }
+      } else {
+        this.currentTip = "Không có ID người dùng.";
+      }
     },
-    mounted() {
-      this.getRandomTip();
-    },
-    methods: {
-      getRandomTip() {
-        const randomIndex = Math.floor(Math.random() * this.tips.length);
-        this.currentTip = this.tips[randomIndex];
-      },
-    },
-  };
-  </script>
+  },
+};
+</script>
+
   
   <style scoped>
   .daily-tips {

@@ -2,9 +2,9 @@
   <div class="add-article">
     <h2>Thêm Bài Viết</h2>
     <form @submit.prevent="submitArticle">
-      <div class="form-group">
-        <label for="topicId">Chủ Đề</label>
+      <div class="form-group flex-container">
         <div class="multi-select">
+          <label>Chủ Đề</label>
           <div class="topic-list">
             <div v-for="topic in topics" :key="topic.id" class="checkbox-group">
               <input type="checkbox" :id="'topic-' + topic.id" :value="topic.id" v-model="selectedTopics" />
@@ -12,10 +12,22 @@
             </div>
           </div>
         </div>
+
         <div class="selected-topics">
-          <span v-for="topicId in selectedTopics" :key="topicId" class="selected-topic">
-            {{ topics.find(t => t.id === topicId)?.name }}
-          </span>
+          <label>Đã chọn</label>
+          <div>
+            <span v-for="topicId in selectedTopics" :key="topicId" class="selected-topic">
+              {{ topics.find(t => t.id === topicId)?.name }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Loại Bài Viết</label>
+        <div class="type-buttons">
+          <button type="button" :class="{ active: article.type === 'baibao' }" @click="setType('baibao')">Bài báo</button>
+          <button type="button" :class="{ active: article.type === 'tonghop' }" @click="setType('tonghop')">Tổng hợp kiến thức</button>
         </div>
       </div>
 
@@ -55,7 +67,8 @@ export default {
         description: "",
         textData: "",
         createdDate: new Date().toISOString().split("T")[0],
-        topicId: 30
+        topicId: 30,
+        type: "baibao",
       },
       selectedTopics: [],
       topics: [],
@@ -65,7 +78,11 @@ export default {
   },
   watch: {
     selectedTopics() {
-      this.article.tag = this.selectedTopics.join(";");
+      if (this.article.type === 'tonghop') {
+        this.article.tag = this.selectedTopics[this.selectedTopics.length - 1] || "";
+      } else {
+        this.article.tag = this.selectedTopics.join(";");
+      }
     }
   },
   mounted() {
@@ -78,6 +95,19 @@ export default {
         this.topics = response.data;
       } catch (error) {
         console.error("Lỗi khi tải danh sách chủ đề", error);
+      }
+    },
+    async setType(type) {
+      this.article.type = type;
+      this.selectedTopics = [];
+      if (type === "baibao") {
+        const response = await axios.get("http://localhost:8080/topic");
+        this.topics = response.data;
+        this.article.topicId = 1;
+      } else if (type === "tonghop") {
+        const response = await axios.get("http://localhost:8080/topic/oid/31");
+        this.topics = response.data;
+        this.article.topicId = 30;
       }
     },
     async submitArticle() {
@@ -107,6 +137,8 @@ export default {
         description: "",
         textData: "",
         createdDate: new Date().toISOString().split("T")[0],
+        type: "",
+        topicId: 30,
       };
       this.selectedTopics = [];
     },
@@ -116,7 +148,7 @@ export default {
 
 <style scoped>
 .add-article {
-  max-width: 500px;
+  max-width: 700px;
   margin: 20px auto;
   padding: 20px;
   border-radius: 10px;
@@ -130,20 +162,21 @@ h2 {
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  margin-right: 20px;
 }
 
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #555;
+.flex-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
 }
 
 .multi-select {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  max-height: 150px;
+  max-height: 200px;
   overflow-y: auto;
   border: 1px solid #ddd;
   padding: 10px;
@@ -157,7 +190,7 @@ label {
 }
 
 .selected-topics {
-  margin-top: 10px;
+  flex: 1;
 }
 
 .selected-topic {
@@ -168,6 +201,28 @@ label {
   border-radius: 5px;
   margin: 2px;
   font-size: 14px;
+}
+
+.type-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.type-buttons button {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #066506;
+  background: white;
+  color: #066506;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.type-buttons button.active,
+.type-buttons button:hover {
+  background: #066506;
+  color: white;
 }
 
 .modern-input, .modern-textarea {
@@ -198,7 +253,7 @@ label {
 }
 
 .modern-button:hover {
-  background: #066506;
+  background: #044604;
 }
 
 .success-message {
