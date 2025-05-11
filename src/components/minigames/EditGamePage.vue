@@ -47,10 +47,10 @@
       });
       fetchValue();
       newValue.value = '';
-      alert('Updated successfully!');
+      alert('Cập nhật thành công!');
     } catch (err) {
       console.error('Failed to update game value:', err);
-      alert('Update failed!');
+      alert('Cập nhật thất bại!');
     }
   }
   

@@ -92,7 +92,7 @@
           if (error.response && error.response.data) {
             alert(error.response.data.message || "Đổi mật khẩu thất bại!");
           } else {
-            alert("Không thể kết nối đến server.");
+            alert("Mật khẩu hiện tại chưa chính xác.");
           }
         }
       }

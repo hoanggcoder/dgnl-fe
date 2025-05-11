@@ -72,6 +72,7 @@ export default {
       selectedDifficulty: "Easy",
       selectedResponseType: "A", 
       loading: false,
+      hasSubmitted: false,
       difficultyOptions: [
         { label: "Dễ", value: "Easy" },
         { label: "Trung bình", value: "Medium" },
@@ -84,6 +85,10 @@ export default {
       ]
     };
   },
+  mounted() {
+    const submitted = localStorage.getItem("anonymousSubmitted");
+    this.hasSubmitted = submitted === "true";
+  },
   methods: {
     async submitQuery() {
       if (!this.query.trim()) {
@@ -91,21 +96,37 @@ export default {
         return;
       }
 
+      const username = localStorage.getItem("username");
+
+      if (!username && this.hasSubmitted) {
+        this.responseText = "Bạn chỉ được gửi 1 lần. Vui lòng đăng nhập để tiếp tục.";
+        return;
+      }
+
       this.loading = true;
       this.responseText = "⏳ Đang xử lý, vui lòng chờ...";
 
       try {
-        console.log("Sending question:", this.query);
         const response = await fetch("http://localhost:8080/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ question: this.query, difficulty: this.selectedDifficulty, action: this.selectedResponseType }) 
+          body: JSON.stringify({
+            question: this.query,
+            difficulty: this.selectedDifficulty,
+            action: this.selectedResponseType
+          })
         });
 
         const result = await response.json();
         this.responseText = result.answer;
+
+        if (!username) {
+          this.hasSubmitted = true;
+          localStorage.setItem("anonymousSubmitted", "true");
+        }
+
       } catch (error) {
-        this.responseText = "❌ Lỗi khi gửi yêu cầu!";
+        this.responseText = "Lỗi khi gửi yêu cầu!";
         console.error("Error:", error);
       } finally {
         this.loading = false;

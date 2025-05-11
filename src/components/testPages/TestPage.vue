@@ -88,7 +88,7 @@ export default {
       }
     },
     handleTimeUp() {
-      alert("⏳ Time's up! Submitting test...");
+      alert("Đã hết thời gian làm bài! Hệ thong sẽ tự động nộp bài.");
       this.submitTest();
     },
     handleBeforeUnload(event) {
