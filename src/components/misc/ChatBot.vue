@@ -50,7 +50,7 @@ export default {
         const response = await fetch('http://localhost:8080/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ question: userMessage }),
+          body: JSON.stringify({ question: userMessage, difficulty: 'Easy', action: 'C' }),
         });
 
         const data = await response.json();

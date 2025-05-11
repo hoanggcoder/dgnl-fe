@@ -69,18 +69,18 @@ export default {
     return {
       query: "",
       responseText: "",
-      selectedDifficulty: "",
-      selectedResponseType: "", 
+      selectedDifficulty: "Easy",
+      selectedResponseType: "A", 
       loading: false,
       difficultyOptions: [
-        { label: "Dễ", value: "dễ" },
-        { label: "Trung bình", value: "trung bình" },
-        { label: "Khó", value: "khó" }
+        { label: "Dễ", value: "Easy" },
+        { label: "Trung bình", value: "Medium" },
+        { label: "Khó", value: "Hard" }
       ],
       responseOptions: [
-        { label: "Đưa ra đáp án", value: "Đưa ra đáp án" },
-        { label: "Trả lời chi tiết", value: "Trả lời chi tiết" },
-        { label: "Sinh câu hỏi tương tự", value: "Sinh câu hỏi tương tự" }
+        { label: "Đưa ra đáp án", value: "A" },
+        { label: "Trả lời chi tiết", value: "E" },
+        { label: "Sinh câu hỏi tương tự", value: "N" }
       ]
     };
   },
@@ -99,7 +99,7 @@ export default {
         const response = await fetch("http://localhost:8080/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ question: this.query }) 
+          body: JSON.stringify({ question: this.query, difficulty: this.selectedDifficulty, action: this.selectedResponseType }) 
         });
 
         const result = await response.json();

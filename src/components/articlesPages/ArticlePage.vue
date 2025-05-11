@@ -33,13 +33,14 @@ export default {
   },
   created() {
     this.fetchArticle();
-    this.fetchRelatedNews();
+    
   },
   methods: {
     async fetchArticle() {
       const articleId = this.$route.params.id;
       try {
         const response = await axios.get(`http://localhost:8080/article/${articleId}`);
+        this.fetchRelatedNews();
         this.article = response.data;
         console.log("Fetched article:", this.article);
       } catch (error) {
@@ -51,8 +52,10 @@ export default {
         const response = await axios.get("http://localhost:8080/article");
         const currentArticleId = this.$route.params.id; 
         this.relatedNews = response.data
-          .filter(news => news.id != currentArticleId) 
-          .slice(0, 4); 
+        .filter(news => news.id != currentArticleId)
+        .sort(() => Math.random() - 0.5) 
+        .slice(0, 4);
+        console.log("Fetched related news:", this.relatedNews);
       } catch (error) {
         console.error("Error fetching related news:", error);
       }
@@ -108,6 +111,7 @@ export default {
 .sidebar h2 {
   font-size: 20px;
   font-weight: bold;
+  padding-left: 35px;
 }
 
 .news-item {
