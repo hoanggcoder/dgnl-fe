@@ -84,8 +84,14 @@ const updateQuestion = async () => {
     await axios.put(`http://localhost:8080/question/${route.params.id}`, question.value, {
       headers: { Authorization: `Bearer ${token}` }
     });
-    alert('Cập nhật câu hỏi thành công!');
-    router.push('/manage');
+    if (question.value.type === 'multiple_choices') {
+      alert('Câu hỏi thuộc một kỳ thi đang diễn ra !');
+    }
+    else {
+      alert('Cập nhật câu hỏi thành công!');
+      router.push('/manage');
+    }
+    
   } catch (error) {
     console.error("Error updating question:", error);
     alert("Cập nhật thất bại");
